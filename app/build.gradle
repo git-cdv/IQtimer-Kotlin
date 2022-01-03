@@ -41,8 +41,12 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
     //hilt
     implementation "com.google.dagger:hilt-android:2.40"
-    implementation 'androidx.work:work-runtime-ktx:2.5.0'
+    implementation 'androidx.preference:preference:1.1.1'
     kapt "com.google.dagger:hilt-android-compiler:2.40"
+    //fragments
+    implementation "androidx.fragment:fragment-ktx:1.4.0"
+    //settings
+    implementation "androidx.preference:preference-ktx:1.1.1"
     //step progress bar
     implementation 'com.marcok.stepprogressbar:stepprogressbar:1.0.1'
     testImplementation 'junit:junit:4.+'
