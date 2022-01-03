@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,12 +8,82 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/main_tv_timer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="00:00"
+        android:textColor="@color/brand_blue_900"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+        android:fontFamily="sans-serif-thin"
+        android:textSize="100sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.marcok.stepprogressbar.StepProgressBar
+        android:id="@+id/stepProgressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cumulativeDots="true"
+        app:dotSize="5dp"
+        app:inactiveDotColor="@color/brand_orange"
+        app:activeDotColor="@color/brand_blue_600"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_tv_timer"
+        app:spacing="5dp" />
+
+    <ImageButton
+        android:id="@+id/main_btn_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:padding="8dp"
+        android:src="@drawable/ic_menu"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/descim_menu" />
+
+    <ImageButton
+        android:id="@+id/main_btn_stop"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_margin="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="10dp"
+        android:src="@drawable/ic_stop"
+        app:layout_constraintBottom_toBottomOf="@+id/main_ring_count"
+        app:layout_constraintEnd_toStartOf="@+id/main_ring_count"
+        app:layout_constraintTop_toTopOf="@+id/main_ring_count"
+        android:contentDescription="@string/stop" />
+
+    <ImageView
+        android:id="@+id/main_ring_count"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_ring_blue"
+        app:layout_constraintBottom_toBottomOf="@+id/main_btn_menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/main_btn_menu"
+        android:contentDescription="@string/count" />
+
+    <TextView
+        android:id="@+id/count_ses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:textSize="14sp"
+        android:textColor="@color/brand_blue_900"
+        android:textStyle="bold"
+        android:text="5"
+        app:layout_constraintBottom_toBottomOf="@+id/main_ring_count"
+        app:layout_constraintEnd_toEndOf="@+id/main_ring_count"
+        app:layout_constraintStart_toStartOf="@+id/main_ring_count"
+        app:layout_constraintTop_toTopOf="@+id/main_ring_count"
+        tools:text="5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -48,7 +48,7 @@
     <string name="history_month">History, months</string>
     <string name="stat_chart_description_month">Sessions per month</string>
     <string name="stat_graph">Chart</string>
-    <string name="progress_efective_days">Effective days in a row</string>
+    <string name="progress_efective_days">Productive days in a row</string>
     <string name="progress">Achievements</string>
     <string name="show_yet">Show more</string>
     <string name="list_stat_empty_text">No data yet</string>
@@ -70,7 +70,7 @@
     <string name="p_title_pobeditel">Winner</string>
     <string name="p_title_boss">Boss</string>
     <string name="p_desc_entuziast">Stay productive for %1$d working days in a row</string>
-    <string name="p_desc_voin">Work on %1$d weekends</string>
+    <string name="p_desc_voin">"Work on %1$d weekends "</string>
     <string name="p_desc_hero">Complete the plan on %1$d weekends</string>
     <string name="p_desc_pokoritel">Work %1$d consecutive working days</string>
     <string name="p_desc_legenda">Complete the Enthusiast, Weekend Hero, and Conqueror achievements up to level %1$d</string>
