@@ -42,11 +42,15 @@ dependencies {
     //hilt
     implementation "com.google.dagger:hilt-android:2.40"
     implementation 'androidx.preference:preference:1.1.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt "com.google.dagger:hilt-android-compiler:2.40"
     //fragments
     implementation "androidx.fragment:fragment-ktx:1.4.0"
     //settings
     implementation "androidx.preference:preference-ktx:1.1.1"
+    //navigation
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     //step progress bar
     implementation 'com.marcok.stepprogressbar:stepprogressbar:1.0.1'
     testImplementation 'junit:junit:4.+'

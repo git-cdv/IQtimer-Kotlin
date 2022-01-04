@@ -1,68 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
             app:title="@string/set_category_timer">
 
         <EditTextPreference
             app:title="@string/time_duration"
-            app:key="default_interval"
-            app:summary="@string/by_default"
-            app:defaultValue="45"/>
+            app:key="DEFAULT_Time"
+            app:defaultValue="50"
+            app:summary="@string/by_default"/>
 
         <EditTextPreference
             app:title="@string/break_duration"
-            app:key="break_time"
+            app:key="DEFAULT_Break"
             app:summary="@string/by_default"
-            app:defaultValue="15"
-            />
+            app:defaultValue="15" />
+
         <EditTextPreference
             app:title="@string/plan_day"
-            app:key="set_plan_day"
+            app:key="DEFAULT_Plan"
             app:summary="@string/by_default"
-            app:defaultValue="6"
-            />
+            app:defaultValue="8" />
+
     </PreferenceCategory>
     <PreferenceCategory
-        app:key="categ2"
         app:title="@string/set_category_notif">
 
         <SwitchPreference
-            app:key="switch_notif"
+            app:key="SETTING_Switch_sound"
             app:title="@string/set_swith_notif"
             app:icon="@drawable/ic_setting_sound"
-            app:defaultValue="true"
-            />
+            app:defaultValue="true" />
+
         <Preference
-            app:dependency="switch_notif"
-            app:key="set_dialog_sounds"
+            app:dependency="SETTING_Switch_sound"
+            app:key="SETTING_work_sound"
             app:title="@string/pref_sounds"
             app:summary="@string/by_default"
-            app:defaultValue="0"
-            />
+            app:defaultValue="0" />
+
         <Preference
-            app:dependency="switch_notif"
-            app:key="set_dialog_sounds_break"
+            app:dependency="SETTING_Switch_sound"
+            app:key="SETTING_break_sound"
             app:title="@string/pref_sounds_break"
             app:summary="@string/by_default"
-            app:defaultValue="0"
-            />
+            app:defaultValue="0" />
 
         <SwitchPreference
-            app:dependency="switch_notif"
-            app:key="switch_out"
+            app:dependency="SETTING_Switch_sound"
+            app:key="SETTING_Switch_outsilent"
             app:title="@string/text_switch_out"
             app:icon="@drawable/ic_setting_sound_solid"
-            app:defaultValue="false"
-            />
+            app:defaultValue="false" />
+
         <Preference
-            app:key="set_dialog_vibro"
+            app:key="SETTING_Dialog_vibro"
             app:title="@string/pref_vibrator"
             app:summary="@string/by_default"
             app:defaultValue="0"
-            app:icon="@drawable/ic_setting_vibration"
-            />
-    </PreferenceCategory>
+            app:icon="@drawable/ic_setting_vibration" />
 
+    </PreferenceCategory>
 </PreferenceScreen>

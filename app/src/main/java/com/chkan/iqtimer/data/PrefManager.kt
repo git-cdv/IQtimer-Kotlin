@@ -1,14 +1,14 @@
 package com.chkan.iqtimer.data
 
 import android.content.Context
-import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import androidx.preference.PreferenceManager
 import com.chkan.iqtimer.utils.*
 import javax.inject.Inject
 
-class PrefManager @Inject constructor (val context: Context) {
+class PrefManager @Inject constructor (private val context: Context) {
 
-    val pref: SharedPreferences = context.getSharedPreferences("app_pref",MODE_PRIVATE)
+    private val pref: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
     fun isFirst(): Boolean{
         return pref.getBoolean(SP_IS_FIRST,true)
