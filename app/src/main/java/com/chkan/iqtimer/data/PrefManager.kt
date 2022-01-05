@@ -30,12 +30,12 @@ class PrefManager @Inject constructor (private val context: Context) {
         return pref.getString(key,null)
     }
 
-    fun getDefaultPlan(): Int {
-        return pref.getInt(SP_DEFAULT_PLAN,8)
+    fun getDefaultPlan(): Int? {
+        return pref.getString(SP_DEFAULT_PLAN,"8")?.toInt()
     }
 
-    fun getDefaultTime(): Int {
-        return pref.getInt(SP_DEFAULT_TIME,50)
+    fun getDefaultTime(): String? {
+        return pref.getString(SP_DEFAULT_TIME,"50")?.toTimerFormat()
     }
 
     fun getCurrentCount(): Int {

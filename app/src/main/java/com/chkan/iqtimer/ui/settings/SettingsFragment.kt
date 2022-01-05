@@ -9,10 +9,17 @@ import android.widget.Toast
 import androidx.preference.*
 import androidx.preference.EditTextPreference.OnBindEditTextListener
 import com.chkan.iqtimer.R
+import com.chkan.iqtimer.domain.Session
 import com.chkan.iqtimer.utils.*
+import dagger.hilt.android.AndroidEntryPoint
 import java.lang.NumberFormatException
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
+
+    @Inject
+    lateinit var session: Session
 
     private lateinit var pref: SharedPreferences
     private var editTextTime : EditTextPreference? = null
@@ -61,9 +68,17 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
     //слушает изменение в настройках ПОСЛЕ записи
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
         when(key){
-            SP_DEFAULT_TIME-> editTextTime?.summary = pref.getString(SP_DEFAULT_TIME,"50") + " " + getString(R.string.minut)
+            SP_DEFAULT_TIME-> {
+                val time = pref.getString(SP_DEFAULT_TIME,"50")
+                editTextTime?.summary = time + " " + getString(R.string.minut)
+                session.timeDefault.set(time?.toTimerFormat())
+            }
             SP_DEFAULT_BREAK -> editTextBreak?.summary = pref.getString(SP_DEFAULT_BREAK,"15") + " " + getString(R.string.minut)
-            SP_DEFAULT_PLAN -> editTextPlan?.summary = pref.getString(SP_DEFAULT_PLAN,"8") + " " + getString(R.string.sessiy)
+            SP_DEFAULT_PLAN -> {
+                val plan = pref.getString(SP_DEFAULT_PLAN,"8")
+                editTextPlan?.summary =  plan + " " + getString(R.string.sessiy)
+                session.planLiveData.value = plan?.toInt()
+            }
             SP_SWITCH_SOUND -> {
                 val switch = pref.getBoolean(SP_SWITCH_SOUND,true)
                     setWorkSound?.isVisible = switch

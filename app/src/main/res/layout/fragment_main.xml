@@ -1,8 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.chkan.iqtimer.domain.Session.State"/>
+        <variable
+            name="session"
+            type="com.chkan.iqtimer.domain.Session"/>
+
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -11,15 +21,16 @@
         android:id="@+id/main_tv_timer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="00:00"
-        android:textColor="@color/brand_blue_900"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display4"
         android:fontFamily="sans-serif-thin"
+        android:text="@{session.timeDefault}"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+        android:textColor="@color/brand_blue_900"
         android:textSize="100sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/main_btn_menu"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="50:00" />
 
     <com.marcok.stepprogressbar.StepProgressBar
         android:id="@+id/stepProgressBar"
@@ -54,6 +65,7 @@
         android:layout_marginEnd="16dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="10dp"
+        android:visibility="@{session.stateLiveData==State.ACTIVE||session.stateLiveData==State.PAUSED||session.stateLiveData==State.BREAK ? View.VISIBLE : View.INVISIBLE}"
         android:src="@drawable/ic_stop"
         app:layout_constraintBottom_toBottomOf="@+id/main_ring_count"
         app:layout_constraintEnd_toStartOf="@+id/main_ring_count"
@@ -79,7 +91,7 @@
         android:textSize="14sp"
         android:textColor="@color/brand_blue_900"
         android:textStyle="bold"
-        android:text="5"
+        android:text="@{session.countLiveData.toString()}"
         app:layout_constraintBottom_toBottomOf="@+id/main_ring_count"
         app:layout_constraintEnd_toEndOf="@+id/main_ring_count"
         app:layout_constraintStart_toStartOf="@+id/main_ring_count"
@@ -87,3 +99,4 @@
         tools:text="5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
