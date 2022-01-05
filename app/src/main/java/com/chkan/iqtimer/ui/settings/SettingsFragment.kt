@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.preference.*
 import androidx.preference.EditTextPreference.OnBindEditTextListener
+import com.chkan.iqtimer.MainActivity
 import com.chkan.iqtimer.R
 import com.chkan.iqtimer.domain.Session
 import com.chkan.iqtimer.utils.*
@@ -72,7 +73,8 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
                 val time = pref.getString(SP_DEFAULT_TIME,"50")
                 editTextTime?.summary = time + " " + getString(R.string.minut)
                 session.timeDefault.set(time)
-                if(session.stateLiveData.value == Session.State.STOPED){session.timeLiveData.value=time?.toTimerFormat()}
+                if(session.stateLiveData.value == State.STOPED){session.timeLiveData.value=time?.toTimerFormat()}
+                (activity as MainActivity).updateTimer()
             }
             SP_DEFAULT_BREAK -> editTextBreak?.summary = pref.getString(SP_DEFAULT_BREAK,"15") + " " + getString(R.string.minut)
             SP_DEFAULT_PLAN -> {

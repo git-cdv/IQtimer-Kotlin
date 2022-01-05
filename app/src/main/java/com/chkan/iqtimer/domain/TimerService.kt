@@ -21,21 +21,25 @@ class TimerService : Service() {
         var timerObject: Timer? = null
     }
 
+    override fun onCreate() {
+        super.onCreate()
+        leftInMillis = session.timeDefault.get()?.toLong()!!*60000
+    }
+
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
 
         return START_NOT_STICKY
     }
 
     fun startTimer(){
-        leftInMillis = session.timeDefault.get()?.toLong()!!*60000
         timerObject = Timer(leftInMillis,1000)
         timerObject?.start()
     }
 
-    fun stopTimer(){
+    fun stopTimer(isPause:Boolean){
         timerObject?.cancel()
-        leftInMillis = session.timeDefault.get()?.toLong()!!*60000
         timerObject = null
+        if (!isPause){leftInMillis = session.timeDefault.get()?.toLong()!!*60000 }
     }
 
     inner class Timer(millisInFuture: Long, interval: Long) : CountDownTimer(
@@ -72,5 +76,9 @@ class TimerService : Service() {
 
     override fun onBind(intent: Intent): IBinder {
         return binder
+    }
+
+    fun updateTimer() {
+        leftInMillis = session.timeDefault.get()?.toLong()!!*60000
     }
 }

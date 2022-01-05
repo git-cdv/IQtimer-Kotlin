@@ -38,9 +38,15 @@ class MainActivity : AppCompatActivity() {
       }
     }
 
-    fun stopTimer(){
+    fun stopTimer(isPause:Boolean){
         if(mBound){
-            mService.stopTimer()
+            mService.stopTimer(isPause)
+        }
+    }
+
+    fun updateTimer(){
+        if(mBound){
+            mService.updateTimer()
         }
     }
 

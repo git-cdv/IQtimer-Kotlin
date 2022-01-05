@@ -5,7 +5,7 @@
 
     <data>
         <import type="android.view.View"/>
-        <import type="com.chkan.iqtimer.domain.Session.State"/>
+        <import type="com.chkan.iqtimer.utils.State"/>
         <variable
             name="session"
             type="com.chkan.iqtimer.domain.Session"/>
@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-thin"
         android:text="@{session.timeLiveData}"
+        app:animationOnPause="@{session.stateLiveData==State.PAUSED}"
         android:textAppearance="@style/TextAppearance.AppCompat.Display4"
         android:textColor="@color/brand_blue_900"
         android:textSize="100sp"

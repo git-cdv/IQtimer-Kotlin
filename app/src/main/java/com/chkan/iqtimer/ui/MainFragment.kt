@@ -11,6 +11,7 @@ import com.chkan.iqtimer.MainActivity
 import com.chkan.iqtimer.R
 import com.chkan.iqtimer.databinding.FragmentMainBinding
 import com.chkan.iqtimer.domain.Session
+import com.chkan.iqtimer.utils.State
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -25,9 +26,7 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentMainBinding.inflate(inflater)
-        // Позволяет привязке данных наблюдать за LiveData в течение жизненного цикла этого фрагмента
         binding.lifecycleOwner = this
-        // Предоставление привязки доступа к Session
         binding.session = session
 
         session.planLiveData.observe(this,{
@@ -43,13 +42,19 @@ class MainFragment : Fragment() {
         })
 
         binding.mainTvTimer.setOnClickListener {
-            (activity as MainActivity).startTimer()
-            session.stateLiveData.value = Session.State.ACTIVE
+            if(session.stateLiveData.value == State.ACTIVE){
+                (activity as MainActivity).stopTimer(true)
+                session.stateLiveData.value = State.PAUSED
+            } else {
+                (activity as MainActivity).startTimer()
+                session.stateLiveData.value = State.ACTIVE
+            }
         }
 
         binding.mainBtnStop.setOnClickListener {
-            (activity as MainActivity).stopTimer()
-            session.stateLiveData.value = Session.State.STOPED
+            (activity as MainActivity).stopTimer(false)
+            session.stateLiveData.value = State.STOPED
+            session.setTimeDefault()
         }
 
         return binding.root
