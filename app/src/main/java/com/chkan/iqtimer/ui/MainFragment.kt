@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.navigation.fragment.findNavController
+import com.chkan.iqtimer.MainActivity
 import com.chkan.iqtimer.R
 import com.chkan.iqtimer.databinding.FragmentMainBinding
 import com.chkan.iqtimer.domain.Session
@@ -40,6 +41,16 @@ class MainFragment : Fragment() {
                 binding.stepProgressBar.currentProgressDot = if (it < plan) it-1 else plan-1
             }
         })
+
+        binding.mainTvTimer.setOnClickListener {
+            (activity as MainActivity).startTimer()
+            session.stateLiveData.value = Session.State.ACTIVE
+        }
+
+        binding.mainBtnStop.setOnClickListener {
+            (activity as MainActivity).stopTimer()
+            session.stateLiveData.value = Session.State.STOPED
+        }
 
         return binding.root
     }

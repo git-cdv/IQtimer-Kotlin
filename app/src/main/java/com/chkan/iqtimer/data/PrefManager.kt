@@ -35,7 +35,7 @@ class PrefManager @Inject constructor (private val context: Context) {
     }
 
     fun getDefaultTime(): String? {
-        return pref.getString(SP_DEFAULT_TIME,"50")?.toTimerFormat()
+        return pref.getString(SP_DEFAULT_TIME,"50")
     }
 
     fun getCurrentCount(): Int {
