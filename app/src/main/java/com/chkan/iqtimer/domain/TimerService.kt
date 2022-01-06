@@ -61,7 +61,6 @@ class TimerService : Service() {
                 session.stateLiveData.value = State.BREAK
             }
         }
-
         return START_NOT_STICKY
     }
 
