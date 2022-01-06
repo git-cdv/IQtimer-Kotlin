@@ -4,6 +4,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
@@ -14,16 +15,17 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mService: TimerService
-    private var mBound: Boolean = false
+    private var isBound: Boolean = false
+    private var isStarted: Boolean = false
 
     private val connection = object : ServiceConnection {
         override fun onServiceConnected(className: ComponentName, service: IBinder) {
             val binder = service as TimerService.LocalBinder
             mService = binder.getService()
-            mBound = true
+            isBound = true
         }
         override fun onServiceDisconnected(arg0: ComponentName) {
-            mBound = false
+            isBound = false
         }
     }
 
@@ -33,19 +35,27 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startTimer(){
-      if(mBound){
-          mService.startTimer()
-      }
+      if(isBound){mService.startTimer()}
+      if(!isStarted){startTimerService()}
+    }
+
+    private fun startTimerService() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(Intent(this, TimerService::class.java))
+        } else {
+            startService(Intent(this, TimerService::class.java))
+        }
+        isStarted = true
     }
 
     fun stopTimer(isPause:Boolean){
-        if(mBound){
+        if(isBound){
             mService.stopTimer(isPause)
         }
     }
 
     fun updateTimer(){
-        if(mBound){
+        if(isBound){
             mService.updateTimer()
         }
     }
@@ -60,7 +70,6 @@ class MainActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         unbindService(connection)
-        mBound = false
+        isBound = false
     }
-
 }

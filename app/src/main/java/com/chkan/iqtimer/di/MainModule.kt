@@ -2,6 +2,7 @@ package com.chkan.iqtimer.di
 
 import android.content.Context
 import com.chkan.iqtimer.data.PrefManager
+import com.chkan.iqtimer.domain.NotifManager
 import com.chkan.iqtimer.domain.Session
 import dagger.Module
 import dagger.Provides
@@ -24,6 +25,12 @@ object MainModule {
     @Singleton
     fun provideSession(pref: PrefManager) : Session {
         return Session(pref)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNotif(@ApplicationContext appContext: Context): NotifManager {
+        return NotifManager(appContext)
     }
 
 }
