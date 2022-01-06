@@ -1,7 +1,6 @@
 package com.chkan.iqtimer.domain
 
 
-import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import com.chkan.iqtimer.data.PrefManager
 import com.chkan.iqtimer.utils.State
@@ -11,7 +10,8 @@ import javax.inject.Inject
 class Session @Inject constructor (pref: PrefManager) {
 
     val stateLiveData: MutableLiveData<State> = MutableLiveData()
-    var timeDefault = ObservableField<String>()
+    var timeDefault : String
+    var breakDefault : String
     val planLiveData: MutableLiveData<Int> = MutableLiveData()
     val countLiveData: MutableLiveData<Int> = MutableLiveData()
     val timeLiveData: MutableLiveData<String> = MutableLiveData()
@@ -20,11 +20,12 @@ class Session @Inject constructor (pref: PrefManager) {
         stateLiveData.value = State.STOPED
         planLiveData.value = pref.getDefaultPlan()
         countLiveData.value = pref.getCurrentCount()
-        timeDefault.set(pref.getDefaultTime())
-        timeLiveData.value = timeDefault.get()?.toTimerFormat()
+        timeDefault = pref.getDefaultTime()
+        breakDefault = pref.getDefaultBreak()
+        timeLiveData.value = timeDefault.toTimerFormat()
     }
 
     fun setTimeDefault() {
-        timeLiveData.value = timeDefault.get()?.toTimerFormat()
+        timeLiveData.value = timeDefault.toTimerFormat()
     }
 }

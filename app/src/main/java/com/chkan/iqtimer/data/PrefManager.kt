@@ -26,7 +26,7 @@ class PrefManager @Inject constructor (private val context: Context) {
         pref.edit().putInt(key,value).apply()
     }
 
-    fun getString (key : String): String? {
+    fun getMyString (key : String): String? {
         return pref.getString(key,null)
     }
 
@@ -34,12 +34,16 @@ class PrefManager @Inject constructor (private val context: Context) {
         return pref.getString(SP_DEFAULT_PLAN,"8")?.toInt()
     }
 
-    fun getDefaultTime(): String? {
-        return pref.getString(SP_DEFAULT_TIME,"50")
+    fun getDefaultTime(): String {
+        return pref.getString(SP_DEFAULT_TIME,"50")!!
     }
 
     fun getCurrentCount(): Int {
         return pref.getInt(SP_CURRENT_COUNT,0)
+    }
+
+    fun getDefaultBreak(): String {
+        return pref.getString(SP_DEFAULT_BREAK,"15")!!
     }
 
 }

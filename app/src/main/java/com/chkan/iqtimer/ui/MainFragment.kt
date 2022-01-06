@@ -33,6 +33,12 @@ class MainFragment : Fragment() {
             binding.stepProgressBar.numDots = it
         })
 
+        session.stateLiveData.observe(this,{
+            when(it){
+                State.STOPED -> session.setTimeDefault()
+            }
+        })
+
         session.countLiveData.observe(this,{
             val plan = session.planLiveData.value
             if (plan!=null) {
@@ -54,9 +60,7 @@ class MainFragment : Fragment() {
         binding.mainBtnStop.setOnClickListener {
             (activity as MainActivity).stopTimer(false)
             session.stateLiveData.value = State.STOPED
-            session.setTimeDefault()
         }
-
         return binding.root
     }
 

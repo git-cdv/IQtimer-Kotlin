@@ -24,24 +24,42 @@ class TimerService : Service() {
 
     companion object {
         var leftInMillis: Long = 0
+        var breakInMillis: Long = 0
         var timerObject: Timer? = null
         var isBreak = false
     }
 
     override fun onCreate() {
         super.onCreate()
-        leftInMillis = session.timeDefault.get()?.toLong()!!*60000
+        leftInMillis = session.timeDefault.toLong()*60000
+        breakInMillis = session.breakDefault.toLong()*60000
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-       //извлекаем и проверяем комманду
+
         val command = intent.getIntExtra(KEY_COMMAND, 0)
+        Log.d("MYAPP", "onStartCommand - command: $command")
 
         when(command){
-            COM_RUN_NOTIF -> Log.d("MYAPP", "onStartCommand - command: $command")
-            COM_PAUSE_NOTIF -> Log.d("MYAPP", "onStartCommand - command: $command")
-            COM_STOP_NOTIF -> Log.d("MYAPP", "onStartCommand - command: $command")
-            COM_BREAK_NOTIF -> Log.d("MYAPP", "onStartCommand - command: $command")
+            COM_RUN_NOTIF -> {
+                if(session.stateLiveData.value != State.PAUSED) {
+                    leftInMillis = session.timeDefault.toLong() * 60000
+                }
+                startTimer()
+                session.stateLiveData.value = State.ACTIVE
+            }
+            COM_PAUSE_NOTIF -> {
+                stopTimer(true)
+                session.stateLiveData.value = State.PAUSED
+            }
+            COM_STOP_NOTIF -> {
+                stopTimer(false)
+                session.stateLiveData.value = State.STOPED
+            }
+            COM_BREAK_NOTIF -> {
+                breakTimer()
+                session.stateLiveData.value = State.BREAK
+            }
         }
 
         return START_NOT_STICKY
@@ -55,12 +73,19 @@ class TimerService : Service() {
     fun stopTimer(isPause:Boolean){
         timerObject?.cancel()
         timerObject = null
+        isBreak = false
         if (!isPause){
-            leftInMillis = session.timeDefault.get()?.toLong()!!*60000
+            leftInMillis = session.timeDefault.toLong()*60000
             stopForeground(true) //отключаем нотификацию
         } else {
             startForeground(1, notifManager.onPause())
         }
+    }
+
+    fun breakTimer() {
+        isBreak = true
+        timerObject = Timer(breakInMillis,1000)
+        timerObject?.start()
     }
 
     inner class Timer(millisInFuture: Long, interval: Long) : CountDownTimer(
@@ -91,11 +116,14 @@ class TimerService : Service() {
         }
 
         override fun onFinish() {
+            Log.d("MYAPP", "onFinish() - isBreak: $isBreak")
             if (isBreak) {
                 stopMyForegroud(notifManager.onBreakEnd())
+                isBreak = false
             }else {
                 stopMyForegroud(notifManager.onEnd())
             }
+            session.stateLiveData.value = State.STOPED
         }
     }
 
@@ -121,6 +149,6 @@ class TimerService : Service() {
     }
 
     fun updateTimer() {
-        leftInMillis = session.timeDefault.get()?.toLong()!!*60000
+        leftInMillis = session.timeDefault.toLong()*60000
     }
 }
