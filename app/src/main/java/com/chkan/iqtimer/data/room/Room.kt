@@ -4,7 +4,6 @@ import androidx.room.*
 
 @Dao
 interface HistoryDao {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert( item: DatabaseModel)
 }

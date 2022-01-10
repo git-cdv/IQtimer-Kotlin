@@ -10,7 +10,6 @@ import androidx.preference.*
 import androidx.preference.EditTextPreference.OnBindEditTextListener
 import com.chkan.iqtimer.MainActivity
 import com.chkan.iqtimer.R
-import com.chkan.iqtimer.data.room.HistoryDao
 import com.chkan.iqtimer.domain.Session
 import com.chkan.iqtimer.utils.*
 import dagger.hilt.android.AndroidEntryPoint

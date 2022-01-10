@@ -63,4 +63,8 @@ class PrefManager @Inject constructor (private val context: Context) {
         pref.edit().putString(SP_WORK_DATE, DateTime.now().toString("yyyy-MM-dd")).putBoolean(SP_IS_FIRST,false).apply()
     }
 
+    fun setWorkDate(today: String?) {
+        pref.edit().putString(SP_WORK_DATE, today).apply()
+    }
+
 }

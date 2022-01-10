@@ -8,26 +8,20 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
-import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import com.chkan.iqtimer.data.PrefManager
-import com.chkan.iqtimer.data.room.HistoryDao
 import com.chkan.iqtimer.domain.TimerService
-import com.chkan.iqtimer.domain.usecases.DoneSessionsUseCase
+import com.chkan.iqtimer.domain.usecases.SessionsUseCase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.joda.time.DateTime
-import java.time.format.DateTimeFormatter
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var prefManager: PrefManager
-    @Inject
-    lateinit var doneSession: DoneSessionsUseCase
+    lateinit var sessionsUseCase: SessionsUseCase
 
     private lateinit var mService: TimerService
     private var isBound: Boolean = false
@@ -48,8 +42,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         lifecycleScope.launch {
-            if(prefManager.isFirst()){
-                prefManager.startFirst()
+            if(sessionsUseCase.isFirst()){
+                sessionsUseCase.startFirst()
             }
         }
     }
@@ -86,13 +80,7 @@ class MainActivity : AppCompatActivity() {
             bindService(intent, connection, Context.BIND_AUTO_CREATE)
         }
         lifecycleScope.launch(Dispatchers.IO) {
-            val workDate = prefManager.getWorkDate()
-            if(workDate!=DateTime.now().toString("yyyy-MM-dd")){
-             if(!workDate.isNullOrEmpty()){
-                 doneSession.writeDoneSession(prefManager.getCurrentCount(),workDate)
-                 prefManager.addDoneSession(0)
-             }
-         }
+            sessionsUseCase.checkWorkDate()
         }
     }
 
