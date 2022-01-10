@@ -26,7 +26,8 @@ class StartWorker (ctx: Context, params: WorkerParameters) : Worker(ctx, params)
                 .build()
 
             WorkManager.getInstance(applicationContext).enqueue(periodicWorkRequest)
-            Log.d("MYAPP", "StartWorker -> success()")
+            val pref: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+            pref.edit().putString("StartWorker_SUCCES", "Date ${DateTime.now()}").apply()
             return Result.success()
 
         } catch (e: Exception){

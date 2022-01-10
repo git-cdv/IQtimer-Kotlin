@@ -10,6 +10,7 @@ import androidx.preference.*
 import androidx.preference.EditTextPreference.OnBindEditTextListener
 import com.chkan.iqtimer.MainActivity
 import com.chkan.iqtimer.R
+import com.chkan.iqtimer.data.room.HistoryDao
 import com.chkan.iqtimer.domain.Session
 import com.chkan.iqtimer.utils.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -80,6 +81,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
                 val breakTime = pref.getString(SP_DEFAULT_BREAK,"15")
                 editTextBreak?.summary = breakTime  + " " + getString(R.string.minut)
                 if (breakTime != null) {session.breakDefault = breakTime}
+                (activity as MainActivity).updateBreak()
             }
 
             SP_DEFAULT_PLAN -> {

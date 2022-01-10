@@ -1,7 +1,6 @@
 package com.chkan.iqtimer.di
 
 import android.app.Application
-import android.util.Log
 import com.chkan.iqtimer.data.PrefManager
 import dagger.hilt.android.HiltAndroidApp
 import org.joda.time.DateTime
@@ -9,6 +8,7 @@ import javax.inject.Inject
 import androidx.work.OneTimeWorkRequest
 import androidx.work.WorkManager
 import com.chkan.iqtimer.domain.workers.StartWorker
+import com.chkan.iqtimer.utils.SP_IS_PERIODIC_STARTED
 import java.util.concurrent.TimeUnit
 
 
@@ -32,6 +32,7 @@ class MyApp: Application(){
                 .setInitialDelay(minutesTo24.toLong(), TimeUnit.MINUTES)
                 .build()
             WorkManager.getInstance(this).enqueue(startWorkRequest)
+            prefManager.add(SP_IS_PERIODIC_STARTED,true)
         }
     }
 }

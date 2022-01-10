@@ -5,9 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import com.chkan.iqtimer.data.PrefManager
 import com.chkan.iqtimer.utils.State
 import com.chkan.iqtimer.utils.toTimerFormat
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class Session @Inject constructor (pref: PrefManager) {
+class Session @Inject constructor (private val pref: PrefManager) {
 
     val stateLiveData: MutableLiveData<State> = MutableLiveData()
     var timeDefault : String
@@ -27,5 +30,13 @@ class Session @Inject constructor (pref: PrefManager) {
 
     fun setTimeDefault() {
         timeLiveData.value = timeDefault.toTimerFormat()
+    }
+
+    fun addDoneSession() {
+        GlobalScope.launch (Dispatchers.IO) {
+            val current = pref.getCurrentCount()+1
+            pref.addDoneSession(current)
+            countLiveData.postValue(current)
+        }
     }
 }

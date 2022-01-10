@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Room
 import com.chkan.iqtimer.data.room.HistoryDao
 import com.chkan.iqtimer.data.room.HistoryDatabase
-
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,12 +19,12 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideAppDatabase(@ApplicationContext appContext: Context): HistoryDatabase {
-
-        return Room.databaseBuilder(
-            appContext,
-            HistoryDatabase::class.java,
-            "history"
-        ).build()
+        return Room
+            .databaseBuilder(
+                appContext,
+                HistoryDatabase::class.java,
+                "history_db")
+            .build()
     }
 
     @Provides

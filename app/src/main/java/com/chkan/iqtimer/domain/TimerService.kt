@@ -121,8 +121,10 @@ class TimerService : Service() {
                 isBreak = false
             }else {
                 stopMyForegroud(notifManager.onEnd())
+                session.addDoneSession()
             }
             session.stateLiveData.value = State.STOPED
+            stopTimer(false)
         }
     }
 
@@ -149,5 +151,9 @@ class TimerService : Service() {
 
     fun updateTimer() {
         leftInMillis = session.timeDefault.toLong()*60000
+    }
+
+    fun updateBreak() {
+        breakInMillis = session.breakDefault.toLong()*60000
     }
 }

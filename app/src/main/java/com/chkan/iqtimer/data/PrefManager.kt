@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 import com.chkan.iqtimer.utils.*
+import org.joda.time.DateTime
 import javax.inject.Inject
 
 class PrefManager @Inject constructor (private val context: Context) {
@@ -30,8 +31,16 @@ class PrefManager @Inject constructor (private val context: Context) {
         pref.edit().putInt(key,value).apply()
     }
 
+    fun addDoneSession (value: Int){
+        pref.edit().putInt(SP_CURRENT_COUNT,value).apply()
+    }
+
     fun getMyString (key : String): String? {
         return pref.getString(key,null)
+    }
+
+    fun getWorkDate(): String? {
+        return pref.getString(SP_WORK_DATE,null)
     }
 
     fun getDefaultPlan(): Int? {
@@ -48,6 +57,10 @@ class PrefManager @Inject constructor (private val context: Context) {
 
     fun getDefaultBreak(): String {
         return pref.getString(SP_DEFAULT_BREAK,"15")!!
+    }
+
+    fun startFirst() {
+        pref.edit().putString(SP_WORK_DATE, DateTime.now().toString("yyyy-MM-dd")).putBoolean(SP_IS_FIRST,false).apply()
     }
 
 }
