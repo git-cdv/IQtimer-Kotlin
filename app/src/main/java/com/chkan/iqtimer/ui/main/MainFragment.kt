@@ -1,11 +1,13 @@
-package com.chkan.iqtimer.ui
+package com.chkan.iqtimer.ui.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import androidx.appcompat.widget.PopupMenu
 import androidx.navigation.fragment.findNavController
 import com.chkan.iqtimer.MainActivity
 import com.chkan.iqtimer.R
@@ -61,12 +63,37 @@ class MainFragment : Fragment() {
             (activity as MainActivity).stopTimer(false)
             session.stateLiveData.value = State.STOPED
         }
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         view.findViewById<ImageButton>(R.id.main_btn_menu).setOnClickListener {
-          findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
+            showMenu(it)
         }
+    }
+
+    private fun showMenu(v: View) {
+        val popup = PopupMenu(requireContext(),v)
+        popup.inflate(R.menu.popup_menu)
+
+        popup.setOnMenuItemClickListener { item: MenuItem ->
+            when (item.itemId) {
+                R.id.menu_progress -> {
+                    findNavController().navigate(R.id.action_mainFragment_to_progressFragment)
+                }
+                R.id.menu_statistic -> {
+                    findNavController().navigate(R.id.action_mainFragment_to_statisticFragment)
+                }
+                R.id.menu_setting -> {
+                    findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
+                }
+                R.id.menu_about -> {
+                    findNavController().navigate(R.id.action_mainFragment_to_aboutFragment)
+                }
+            }
+            true
+        }
+        popup.show()
     }
 }

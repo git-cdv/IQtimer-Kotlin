@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
 import androidx.lifecycle.lifecycleScope
-import com.chkan.iqtimer.data.PrefManager
 import com.chkan.iqtimer.domain.TimerService
 import com.chkan.iqtimer.domain.usecases.SessionsUseCase
 import dagger.hilt.android.AndroidEntryPoint

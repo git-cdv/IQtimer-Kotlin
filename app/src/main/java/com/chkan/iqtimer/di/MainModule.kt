@@ -2,7 +2,7 @@ package com.chkan.iqtimer.di
 
 import android.content.Context
 import com.chkan.iqtimer.data.PrefManager
-import com.chkan.iqtimer.domain.NotifManager
+import com.chkan.iqtimer.ui.main.NotifManager
 import com.chkan.iqtimer.domain.Session
 import dagger.Module
 import dagger.Provides

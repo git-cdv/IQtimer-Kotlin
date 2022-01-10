@@ -1,4 +1,4 @@
-package com.chkan.iqtimer.domain
+package com.chkan.iqtimer.ui.main
 
 import android.app.*
 import android.content.Context
@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.chkan.iqtimer.MainActivity
 import com.chkan.iqtimer.R
+import com.chkan.iqtimer.domain.TimerService
 import com.chkan.iqtimer.utils.*
 import javax.inject.Inject
 
