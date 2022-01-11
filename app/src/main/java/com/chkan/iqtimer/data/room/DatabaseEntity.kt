@@ -12,6 +12,10 @@ data class DatabaseModel(
     val date: String,
     @ColumnInfo(name = "count")
     val count: Int,
+    @ColumnInfo(name = "no_month")
+    val noMonth: Int,
+    @ColumnInfo(name = "no_day")
+    val noDayOfWeek: Int,
     @ColumnInfo(name = "date_full")
     val date_full: String
 )
