@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.chkan.iqtimer.data.room.DatabaseModel
 import com.chkan.iqtimer.domain.models.ChartModel
 import com.chkan.iqtimer.domain.usecases.StatisticUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,6 +33,10 @@ class StatisticViewModel @Inject constructor(
     private val _countTotal: MutableLiveData<Int> = MutableLiveData()
     val countTotal: LiveData<Int>
         get() = _countTotal
+
+    private val _listTotal: MutableLiveData<List<DatabaseModel>> = MutableLiveData()
+    val listTotal: LiveData<List<DatabaseModel>>
+        get() = _listTotal
 
     private val _isDataObzorDone: MutableLiveData<Boolean> = MutableLiveData()
     val isDataObzorDone: LiveData<Boolean>
@@ -85,6 +90,16 @@ class StatisticViewModel @Inject constructor(
                 _dataMonth.postValue(statisticUseCase.getDataMonth())
             }catch (e:Exception){
                 Log.d("MYAPP", "StatisticViewModel - getDataMonth() ERROR: ${e.message}")
+            }
+        }
+    }
+
+    fun getListTotal() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                _listTotal.postValue(statisticUseCase.getListFull())
+            }catch (e:Exception){
+                Log.d("MYAPP", "StatisticViewModel - getListTotal() ERROR: ${e.message}")
             }
         }
     }

@@ -35,10 +35,18 @@
         android:id="@+id/statisticFragment"
         android:name="com.chkan.iqtimer.ui.statistic.StatisticFragment"
         android:label="fragment_statistic"
-        tools:layout="@layout/fragment_statistic" />
+        tools:layout="@layout/fragment_statistic" >
+        <action
+            android:id="@+id/action_statisticFragment_to_statisticListFragment"
+            app:destination="@id/statisticListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.chkan.iqtimer.ui.AboutFragment"
         android:label="fragment_about"
         tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/statisticListFragment"
+        android:name="com.chkan.iqtimer.ui.statistic.StatisticListFragment"
+        android:label="StatisticListFragment" />
 </navigation>

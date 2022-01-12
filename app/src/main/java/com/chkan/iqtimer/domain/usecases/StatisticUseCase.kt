@@ -1,7 +1,7 @@
 package com.chkan.iqtimer.domain.usecases
 
-import android.util.Log
 import com.chkan.iqtimer.data.PrefManager
+import com.chkan.iqtimer.data.room.DatabaseModel
 import com.chkan.iqtimer.data.room.HistoryDao
 import com.chkan.iqtimer.domain.models.ChartModel
 import com.github.mikephil.charting.data.BarEntry
@@ -16,6 +16,14 @@ class StatisticUseCase @Inject constructor(private val historyDao: HistoryDao, p
 
     fun getCountToday() : Int {
        return currentCount
+    }
+
+    fun getListFull() : List<DatabaseModel> {
+        return if (listTotal.isNullOrEmpty()) {
+            listOf(DatabaseModel(count = currentCount, date_full = DateTime.now().toString("E, MMM d, yyyy"), date = "", noMonth = 0, noDayOfWeek = 0 ))
+        } else {
+            listTotal
+        }
     }
 
     fun getCountWeek(): Int {

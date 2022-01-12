@@ -1,20 +1,24 @@
 package com.chkan.iqtimer.ui.statistic
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import com.chkan.iqtimer.R
 import com.chkan.iqtimer.databinding.FragmentStatisticBinding
 import com.github.mikephil.charting.charts.BarChart
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class StatisticFragment : Fragment() {
 
-    private val viewModel: StatisticViewModel by viewModels()
+    private val viewModel: StatisticViewModel by activityViewModels()
     lateinit var chartDay: BarChart
     lateinit var chartMonth: BarChart
 
@@ -25,19 +29,23 @@ class StatisticFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        Log.d("MYAPP", "StatisticFragment - onCreateView()")
         val binding = FragmentStatisticBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.viewmodel = viewModel
-        chartDay = binding.historyChartDays
-        chartMonth = binding.historyChartMonth
-        binding.fab.alpha = 0.5F
-
         return binding.root
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.d("MYAPP", "StatisticFragment - onViewCreated()")
 
+        chartDay = view.findViewById(R.id.history_chart_days)
+        chartMonth = view.findViewById(R.id.history_chart_month)
+        val fab = view.findViewById<FloatingActionButton>(R.id.fab)
+        fab.alpha = 0.5F
+        fab.setOnClickListener {
+            findNavController().navigate(R.id.action_statisticFragment_to_statisticListFragment)
+        }
         viewModel.dataDaysLiveData.observe(this,{
             chartManager.getChartDays(chartDay,it.data,it.titles,it.default).invalidate()
             viewModel.isDataDaysDone.value = true
@@ -47,7 +55,6 @@ class StatisticFragment : Fragment() {
             chartManager.getChartMonth(chartMonth,it.data,it.titles).invalidate()
             viewModel.isDataMonthDone.value = true
         })
-
     }
 }
 
