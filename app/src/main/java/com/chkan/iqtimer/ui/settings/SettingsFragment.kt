@@ -10,7 +10,7 @@ import androidx.preference.*
 import androidx.preference.EditTextPreference.OnBindEditTextListener
 import com.chkan.iqtimer.MainActivity
 import com.chkan.iqtimer.R
-import com.chkan.iqtimer.domain.Session
+import com.chkan.iqtimer.domain.models.Session
 import com.chkan.iqtimer.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import java.lang.NumberFormatException

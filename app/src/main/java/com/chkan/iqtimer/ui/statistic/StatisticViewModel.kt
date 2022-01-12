@@ -37,13 +37,8 @@ class StatisticViewModel @Inject constructor(
     val isDataObzorDone: LiveData<Boolean>
         get() = _isDataObzorDone
 
-    val _isDataDaysDone: MutableLiveData<Boolean> = MutableLiveData()
-    val isDataDaysDone: LiveData<Boolean>
-        get() = _isDataDaysDone
-
-    private val _isDataMonthDone: MutableLiveData<Boolean> = MutableLiveData()
-    val isDataMonthDone: LiveData<Boolean>
-        get() = _isDataMonthDone
+    val isDataDaysDone: MutableLiveData<Boolean> = MutableLiveData()
+    val isDataMonthDone: MutableLiveData<Boolean> = MutableLiveData()
 
     private val _dataDays: MutableLiveData<ChartModel> = MutableLiveData()
     val dataDaysLiveData: LiveData<ChartModel>
@@ -56,7 +51,7 @@ class StatisticViewModel @Inject constructor(
     init {
         getDataObzor()
         getDataDays()
-
+        getDataMonth()
     }
 
     private fun getDataObzor() {
@@ -80,6 +75,16 @@ class StatisticViewModel @Inject constructor(
                 _dataDays.postValue(statisticUseCase.getDataDays())
             }catch (e:Exception){
                 Log.d("MYAPP", "StatisticViewModel - getDataDays() ERROR: ${e.message}")
+            }
+        }
+    }
+
+    private fun getDataMonth() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                _dataMonth.postValue(statisticUseCase.getDataMonth())
+            }catch (e:Exception){
+                Log.d("MYAPP", "StatisticViewModel - getDataMonth() ERROR: ${e.message}")
             }
         }
     }

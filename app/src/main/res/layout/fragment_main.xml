@@ -8,7 +8,7 @@
         <import type="com.chkan.iqtimer.utils.State"/>
         <variable
             name="session"
-            type="com.chkan.iqtimer.domain.Session"/>
+            type="com.chkan.iqtimer.domain.models.Session"/>
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout

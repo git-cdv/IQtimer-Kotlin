@@ -1,24 +1,13 @@
 package com.chkan.iqtimer.ui.statistic
 
-import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import com.chkan.iqtimer.R
 import com.chkan.iqtimer.databinding.FragmentStatisticBinding
-import com.chkan.iqtimer.domain.usecases.SessionsUseCase
 import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.components.*
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
-import com.github.mikephil.charting.formatter.ValueFormatter
-import com.google.android.material.color.MaterialColors
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -41,6 +30,7 @@ class StatisticFragment : Fragment() {
         binding.viewmodel = viewModel
         chartDay = binding.historyChartDays
         chartMonth = binding.historyChartMonth
+        binding.fab.alpha = 0.5F
 
         return binding.root
     }
@@ -50,11 +40,12 @@ class StatisticFragment : Fragment() {
 
         viewModel.dataDaysLiveData.observe(this,{
             chartManager.getChartDays(chartDay,it.data,it.titles,it.default).invalidate()
-            viewModel._isDataDaysDone.value = true
+            viewModel.isDataDaysDone.value = true
         })
 
         viewModel.dataMonthLiveData.observe(this,{
-
+            chartManager.getChartMonth(chartMonth,it.data,it.titles).invalidate()
+            viewModel.isDataMonthDone.value = true
         })
 
     }

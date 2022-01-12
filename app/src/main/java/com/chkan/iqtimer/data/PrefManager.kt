@@ -43,8 +43,8 @@ class PrefManager @Inject constructor (private val context: Context) {
         return pref.getString(SP_WORK_DATE,null)
     }
 
-    fun getDefaultPlan(): Int? {
-        return pref.getString(SP_DEFAULT_PLAN,"8")?.toInt()
+    fun getDefaultPlan(): Int {
+        return pref.getString(SP_DEFAULT_PLAN,"8")!!.toInt()
     }
 
     fun getDefaultTime(): String {

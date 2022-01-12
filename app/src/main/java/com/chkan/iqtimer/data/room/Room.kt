@@ -8,7 +8,7 @@ interface HistoryDao {
     @Query("SELECT * FROM databasemodel LIMIT 7")
     fun getWeek(): List<DatabaseModel>
 
-    @Query("SELECT * FROM databasemodel LIMIT 30")
+    @Query("SELECT * FROM databasemodel LIMIT 31")
     fun getMonth(): List<DatabaseModel>
 
     @Query("SELECT * FROM databasemodel")

@@ -1,4 +1,4 @@
-package com.chkan.iqtimer.domain
+package com.chkan.iqtimer.domain.models
 
 
 import androidx.lifecycle.MutableLiveData
