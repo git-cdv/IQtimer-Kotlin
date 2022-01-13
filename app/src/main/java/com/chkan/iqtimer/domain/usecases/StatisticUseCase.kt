@@ -1,5 +1,6 @@
 package com.chkan.iqtimer.domain.usecases
 
+import android.util.Log
 import com.chkan.iqtimer.data.PrefManager
 import com.chkan.iqtimer.data.room.DatabaseModel
 import com.chkan.iqtimer.data.room.HistoryDao
@@ -12,17 +13,18 @@ import javax.inject.Inject
 class StatisticUseCase @Inject constructor(private val historyDao: HistoryDao, private val prefManager: PrefManager)  {
 
     private val listTotal by lazy { historyDao.getTotal() }
-    private val currentCount by lazy { prefManager.getCurrentCount() }
 
     fun getCountToday() : Int {
-       return currentCount
+       return prefManager.getCurrentCount()
     }
 
     fun getListFull() : List<DatabaseModel> {
         return if (listTotal.isNullOrEmpty()) {
-            listOf(DatabaseModel(count = currentCount, date_full = DateTime.now().toString("E, MMM d, yyyy"), date = "", noMonth = 0, noDayOfWeek = 0 ))
+            listOf(DatabaseModel(count = prefManager.getCurrentCount(), date_full = DateTime.now().toString("E, MMM d, yyyy"), date = "", noMonth = 0, noDayOfWeek = 0 ))
         } else {
-            listTotal
+            val list = listTotal.toMutableList()
+            list.add(DatabaseModel(count = prefManager.getCurrentCount(), date_full = DateTime.now().toString("E, MMM d, yyyy"), date = "", noMonth = 0, noDayOfWeek = 0 ))
+            list.reversed()
         }
     }
 
@@ -30,12 +32,14 @@ class StatisticUseCase @Inject constructor(private val historyDao: HistoryDao, p
         var count =0
         val list = historyDao.getWeek()
         var check = list.firstOrNull()?.noDayOfWeek
-        for (raw in list){
-            count += raw.count
-            if (check != null) {
-                check -= 1
-                if(check==0){
-                    break
+        if(check!=7) {//если вчера было ВС - то это новая неделя
+            for (raw in list) {
+                count += raw.count
+                if (check != null) {
+                    check -= 1
+                    if (check == 0) {
+                        break
+                    }
                 }
             }
         }
@@ -67,21 +71,23 @@ class StatisticUseCase @Inject constructor(private val historyDao: HistoryDao, p
     fun getDataDays(): ChartModel {
         val data: ArrayList<BarEntry> = arrayListOf()
         val titles: ArrayList<String> = arrayListOf()
+        var mIndex = 0F
 
         if (listTotal.isNullOrEmpty()) { //если 0-вой вход
             //Добавляем сегоднешнюю дату
             titles.add(DateTime.now().toString("MMMdd"))
             //Добавляем индекс и счетчик в массив
-            data.add(BarEntry(0F, currentCount.toFloat()))
+            data.add(BarEntry(0F, prefManager.getCurrentCount().toFloat()))
         } else {
             for ((index, item) in listTotal.withIndex()) {
                 data.add(BarEntry(index.toFloat(),item.count.toFloat()))
                 val date = DateTime.parse(item.date).toString("MMMdd")
                 titles.add(date)
+                mIndex=index.toFloat()
             }
-            /*
-            * Подумать как добавить результаты за сегодня
-            * */
+            //Добавляем сегоднешнюю дату
+            titles.add(DateTime.now().toString("MMMdd"))
+            data.add(BarEntry(mIndex+1, prefManager.getCurrentCount().toFloat()))
         }
 
         return ChartModel(data,titles.toTypedArray(),prefManager.getDefaultPlan())
@@ -96,15 +102,15 @@ class StatisticUseCase @Inject constructor(private val historyDao: HistoryDao, p
         var mCurrentMonth: Int
         var mMonth = 0
 
+        Log.d("MYAPP", "getDataMonth() -  listTotal: $listTotal")
         if (listTotal.isNullOrEmpty()) { //если 0-вой вход
             //Добавляем сегоднешнюю дату
             titles.add(DateTime.now().toString("MMM"))
             //Добавляем индекс и счетчик в массив
-            data.add(BarEntry(0F, currentCount.toFloat()))
+            data.add(BarEntry(0F, prefManager.getCurrentCount().toFloat()))
         } else {
 
             for ((index, item) in listTotal.withIndex()) {
-
                 //получаем текущую дату
                 val currentDate = DateTime.parse(item.date)
 
@@ -117,6 +123,7 @@ class StatisticUseCase @Inject constructor(private val historyDao: HistoryDao, p
 
                 if (mMonth == mCurrentMonth) {
                     mCountMonth += item.count
+                    Log.d("MYAPP", "getDataMonth() -  mCountMonth: $mCountMonth")
                 } else {
                     //Добавляем индекс и счетчик в массив
                     data.add(BarEntry(mIndex, mCountMonth))
@@ -127,14 +134,10 @@ class StatisticUseCase @Inject constructor(private val historyDao: HistoryDao, p
                     mCountMonth = item.count.toFloat()
                 }
 
-                /*
-                Подумать как добавить результаты за сегодня
-
                 if (index==listTotal.lastIndex) {
-                      //Добавляем индекс и счетчик в массив
-                      data.add(BarEntry(mIndex-1, mCountMonth+currentCount))
-                      titles.add(currentDate.minusMonths(1).toString("MMM"))
-                  }*/
+                        data.add(BarEntry(mIndex, mCountMonth+prefManager.getCurrentCount()))
+                        titles.add(currentDate.toString("MMM"))
+                }
             }
         }
 

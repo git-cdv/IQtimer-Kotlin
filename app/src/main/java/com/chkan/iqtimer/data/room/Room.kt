@@ -5,10 +5,10 @@ import androidx.room.*
 @Dao
 interface HistoryDao {
 
-    @Query("SELECT * FROM databasemodel LIMIT 7")
+    @Query("SELECT * FROM databasemodel ORDER BY id DESC LIMIT 7")
     fun getWeek(): List<DatabaseModel>
 
-    @Query("SELECT * FROM databasemodel LIMIT 31")
+    @Query("SELECT * FROM databasemodel ORDER BY id DESC LIMIT 31")
     fun getMonth(): List<DatabaseModel>
 
     @Query("SELECT * FROM databasemodel")

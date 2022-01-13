@@ -29,7 +29,6 @@ class StatisticFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        Log.d("MYAPP", "StatisticFragment - onCreateView()")
         val binding = FragmentStatisticBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.viewmodel = viewModel
@@ -37,10 +36,10 @@ class StatisticFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.d("MYAPP", "StatisticFragment - onViewCreated()")
 
         chartDay = view.findViewById(R.id.history_chart_days)
         chartMonth = view.findViewById(R.id.history_chart_month)
+        viewModel.getData()
         val fab = view.findViewById<FloatingActionButton>(R.id.fab)
         fab.alpha = 0.5F
         fab.setOnClickListener {

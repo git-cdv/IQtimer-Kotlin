@@ -14,10 +14,22 @@ class SessionsUseCase @Inject constructor(private val historyDao: HistoryDao, pr
 
     fun startFirst(){
         prefManager.startFirst()
-        /*var day = DateTime.now()
-        for(item in 1..30){
-            historyDao.insert(DatabaseModel(date = day.toString("yyyy-MM-dd"), count = 1, noMonth = day.monthOfYear , noDayOfWeek = day.dayOfWeek,date_full = day.toString("E, MMM d, yyyy")))
-            day = day.minusDays(1)
+    /*    val yes = DateTime.now().minusDays(1)
+        var day = DateTime.parse("2021-12-15")
+
+        for(item in 1..35){
+            day = day.plusDays(1)
+            if(day.dayOfYear()!=yes.dayOfYear()) {
+                historyDao.insert(
+                    DatabaseModel(
+                        date = day.toString("yyyy-MM-dd"),
+                        count = 1,
+                        noMonth = day.monthOfYear,
+                        noDayOfWeek = day.dayOfWeek,
+                        date_full = day.toString("E, MMM d, yyyy")
+                    )
+                )
+            }
         }*/
     }
 

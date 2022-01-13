@@ -53,7 +53,7 @@ class StatisticViewModel @Inject constructor(
     val dataMonthLiveData: LiveData<ChartModel>
         get() = _dataMonth
 
-    init {
+    fun getData() {
         getDataObzor()
         getDataDays()
         getDataMonth()
@@ -103,5 +103,4 @@ class StatisticViewModel @Inject constructor(
             }
         }
     }
-
 }
