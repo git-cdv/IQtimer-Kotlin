@@ -1,7 +1,6 @@
 package com.chkan.iqtimer.ui.statistic
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.chkan.iqtimer.R
 import com.chkan.iqtimer.databinding.FragmentStatisticBinding
+import com.chkan.iqtimer.ui.statistic.vm.StatisticViewModel
 import com.github.mikephil.charting.charts.BarChart
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint

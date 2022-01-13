@@ -81,10 +81,6 @@
     <string name="tutorial_mess1">Tap the timer to start and pause</string>
     <string name="tutorial_mess2">This is a status bar with a plan for the day and its implementation</string>
     <string name="tutorial_mess3">This is the number of sessions per day</string>
-    <string-array name="goals">
-        <item>Sessions</item>
-        <item>Effective days</item>
-    </string-array>
     <string name="time_duration">Work session duration</string>
     <string name="break_duration">Break duration</string>
     <string name="by_default">By default</string>
@@ -120,20 +116,6 @@
     <string name="purchase_ack">Purchase Acknowledged</string>
     <string name="disconnected">No connection</string>
     <string name="already_owned">The item has already been purchased</string>
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
-
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="create">Create</string>
+    <string name="text_effectiv_days">Effective days</string>
 </resources>

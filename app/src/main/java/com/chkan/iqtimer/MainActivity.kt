@@ -11,6 +11,7 @@ import android.os.IBinder
 import androidx.lifecycle.lifecycleScope
 import com.chkan.iqtimer.domain.TimerService
 import com.chkan.iqtimer.domain.usecases.SessionsUseCase
+import com.chkan.iqtimer.ui.progress.GoalBottomFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -92,6 +93,12 @@ class MainActivity : AppCompatActivity() {
     fun updateBreak() {
         if(isBound){
             mService.updateBreak()
+        }
+    }
+
+    fun getBottomSheet() {
+        GoalBottomFragment().apply {
+            show(supportFragmentManager,"TAG_SHEET")
         }
     }
 }

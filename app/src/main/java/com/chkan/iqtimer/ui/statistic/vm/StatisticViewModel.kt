@@ -1,4 +1,4 @@
-package com.chkan.iqtimer.ui.statistic
+package com.chkan.iqtimer.ui.statistic.vm
 
 import android.util.Log
 import androidx.lifecycle.LiveData

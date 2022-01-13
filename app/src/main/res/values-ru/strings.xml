@@ -81,10 +81,6 @@
     <string name="tutorial_mess1">Нажмите на таймер, чтобы начать или приостановить</string>
     <string name="tutorial_mess2">Это статус-бар с планом на день и его выполнение</string>
     <string name="tutorial_mess3">Это количество сессий за день</string>
-    <string-array name="goals">
-        <item>Сессий</item>
-        <item>Эффективных дней</item>
-    </string-array>
     <string name="time_duration">Длительность сессии</string>
     <string name="break_duration">Длительность перерыва</string>
     <string name="by_default">По умолчанию</string>
@@ -120,4 +116,6 @@
     <string name="purchase_ack">Покупка подтверждена</string>
     <string name="disconnected">Соединение отсутствует</string>
     <string name="already_owned">Товар уже приобретен</string>
+    <string name="create">Создать</string>
+    <string name="text_effectiv_days">Эффективных дней</string>
 </resources>
