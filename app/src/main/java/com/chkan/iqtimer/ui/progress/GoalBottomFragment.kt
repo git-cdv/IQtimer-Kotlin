@@ -14,7 +14,6 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.Button
 import androidx.fragment.app.activityViewModels
 import com.chkan.iqtimer.domain.models.GoalModel

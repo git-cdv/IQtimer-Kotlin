@@ -11,7 +11,15 @@ class ProgressViewModel: ViewModel() {
     val newGoalLiveData: LiveData<GoalModel>
         get() = _newGoalLiveData
 
+    private val _deleteGoalLiveData: MutableLiveData<Boolean> = MutableLiveData()
+    val deleteGoalLiveData: LiveData<Boolean>
+        get() = _deleteGoalLiveData
+
     fun setNewGoal(goal: GoalModel) {
         _newGoalLiveData.value = goal
+    }
+
+    fun deleteGoal() {
+        _deleteGoalLiveData.value = true
     }
 }

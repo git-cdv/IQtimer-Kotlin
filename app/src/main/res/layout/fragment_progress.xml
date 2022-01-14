@@ -130,6 +130,8 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="16dp"
+                        android:max="@{goal.goalPlan}"
+                        android:progress="@{goal.goalCurrent}"
                         android:scaleY="4"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/countGoal_current_value"
@@ -142,6 +144,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="2dp"
+                        android:text='@{goal.daysCurrent + " / " + goal.daysPlan}'
                         android:textColor="@color/brand_blue_900"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/progressBarGoal"
@@ -154,6 +157,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="2dp"
+                        android:text='@{goal.goalCurrent + " / " + goal.goalPlan}'
                         android:textColor="@color/brand_blue_900"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/progressBarGoal"
@@ -175,6 +179,7 @@
 
             <ImageButton
                 android:id="@+id/goal_btn_add"
+                android:visibility="@{goal.isActive ? View.INVISIBLE : View.VISIBLE}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
@@ -189,12 +194,12 @@
 
             <ImageButton
                 android:id="@+id/goal_btn_cancel"
+                android:visibility="@{goal.isActive ? View.VISIBLE : View.INVISIBLE}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
                 android:padding="8dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@+id/textView4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView4"

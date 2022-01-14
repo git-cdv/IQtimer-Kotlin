@@ -40,4 +40,15 @@ class Goal @Inject constructor (private val pref: PrefManager) {
         pref.setNewGoal(goal.name,goal.desc,goal.plan,goal.days_plan,goal.type)
 
     }
+
+    fun deleteGoal(nameDef: String, descDef: String) {
+        isActive.value = false
+        type.value = 0
+        name.value = nameDef
+        desc.value = descDef
+        goalCurrent.value = 0
+        goalPlan.value = 0
+        daysCurrent.value = 0
+        daysPlan.value = 0
+    }
 }

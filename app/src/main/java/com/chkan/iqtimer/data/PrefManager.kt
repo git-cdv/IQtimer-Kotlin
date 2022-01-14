@@ -77,7 +77,7 @@ class PrefManager @Inject constructor (private val context: Context) {
 
     fun setNewGoal(name: String, desc: String, plan: Int, days: Int, type: Int) {
         pref.edit().putString(SP_GOAL_NAME,name).putString(SP_GOAL_DESC,desc).putInt(SP_GOAL_PLAN,plan).putInt(SP_GOAL_DAYS_PLAN,days).putInt(
-            SP_GOAL_TYPE, type).apply()
+            SP_GOAL_TYPE, type).putBoolean(SP_GOAL_STATUS,true).apply()
     }
 
 }
