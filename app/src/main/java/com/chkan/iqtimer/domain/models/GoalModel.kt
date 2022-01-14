@@ -1,4 +1,4 @@
 package com.chkan.iqtimer.domain.models
 
 
-data class GoalModel(val isActive: Boolean, val name: String, val desc: String, val current: Int, val plan: Int, val term_current: Int, val term_plan: Int)
+data class GoalModel(val name: String, val desc: String, val plan: Int, val days_plan: Int, val type: Int)

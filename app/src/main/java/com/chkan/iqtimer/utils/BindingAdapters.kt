@@ -3,7 +3,9 @@ package com.chkan.iqtimer.utils
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.databinding.BindingAdapter
+import com.chkan.iqtimer.R
 
 @BindingAdapter("app:animationOnPause")
 fun animationOnPause(v: TextView, value: Boolean) {

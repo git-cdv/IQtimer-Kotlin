@@ -2,6 +2,7 @@ package com.chkan.iqtimer.di
 
 import android.content.Context
 import com.chkan.iqtimer.data.PrefManager
+import com.chkan.iqtimer.domain.models.Goal
 import com.chkan.iqtimer.ui.main.NotifManager
 import com.chkan.iqtimer.domain.models.Session
 import com.chkan.iqtimer.ui.statistic.ChartManager
@@ -26,6 +27,12 @@ object MainModule {
     @Singleton
     fun provideSession(pref: PrefManager) : Session {
         return Session(pref)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGoal(pref: PrefManager) : Goal {
+        return Goal(pref)
     }
 
     @Provides

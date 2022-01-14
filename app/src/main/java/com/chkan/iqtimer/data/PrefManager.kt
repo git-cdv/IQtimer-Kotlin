@@ -39,6 +39,14 @@ class PrefManager @Inject constructor (private val context: Context) {
         return pref.getString(key,null)
     }
 
+    fun getBoolean (key : String): Boolean {
+        return pref.getBoolean(key,false)
+    }
+
+    fun getInt(key : String): Int {
+        return pref.getInt(key,0)
+    }
+
     fun getWorkDate(): String? {
         return pref.getString(SP_WORK_DATE,null)
     }
@@ -65,6 +73,11 @@ class PrefManager @Inject constructor (private val context: Context) {
 
     fun setWorkDate(today: String?) {
         pref.edit().putString(SP_WORK_DATE, today).apply()
+    }
+
+    fun setNewGoal(name: String, desc: String, plan: Int, days: Int, type: Int) {
+        pref.edit().putString(SP_GOAL_NAME,name).putString(SP_GOAL_DESC,desc).putInt(SP_GOAL_PLAN,plan).putInt(SP_GOAL_DAYS_PLAN,days).putInt(
+            SP_GOAL_TYPE, type).apply()
     }
 
 }

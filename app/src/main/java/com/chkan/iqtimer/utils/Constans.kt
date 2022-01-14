@@ -14,4 +14,14 @@ const val COM_STOP_NOTIF = 702
 const val COM_PAUSE_NOTIF = 703
 const val COM_BREAK_NOTIF = 704
 
+const val SP_GOAL_STATUS = "GOAL_Status"
+const val SP_GOAL_TYPE = "GOAL_Type"
+const val SP_GOAL_NAME = "GOAL_Name"
+const val SP_GOAL_DESC = "GOAL_Desc"
+const val SP_GOAL_CURRENT = "GOAL_Current"
+const val SP_GOAL_PLAN = "GOAL_Plan"
+const val SP_GOAL_DAYS_CURRENT = "GOAL_Days_Current"
+const val SP_GOAL_DAYS_PLAN = "GOAL_Days_Plan"
+
+
 

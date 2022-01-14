@@ -6,8 +6,8 @@
     <data>
         <import type="android.view.View"/>
         <variable
-            name="viewmodel"
-            type="com.chkan.iqtimer.ui.progress.vm.ProgressViewModel"/>
+            name="goal"
+            type="com.chkan.iqtimer.domain.models.Goal"/>
 
     </data>
 
@@ -99,6 +99,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
+                        android:text="@{goal.name}"
                         tools:text="Название цели"
                         android:textAppearance="@style/TextAppearance.AppCompat.Display4"
                         android:textSize="14sp"
@@ -114,6 +115,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:minLines="2"
+                        android:text="@{goal.desc}"
                         tools:text="Описание цели"
                         android:textColor="@color/brand_blue_900"
                         app:layout_constraintStart_toStartOf="parent"
