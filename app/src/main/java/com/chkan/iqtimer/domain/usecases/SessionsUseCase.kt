@@ -1,5 +1,6 @@
 package com.chkan.iqtimer.domain.usecases
 
+import com.chkan.iqtimer.R
 import com.chkan.iqtimer.data.PrefManager
 import com.chkan.iqtimer.data.room.DatabaseModel
 import com.chkan.iqtimer.data.room.HistoryDao
@@ -14,23 +15,7 @@ class SessionsUseCase @Inject constructor(private val historyDao: HistoryDao, pr
 
     fun startFirst(){
         prefManager.startFirst()
-    /*    val yes = DateTime.now().minusDays(1)
-        var day = DateTime.parse("2021-12-15")
-
-        for(item in 1..35){
-            day = day.plusDays(1)
-            if(day.dayOfYear()!=yes.dayOfYear()) {
-                historyDao.insert(
-                    DatabaseModel(
-                        date = day.toString("yyyy-MM-dd"),
-                        count = 1,
-                        noMonth = day.monthOfYear,
-                        noDayOfWeek = day.dayOfWeek,
-                        date_full = day.toString("E, MMM d, yyyy")
-                    )
-                )
-            }
-        }*/
+        prefManager.refreshGoal()
     }
 
     fun checkWorkDate() {

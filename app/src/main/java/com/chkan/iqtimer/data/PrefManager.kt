@@ -3,6 +3,7 @@ package com.chkan.iqtimer.data
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
+import com.chkan.iqtimer.R
 import com.chkan.iqtimer.utils.*
 import org.joda.time.DateTime
 import javax.inject.Inject
@@ -78,6 +79,13 @@ class PrefManager @Inject constructor (private val context: Context) {
     fun setNewGoal(name: String, desc: String, plan: Int, days: Int, type: Int) {
         pref.edit().putString(SP_GOAL_NAME,name).putString(SP_GOAL_DESC,desc).putInt(SP_GOAL_PLAN,plan).putInt(SP_GOAL_DAYS_PLAN,days).putInt(
             SP_GOAL_TYPE, type).putBoolean(SP_GOAL_STATUS,true).apply()
+    }
+
+    fun refreshGoal() {
+        val nameDef = context.resources.getString(R.string.goal_name_empty)
+        val descDef = context.resources.getString(R.string.goal_desc_empty)
+        pref.edit().putString(SP_GOAL_NAME,nameDef).putString(SP_GOAL_DESC,descDef).putInt(SP_GOAL_PLAN,0).putInt(SP_GOAL_DAYS_PLAN,0).putInt(
+            SP_GOAL_TYPE, 0).putBoolean(SP_GOAL_STATUS,false).apply()
     }
 
 }

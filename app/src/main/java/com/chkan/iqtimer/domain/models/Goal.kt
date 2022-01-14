@@ -38,7 +38,6 @@ class Goal @Inject constructor (private val pref: PrefManager) {
         daysPlan.value = goal.days_plan
 
         pref.setNewGoal(goal.name,goal.desc,goal.plan,goal.days_plan,goal.type)
-
     }
 
     fun deleteGoal(nameDef: String, descDef: String) {
@@ -50,5 +49,6 @@ class Goal @Inject constructor (private val pref: PrefManager) {
         goalPlan.value = 0
         daysCurrent.value = 0
         daysPlan.value = 0
+        pref.refreshGoal()
     }
 }
