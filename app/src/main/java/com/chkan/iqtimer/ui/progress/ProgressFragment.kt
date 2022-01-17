@@ -29,6 +29,7 @@ class ProgressFragment : Fragment() {
         val binding = FragmentProgressBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.goal = goal
+        binding.model = viewModel
 
         return binding.root
     }

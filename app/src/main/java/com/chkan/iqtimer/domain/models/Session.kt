@@ -8,6 +8,7 @@ import com.chkan.iqtimer.utils.toTimerFormat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.joda.time.DateTime
 import javax.inject.Inject
 
 class Session @Inject constructor (private val pref: PrefManager) {
@@ -41,6 +42,20 @@ class Session @Inject constructor (private val pref: PrefManager) {
             val current = pref.getCurrentCount()+1
             pref.addDoneSession(current)
             countLiveData.postValue(current)
+
+            if(pref.getDefaultPlan()==current){//если выполнили план
+                val effectiveDateCurrent = DateTime.parse(pref.getEffectiveDate())
+                val today = DateTime.now()
+                //если эффективный день был вчера
+                if(effectiveDateCurrent.dayOfYear()==today.minusDays(1).dayOfYear()){
+                    pref.addCounter(pref.getCounter()+1)
+                    pref.addEffectiveDate(today)
+                } else {
+                    pref.addCounter(1)
+                    pref.addEffectiveDate(today)
+                }
+
+            }
         }
     }
 }

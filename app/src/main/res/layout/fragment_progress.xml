@@ -8,6 +8,9 @@
         <variable
             name="goal"
             type="com.chkan.iqtimer.domain.models.Goal"/>
+        <variable
+            name="model"
+            type="com.chkan.iqtimer.ui.progress.vm.ProgressViewModel"/>
 
     </data>
 
@@ -22,11 +25,12 @@
             android:paddingBottom="32dp">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/stat_counter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="48dp"
+                android:text="@{model.counterLiveData.toString()}"
                 android:fontFamily="sans-serif-condensed-medium"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display4"
                 android:textColor="@color/brand_orange"
@@ -41,9 +45,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:src="@drawable/ic_fire"
-                app:layout_constraintBottom_toBottomOf="@+id/textView"
-                app:layout_constraintEnd_toStartOf="@+id/textView"
-                app:layout_constraintTop_toTopOf="@+id/textView"
+                app:layout_constraintBottom_toBottomOf="@+id/stat_counter"
+                app:layout_constraintEnd_toStartOf="@+id/stat_counter"
+                app:layout_constraintTop_toTopOf="@+id/stat_counter"
                 android:contentDescription="icon" />
 
             <TextView
@@ -57,7 +61,7 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toStartOf="@+id/guideline6"
                 app:layout_constraintStart_toStartOf="@+id/guideline6"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
+                app:layout_constraintTop_toBottomOf="@+id/stat_counter" />
 
             <TextView
                 android:id="@+id/textView4"

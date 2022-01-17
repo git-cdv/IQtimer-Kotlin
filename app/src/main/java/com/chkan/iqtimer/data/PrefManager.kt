@@ -49,7 +49,7 @@ class PrefManager @Inject constructor (private val context: Context) {
     }
 
     fun getWorkDate(): String? {
-        return pref.getString(SP_WORK_DATE,null)
+        return pref.getString(SP_WORK_DATE,"2000-03-12")
     }
 
     fun getDefaultPlan(): Int {
@@ -86,6 +86,22 @@ class PrefManager @Inject constructor (private val context: Context) {
         val descDef = context.resources.getString(R.string.goal_desc_empty)
         pref.edit().putString(SP_GOAL_NAME,nameDef).putString(SP_GOAL_DESC,descDef).putInt(SP_GOAL_PLAN,0).putInt(SP_GOAL_DAYS_PLAN,0).putInt(
             SP_GOAL_TYPE, 0).putBoolean(SP_GOAL_STATUS,false).apply()
+    }
+
+    fun getCounter(): Int {
+        return pref.getInt(SP_COUNTER,0)
+    }
+
+    fun getEffectiveDate(): String? {
+        return pref.getString(SP_EFFECTIVE_DATE,"2000-03-12")
+    }
+
+    fun addCounter(value: Int) {
+        pref.edit().putInt(SP_COUNTER,value).apply()
+    }
+
+    fun addEffectiveDate(today: DateTime?) {
+        pref.edit().putString(SP_EFFECTIVE_DATE,today?.toString("yyyy-MM-dd")).apply()
     }
 
 }
