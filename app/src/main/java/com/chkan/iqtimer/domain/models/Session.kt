@@ -32,6 +32,10 @@ class Session @Inject constructor (private val pref: PrefManager) {
         timeLiveData.value = timeDefault.toTimerFormat()
     }
 
+    fun cleanCount(){
+        countLiveData.value =0
+    }
+
     fun addDoneSession() {
         GlobalScope.launch (Dispatchers.IO) {
             val current = pref.getCurrentCount()+1

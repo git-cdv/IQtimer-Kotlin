@@ -1,13 +1,13 @@
 package com.chkan.iqtimer.domain.usecases
 
-import com.chkan.iqtimer.R
 import com.chkan.iqtimer.data.PrefManager
 import com.chkan.iqtimer.data.room.DatabaseModel
 import com.chkan.iqtimer.data.room.HistoryDao
+import com.chkan.iqtimer.domain.models.Session
 import org.joda.time.DateTime
 import javax.inject.Inject
 
-class SessionsUseCase @Inject constructor(private val historyDao: HistoryDao, private val prefManager: PrefManager) {
+class SessionsUseCase @Inject constructor(private val historyDao: HistoryDao, private val prefManager: PrefManager, private val session: Session) {
 
     fun isFirst(): Boolean{
         return prefManager.isFirst()
@@ -24,9 +24,9 @@ class SessionsUseCase @Inject constructor(private val historyDao: HistoryDao, pr
         val today = DateTime.now().toString("yyyy-MM-dd")
         if(workDate!=today){
             if(!workDate.isNullOrEmpty()){
+                session.cleanCount()
                 historyDao.insert(DatabaseModel(date = workDate, count = prefManager.getCurrentCount(), noMonth = day.monthOfYear , noDayOfWeek = day.dayOfWeek,date_full = DateTime.parse(workDate).toString("E, MMM d, yyyy")))
-                prefManager.addDoneSession(0)
-                prefManager.setWorkDate(today)
+                prefManager.setWorkDateAndCleanSession(today)
             }
         }
     }
