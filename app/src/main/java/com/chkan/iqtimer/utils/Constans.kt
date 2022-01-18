@@ -1,7 +1,6 @@
 package com.chkan.iqtimer.utils
 
 const val SP_IS_FIRST = "isFirst"
-const val SP_IS_PERIODIC_STARTED = "isPeriodicStarted"
 const val SP_DEFAULT_PLAN = "DEFAULT_Plan"
 const val SP_DEFAULT_TIME = "DEFAULT_Time"
 const val SP_DEFAULT_BREAK = "DEFAULT_Break"
@@ -22,6 +21,11 @@ const val SP_GOAL_CURRENT = "GOAL_Current"
 const val SP_GOAL_PLAN = "GOAL_Plan"
 const val SP_GOAL_DAYS_CURRENT = "GOAL_Days_Current"
 const val SP_GOAL_DAYS_PLAN = "GOAL_Days_Plan"
+const val SP_GOAL_START_DATE = "GOAL_Start_Date"
+const val GOAL_STATUS_ACTIVE = 1
+const val GOAL_STATUS_INACTIVE = 0
+const val GOAL_STATUS_DONE = 2
+const val GOAL_STATUS_EXPIRED = -1
 const val SESSIONS = 0
 const val EFFECTIVEDAYS = 1
 

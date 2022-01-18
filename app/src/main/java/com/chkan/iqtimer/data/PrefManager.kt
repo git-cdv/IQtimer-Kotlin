@@ -10,6 +10,9 @@ import javax.inject.Inject
 
 class PrefManager @Inject constructor (private val context: Context) {
 
+    private val nameDef = context.resources.getString(R.string.goal_name_empty)
+    private val descDef = context.resources.getString(R.string.goal_desc_empty)
+
     private val pref: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
     fun isFirst(): Boolean{
@@ -73,20 +76,26 @@ class PrefManager @Inject constructor (private val context: Context) {
     }
 
     fun setNewGoal(name: String, desc: String, plan: Int, days: Int, type: Int) {
-        pref.edit().putString(SP_GOAL_NAME,name).putString(SP_GOAL_DESC,desc).putInt(SP_GOAL_PLAN,plan).putInt(SP_GOAL_DAYS_PLAN,days).putInt(
-            SP_GOAL_TYPE, type).putBoolean(SP_GOAL_STATUS,true).apply()
+        pref.edit().putString(SP_GOAL_NAME,name)
+            .putString(SP_GOAL_DESC,desc)
+            .putInt(SP_GOAL_PLAN,plan)
+            .putInt(SP_GOAL_DAYS_PLAN,days)
+            .putInt(SP_GOAL_TYPE, type)
+            .putInt(SP_GOAL_CURRENT,0)
+            .putInt(SP_GOAL_STATUS, GOAL_STATUS_ACTIVE)
+            .putString(SP_GOAL_DESC,desc)
+            .putString(SP_GOAL_START_DATE,DateTime.now().toString("yyyy-MM-dd"))
+            .apply()
     }
 
     fun refreshGoal() {
-        val nameDef = context.resources.getString(R.string.goal_name_empty)
-        val descDef = context.resources.getString(R.string.goal_desc_empty)
         pref.edit().putString(SP_GOAL_NAME,nameDef).putString(SP_GOAL_DESC,descDef).putInt(SP_GOAL_PLAN,0)
             .putInt(SP_GOAL_CURRENT,0).putInt(SP_GOAL_DAYS_PLAN,0)
-            .putInt(SP_GOAL_TYPE, SESSIONS).putBoolean(SP_GOAL_STATUS,false).apply()
+            .putInt(SP_GOAL_TYPE, SESSIONS).putInt(SP_GOAL_STATUS, GOAL_STATUS_INACTIVE).apply()
     }
 
     fun isGoalActive():Boolean {
-        return pref.getBoolean(SP_GOAL_STATUS,false)
+        return pref.getInt(SP_GOAL_STATUS,0) == 1
     }
 
     fun getCounter(): Int {
@@ -103,6 +112,14 @@ class PrefManager @Inject constructor (private val context: Context) {
 
     fun addEffectiveDate(today: DateTime?) {
         pref.edit().putString(SP_EFFECTIVE_DATE,today?.toString("yyyy-MM-dd")).apply()
+    }
+
+    fun getGoalName(): String? {
+        return pref.getString(SP_GOAL_NAME,nameDef)
+    }
+
+    fun getGoalDesc(): String? {
+        return pref.getString(SP_GOAL_DESC,descDef)
     }
 
 }

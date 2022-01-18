@@ -8,10 +8,6 @@
         <variable
             name="goal"
             type="com.chkan.iqtimer.domain.models.Goal"/>
-        <variable
-            name="model"
-            type="com.chkan.iqtimer.ui.progress.vm.ProgressViewModel"/>
-
     </data>
 
     <ScrollView
@@ -30,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="48dp"
-                android:text="@{model.counterLiveData.toString()}"
+                android:text="@{goal.counter.toString()}"
                 android:fontFamily="sans-serif-condensed-medium"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display4"
                 android:textColor="@color/brand_orange"
@@ -99,6 +95,7 @@
 
                     <TextView
                         android:id="@+id/nameMainGoal"
+                        android:visibility="@{goal.state==1||goal.state==0 ? View.VISIBLE : View.INVISIBLE}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -114,6 +111,7 @@
 
                     <TextView
                         android:id="@+id/goalDisc"
+                        android:visibility="@{goal.state==1||goal.state==0 ? View.VISIBLE : View.INVISIBLE}"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -127,6 +125,7 @@
 
                     <ProgressBar
                         android:id="@+id/progressBarGoal"
+                        android:visibility="@{goal.state==1||goal.state==0 ? View.VISIBLE : View.INVISIBLE}"
                         style="@android:style/Widget.Material.ProgressBar.Horizontal"
                         android:layout_width="0dp"
                         android:layout_height="16dp"
@@ -144,6 +143,7 @@
 
                     <TextView
                         android:id="@+id/countGoal_current_value"
+                        android:visibility="@{goal.state==1||goal.state==0 ? View.VISIBLE : View.INVISIBLE}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
@@ -158,6 +158,7 @@
 
                     <TextView
                         android:id="@+id/barGoal_current_value"
+                        android:visibility="@{goal.state==1||goal.state==0 ? View.VISIBLE : View.INVISIBLE}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="2dp"
@@ -169,6 +170,37 @@
                         app:layout_constraintStart_toStartOf="@+id/progressBarGoal"
                         app:layout_constraintTop_toTopOf="@+id/progressBarGoal"
                         tools:text="0 / 0" />
+
+                    <TextView
+                        android:id="@+id/goal_done_text"
+                        android:visibility="@{goal.state==1||goal.state==0 ? View.INVISIBLE : View.VISIBLE}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="16dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+                        android:textColor="@color/brand_blue_900"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="You did it 100%!" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/goal_done_btn"
+                        android:visibility="@{goal.state==1||goal.state==0 ? View.INVISIBLE : View.VISIBLE}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/new_goal"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/goal_done_text" />
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -183,7 +215,7 @@
 
             <ImageButton
                 android:id="@+id/goal_btn_add"
-                android:visibility="@{goal.isActive ? View.INVISIBLE : View.VISIBLE}"
+                android:visibility="@{goal.state==1 ? View.INVISIBLE : View.VISIBLE}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
@@ -198,7 +230,7 @@
 
             <ImageButton
                 android:id="@+id/goal_btn_cancel"
-                android:visibility="@{goal.isActive ? View.VISIBLE : View.INVISIBLE}"
+                android:visibility="@{goal.state==1 ? View.VISIBLE : View.INVISIBLE}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"

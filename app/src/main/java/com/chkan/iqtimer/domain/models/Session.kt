@@ -40,7 +40,6 @@ class Session @Inject constructor (private val pref: PrefManager, private val pr
     }
 
     fun addDoneSession() {
-
             GlobalScope.launch (Dispatchers.IO) {
                 val current = pref.getCurrentCount()+1
                 pref.addDoneSession(current)
