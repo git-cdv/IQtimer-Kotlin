@@ -1,17 +1,19 @@
 package com.chkan.iqtimer.domain.models
 
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.chkan.iqtimer.data.PrefManager
+import com.chkan.iqtimer.domain.usecases.ProgressUseCase
+import com.chkan.iqtimer.utils.SESSIONS
 import com.chkan.iqtimer.utils.State
 import com.chkan.iqtimer.utils.toTimerFormat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.joda.time.DateTime
 import javax.inject.Inject
 
-class Session @Inject constructor (private val pref: PrefManager) {
+class Session @Inject constructor (private val pref: PrefManager, private val progressUseCase: ProgressUseCase) {
 
     val stateLiveData: MutableLiveData<State> = MutableLiveData()
     var timeDefault : String
@@ -38,24 +40,14 @@ class Session @Inject constructor (private val pref: PrefManager) {
     }
 
     fun addDoneSession() {
-        GlobalScope.launch (Dispatchers.IO) {
-            val current = pref.getCurrentCount()+1
-            pref.addDoneSession(current)
-            countLiveData.postValue(current)
 
-            if(pref.getDefaultPlan()==current){//если выполнили план
-                val effectiveDateCurrent = DateTime.parse(pref.getEffectiveDate())
-                val today = DateTime.now()
-                //если эффективный день был вчера
-                if(effectiveDateCurrent.dayOfYear()==today.minusDays(1).dayOfYear()){
-                    pref.addCounter(pref.getCounter()+1)
-                    pref.addEffectiveDate(today)
-                } else {
-                    pref.addCounter(1)
-                    pref.addEffectiveDate(today)
-                }
+            GlobalScope.launch (Dispatchers.IO) {
+                val current = pref.getCurrentCount()+1
+                pref.addDoneSession(current)
+                countLiveData.postValue(current)
 
+                progressUseCase.checkEffectiveCounter(current)
+                progressUseCase.checkGoal(SESSIONS)
             }
-        }
     }
 }

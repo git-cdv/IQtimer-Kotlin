@@ -22,6 +22,8 @@ const val SP_GOAL_CURRENT = "GOAL_Current"
 const val SP_GOAL_PLAN = "GOAL_Plan"
 const val SP_GOAL_DAYS_CURRENT = "GOAL_Days_Current"
 const val SP_GOAL_DAYS_PLAN = "GOAL_Days_Plan"
+const val SESSIONS = 0
+const val EFFECTIVEDAYS = 1
 
 const val SP_COUNTER = "PROGRESS_Counter"
 const val SP_EFFECTIVE_DATE = "PROGRESS_Effective_Date"

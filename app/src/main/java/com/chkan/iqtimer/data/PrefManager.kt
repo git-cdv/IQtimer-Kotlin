@@ -16,10 +16,6 @@ class PrefManager @Inject constructor (private val context: Context) {
         return pref.getBoolean(SP_IS_FIRST,true)
     }
 
-    fun isPeriodicStarted(): Boolean{
-        return pref.getBoolean(SP_IS_PERIODIC_STARTED,false)
-    }
-
     fun add (key:String, value: Boolean){
         pref.edit().putBoolean(key,value).apply()
     }
@@ -84,8 +80,13 @@ class PrefManager @Inject constructor (private val context: Context) {
     fun refreshGoal() {
         val nameDef = context.resources.getString(R.string.goal_name_empty)
         val descDef = context.resources.getString(R.string.goal_desc_empty)
-        pref.edit().putString(SP_GOAL_NAME,nameDef).putString(SP_GOAL_DESC,descDef).putInt(SP_GOAL_PLAN,0).putInt(SP_GOAL_DAYS_PLAN,0).putInt(
-            SP_GOAL_TYPE, 0).putBoolean(SP_GOAL_STATUS,false).apply()
+        pref.edit().putString(SP_GOAL_NAME,nameDef).putString(SP_GOAL_DESC,descDef).putInt(SP_GOAL_PLAN,0)
+            .putInt(SP_GOAL_CURRENT,0).putInt(SP_GOAL_DAYS_PLAN,0)
+            .putInt(SP_GOAL_TYPE, SESSIONS).putBoolean(SP_GOAL_STATUS,false).apply()
+    }
+
+    fun isGoalActive():Boolean {
+        return pref.getBoolean(SP_GOAL_STATUS,false)
     }
 
     fun getCounter(): Int {

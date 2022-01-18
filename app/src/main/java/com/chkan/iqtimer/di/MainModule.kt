@@ -5,6 +5,7 @@ import com.chkan.iqtimer.data.PrefManager
 import com.chkan.iqtimer.domain.models.Goal
 import com.chkan.iqtimer.ui.main.NotifManager
 import com.chkan.iqtimer.domain.models.Session
+import com.chkan.iqtimer.domain.usecases.ProgressUseCase
 import com.chkan.iqtimer.ui.statistic.ChartManager
 import dagger.Module
 import dagger.Provides
@@ -24,9 +25,14 @@ object MainModule {
     }
 
     @Provides
+    fun provideProgress(pref: PrefManager, goal: Goal) : ProgressUseCase {
+        return ProgressUseCase(pref,goal)
+    }
+
+    @Provides
     @Singleton
-    fun provideSession(pref: PrefManager) : Session {
-        return Session(pref)
+    fun provideSession(pref: PrefManager, progressUseCase: ProgressUseCase) : Session {
+        return Session(pref,progressUseCase)
     }
 
     @Provides

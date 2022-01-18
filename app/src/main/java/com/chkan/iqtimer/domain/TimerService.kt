@@ -14,6 +14,7 @@ import com.chkan.iqtimer.domain.models.Session
 import com.chkan.iqtimer.ui.main.NotifManager
 import com.chkan.iqtimer.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import java.lang.Exception
 import java.util.*
 import javax.inject.Inject
 
@@ -33,7 +34,8 @@ class TimerService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        leftInMillis = session.timeDefault.toLong()*60000
+        //leftInMillis = session.timeDefault.toLong()*60000
+        leftInMillis = 10000
         breakInMillis = session.breakDefault.toLong()*60000
     }
 
@@ -122,8 +124,13 @@ class TimerService : Service() {
                 stopMyForegroud(notifManager.onBreakEnd())
                 isBreak = false
             }else {
+                try {
                 stopMyForegroud(notifManager.onEnd())
                 session.addDoneSession()
+                } catch (e:Exception){
+                    Log.d("MYAPP", "onFinish() - Exception: ${e.message}")
+                }
+
             }
             session.stateLiveData.value = State.STOPED
             stopTimer(false)
