@@ -8,6 +8,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
+import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import com.chkan.iqtimer.domain.TimerService
 import com.chkan.iqtimer.domain.usecases.SessionsUseCase
@@ -80,7 +81,12 @@ class MainActivity : AppCompatActivity() {
             bindService(intent, connection, Context.BIND_AUTO_CREATE)
         }
         lifecycleScope.launch(Dispatchers.IO) {
-            sessionsUseCase.checkWorkDate()
+            try {
+                sessionsUseCase.checkWorkDate()
+            } catch (e:Exception){
+                Log.d("MYAPP", "onStart() - Exception: ${e.message}")
+            }
+
         }
     }
 

@@ -57,7 +57,7 @@ class ProgressUseCase @Inject constructor(private val pref: PrefManager, private
             val today = DateTime.now()
             val daysCurrent = today.dayOfYear - startDate.dayOfYear
 
-            if (daysCurrent >= pref.getInt(SP_GOAL_DAYS_PLAN)) {
+            if (daysCurrent > pref.getInt(SP_GOAL_DAYS_PLAN)) {
                 goal.state.postValue(GOAL_STATUS_EXPIRED)
                 pref.add(SP_GOAL_STATUS, GOAL_STATUS_EXPIRED)
             } else{

@@ -1,5 +1,6 @@
 package com.chkan.iqtimer.domain.usecases
 
+import android.util.Log
 import com.chkan.iqtimer.data.PrefManager
 import com.chkan.iqtimer.data.room.DatabaseModel
 import com.chkan.iqtimer.data.room.HistoryDao
@@ -29,5 +30,6 @@ class SessionsUseCase @Inject constructor(private val historyDao: HistoryDao, pr
                 prefManager.setWorkDateAndCleanSession(today)
             }
         }
+        Log.d("MYAPP", "checkWorkDate() - DONE")
     }
 }

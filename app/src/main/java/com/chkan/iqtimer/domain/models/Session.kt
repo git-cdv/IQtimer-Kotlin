@@ -36,7 +36,7 @@ class Session @Inject constructor (private val pref: PrefManager, private val pr
     }
 
     fun cleanCount(){
-        countLiveData.value =0
+        countLiveData.postValue(0)
     }
 
     fun addDoneSession() {
