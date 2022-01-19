@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.chkan.iqtimer.MainActivity
 import com.chkan.iqtimer.R
 import com.chkan.iqtimer.databinding.FragmentProgressBinding
@@ -34,6 +35,7 @@ class ProgressFragment : Fragment() {
         val binding = FragmentProgressBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.goal = goal
+        binding.model = viewModel
         return binding.root
     }
 
@@ -51,6 +53,10 @@ class ProgressFragment : Fragment() {
          v.findViewById<ImageButton>(R.id.goal_btn_cancel).setOnClickListener {
              ConfirmDeleteGoalDialog().show(
                  childFragmentManager, ConfirmDeleteGoalDialog.TAG)
+         }
+
+         v.findViewById<MaterialButton>(R.id.achiev_btn_more).setOnClickListener {
+             findNavController().navigate(R.id.action_progressFragment_to_progressListFragment)
          }
 
          viewModel.deleteGoalLiveData.observe(this,{

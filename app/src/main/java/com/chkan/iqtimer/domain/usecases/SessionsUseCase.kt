@@ -21,15 +21,22 @@ class SessionsUseCase @Inject constructor(private val historyDao: HistoryDao, pr
 
     fun checkWorkDate() {
         val workDate = prefManager.getWorkDate()
-        val day = DateTime.parse(workDate)
-        val today = DateTime.now().toString("yyyy-MM-dd")
-        if(workDate!=today){
-            if(!workDate.isNullOrEmpty()){
-                session.cleanCount()
-                historyDao.insert(DatabaseModel(date = workDate, count = prefManager.getCurrentCount(), noMonth = day.monthOfYear , noDayOfWeek = day.dayOfWeek,date_full = DateTime.parse(workDate).toString("E, MMM d, yyyy")))
-                prefManager.setWorkDateAndCleanSession(today)
+        if(workDate!=null) {
+            val day = DateTime.parse(workDate)
+            val today = DateTime.now().toString("yyyy-MM-dd")
+            if (workDate != today) {
+                    session.cleanCount()
+                    historyDao.insert(
+                        DatabaseModel(
+                            date = workDate,
+                            count = prefManager.getCurrentCount(),
+                            noMonth = day.monthOfYear,
+                            noDayOfWeek = day.dayOfWeek,
+                            date_full = DateTime.parse(workDate).toString("E, MMM d, yyyy")
+                        )
+                    )
+                    prefManager.setWorkDateAndCleanSession(today)
             }
         }
-        Log.d("MYAPP", "checkWorkDate() - DONE")
     }
 }

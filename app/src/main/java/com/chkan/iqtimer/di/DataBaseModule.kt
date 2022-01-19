@@ -2,8 +2,9 @@ package com.chkan.iqtimer.di
 
 import android.content.Context
 import androidx.room.Room
+import com.chkan.iqtimer.data.room.AchievDao
+import com.chkan.iqtimer.data.room.AppDatabase
 import com.chkan.iqtimer.data.room.HistoryDao
-import com.chkan.iqtimer.data.room.HistoryDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,17 +19,23 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideAppDatabase(@ApplicationContext appContext: Context): HistoryDatabase {
+    fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {
         return Room
             .databaseBuilder(
                 appContext,
-                HistoryDatabase::class.java,
+                AppDatabase::class.java,
                 "history_db")
             .build()
     }
 
     @Provides
-    fun provideHistoryDao(db: HistoryDatabase): HistoryDao {
+    fun provideHistoryDao(db: AppDatabase): HistoryDao {
         return db.historyDao
     }
+
+    @Provides
+    fun provideAchievDao(db: AppDatabase): AchievDao {
+        return db.achievDao
+    }
+
 }

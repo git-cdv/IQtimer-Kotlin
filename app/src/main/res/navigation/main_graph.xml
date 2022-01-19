@@ -30,7 +30,11 @@
         android:id="@+id/progressFragment"
         android:name="com.chkan.iqtimer.ui.progress.ProgressFragment"
         android:label="fragment_progress"
-        tools:layout="@layout/fragment_progress" />
+        tools:layout="@layout/fragment_progress" >
+        <action
+            android:id="@+id/action_progressFragment_to_progressListFragment"
+            app:destination="@id/progressListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/statisticFragment"
         android:name="com.chkan.iqtimer.ui.statistic.StatisticFragment"
@@ -49,4 +53,9 @@
         android:id="@+id/statisticListFragment"
         android:name="com.chkan.iqtimer.ui.statistic.StatisticListFragment"
         android:label="StatisticListFragment" />
+    <fragment
+        android:id="@+id/progressListFragment"
+        android:name="com.chkan.iqtimer.ui.progress.ProgressListFragment"
+        android:label="fragment_progress_list"
+        tools:layout="@layout/fragment_progress_list" />
 </navigation>

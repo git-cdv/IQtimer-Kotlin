@@ -72,4 +72,8 @@ class ProgressUseCase @Inject constructor(private val pref: PrefManager, private
     fun setNewGoal(new_goal: GoalModel) {
         goal.setNewGoal(new_goal)
     }
+
+    fun isPremium(): Boolean {
+         return pref.isPremium()
+    }
 }

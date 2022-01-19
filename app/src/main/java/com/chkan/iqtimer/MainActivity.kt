@@ -11,6 +11,7 @@ import android.os.IBinder
 import android.util.Log
 import androidx.lifecycle.lifecycleScope
 import com.chkan.iqtimer.domain.TimerService
+import com.chkan.iqtimer.domain.usecases.AchievementsUseCase
 import com.chkan.iqtimer.domain.usecases.SessionsUseCase
 import com.chkan.iqtimer.ui.progress.GoalBottomFragment
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,6 +24,8 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var sessionsUseCase: SessionsUseCase
+    @Inject
+    lateinit var achievUseCase: AchievementsUseCase
 
     private lateinit var mService: TimerService
     private var isBound: Boolean = false
@@ -42,9 +45,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        lifecycleScope.launch {
+
+        lifecycleScope.launch (Dispatchers.IO) {
             if(sessionsUseCase.isFirst()){
                 sessionsUseCase.startFirst()
+                achievUseCase.initAchievements()
+                Log.d("MYAPP", "startFirst() - DONE")
             }
         }
     }

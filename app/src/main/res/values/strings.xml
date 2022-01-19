@@ -118,4 +118,6 @@
     <string name="already_owned">The item has already been purchased</string>
     <string name="create">Create</string>
     <string name="text_effectiv_days">Effective days</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -19,6 +19,10 @@ class PrefManager @Inject constructor (private val context: Context) {
         return pref.getBoolean(SP_IS_FIRST,true)
     }
 
+    fun isPremium(): Boolean{
+        return pref.getBoolean(SP_IS_PREMIUM,false)
+    }
+
     fun add (key:String, value: Boolean){
         pref.edit().putBoolean(key,value).apply()
     }
@@ -48,7 +52,7 @@ class PrefManager @Inject constructor (private val context: Context) {
     }
 
     fun getWorkDate(): String? {
-        return pref.getString(SP_WORK_DATE,"2000-03-12")
+        return pref.getString(SP_WORK_DATE,null)
     }
 
     fun getDefaultPlan(): Int {

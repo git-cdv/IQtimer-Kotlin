@@ -1,6 +1,7 @@
 package com.chkan.iqtimer.data.room
 
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface HistoryDao {
@@ -19,7 +20,19 @@ interface HistoryDao {
 
 }
 
-@Database(entities = [DatabaseModel::class], version = 1)
-abstract class HistoryDatabase: RoomDatabase() {
+@Dao
+interface AchievDao {
+
+    @Query("SELECT * FROM achievements")
+    fun getAchievementsFlow(): Flow<List<Achievements>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertList( list: List <Achievements>)
+
+}
+
+@Database(entities = [DatabaseModel::class, Achievements::class], version = 1)
+abstract class AppDatabase: RoomDatabase() {
     abstract val historyDao: HistoryDao
+    abstract val achievDao: AchievDao
 }

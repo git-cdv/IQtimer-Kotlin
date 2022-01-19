@@ -2,9 +2,11 @@ package com.chkan.iqtimer.di
 
 import android.content.Context
 import com.chkan.iqtimer.data.PrefManager
+import com.chkan.iqtimer.data.room.AchievDao
 import com.chkan.iqtimer.domain.models.Goal
 import com.chkan.iqtimer.ui.main.NotifManager
 import com.chkan.iqtimer.domain.models.Session
+import com.chkan.iqtimer.domain.usecases.AchievementsUseCase
 import com.chkan.iqtimer.domain.usecases.ProgressUseCase
 import com.chkan.iqtimer.ui.statistic.ChartManager
 import dagger.Module
@@ -27,6 +29,12 @@ object MainModule {
     @Provides
     fun provideProgress(pref: PrefManager, goal: Goal) : ProgressUseCase {
         return ProgressUseCase(pref,goal)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAchievements(@ApplicationContext appContext: Context, achievDao: AchievDao) : AchievementsUseCase {
+        return AchievementsUseCase(appContext,achievDao)
     }
 
     @Provides
