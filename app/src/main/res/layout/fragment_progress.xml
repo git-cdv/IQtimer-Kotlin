@@ -146,18 +146,18 @@
 
                     <TextView
                         android:id="@+id/countGoal_current_value"
-                        android:visibility="@{goal.state==1||goal.state==0 ? View.VISIBLE : View.INVISIBLE}"
+                        android:visibility="@{goal.state==1 ? View.VISIBLE : View.GONE}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="2dp"
-                        android:text='@{goal.daysCurrent + " / " + goal.daysPlan}'
+                        android:text='@{goal.timer}'
                         android:textColor="@color/brand_blue_900"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/progressBarGoal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/progressBarGoal"
-                        tools:text="0 / 0" />
+                        tools:text="0 days" />
 
                     <TextView
                         android:id="@+id/barGoal_current_value"
@@ -255,8 +255,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:contentDescription="@string/avatar_ach"
-                        />
+                        android:contentDescription="@string/avatar_ach" />
 
                     <ImageView
                         android:id="@+id/imageEntuziast"
@@ -267,8 +266,7 @@
                         app:layout_constraintEnd_toEndOf="@+id/image1"
                         app:layout_constraintStart_toStartOf="@+id/image1"
                         app:layout_constraintTop_toTopOf="@+id/image1"
-                        android:contentDescription="@string/avatar_ach"
-                        />
+                        android:contentDescription="@string/avatar_ach" />
 
                     <TextView
                         android:id="@+id/LevelEnt"
@@ -374,8 +372,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:contentDescription="@string/avatar_ach"
-                        />
+                        android:contentDescription="@string/avatar_ach" />
 
                     <ImageView
                         android:id="@+id/imageVoin"
@@ -386,8 +383,7 @@
                         app:layout_constraintEnd_toEndOf="@+id/image2"
                         app:layout_constraintStart_toStartOf="@+id/image2"
                         app:layout_constraintTop_toTopOf="@+id/image2"
-                        android:contentDescription="@string/avatar_ach"
-                        />
+                        android:contentDescription="@string/avatar_ach" />
 
                     <TextView
                         android:id="@+id/LevelVoin"
@@ -492,8 +488,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:contentDescription="@string/avatar_ach"
-                        />
+                        android:contentDescription="@string/avatar_ach" />
 
                     <ImageView
                         android:id="@+id/imageBoss"
@@ -504,8 +499,7 @@
                         app:layout_constraintEnd_toEndOf="@+id/image3"
                         app:layout_constraintStart_toStartOf="@+id/image3"
                         app:layout_constraintTop_toTopOf="@+id/image3"
-                        android:contentDescription="@string/avatar_ach"
-                        />
+                        android:contentDescription="@string/avatar_ach" />
 
                     <TextView
                         android:id="@+id/LevelBoss"
@@ -599,8 +593,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView4"
                 app:srcCompat="@drawable/ic_add_goal"
-                android:contentDescription="@string/new_goal"
-                />
+                android:contentDescription="@string/new_goal" />
 
             <ImageButton
                 android:id="@+id/goal_btn_cancel"
@@ -614,8 +607,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView4"
                 app:srcCompat="@drawable/ic_cancel_goal"
-                android:contentDescription="@string/cancel"
-                />
+                android:contentDescription="@string/cancel" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/achiev_btn_more"

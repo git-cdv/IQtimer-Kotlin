@@ -27,18 +27,6 @@ class ProgressViewModel @Inject constructor(
 
     val achievLiveData: LiveData<List<Achievements>> = achievUseCase.achievementsFlow.asLiveData()
 
-    init {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                _isPremium.postValue(progressUseCase.isPremium())
-                progressUseCase.checkGoalExpired()
-            } catch (e:Exception){
-                Log.d("MYAPP", "ProgressViewModel - checkGoalExpired(): ${e.message}")
-            }
-
-        }
-    }
-
     fun setNewGoal(goal: GoalModel) {
         progressUseCase.setNewGoal(goal)
     }
@@ -49,6 +37,18 @@ class ProgressViewModel @Inject constructor(
 
     fun deleteGoalDone() {
         _deleteGoalLiveData.value = false
+    }
+
+    fun checkGoal() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                _isPremium.postValue(progressUseCase.isPremium())
+                progressUseCase.checkGoalExpired()
+            } catch (e:Exception){
+                Log.d("MYAPP", "ProgressViewModel - checkGoalExpired(): ${e.message}")
+            }
+
+        }
     }
 
 }

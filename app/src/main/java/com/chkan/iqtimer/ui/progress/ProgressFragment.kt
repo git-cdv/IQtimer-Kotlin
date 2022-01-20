@@ -42,6 +42,8 @@ class ProgressFragment : Fragment() {
      override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
         super.onViewCreated(v, savedInstanceState)
 
+         viewModel.checkGoal()
+
          v.findViewById<ImageButton>(R.id.goal_btn_add).setOnClickListener {
              (activity as MainActivity).getBottomSheet()
          }

@@ -52,19 +52,14 @@ class ProgressUseCase @Inject constructor(private val pref: PrefManager, private
     }
 
     fun checkGoalExpired() {
-        if(pref.isGoalActive()) {
-            val startDate = DateTime.parse(pref.getMyString(SP_GOAL_START_DATE))
-            val today = DateTime.now()
-            val daysCurrent = today.dayOfYear - startDate.dayOfYear
-
-            if (daysCurrent > pref.getInt(SP_GOAL_DAYS_PLAN)) {
+        if (pref.isGoalActive()) {
+            val plan = pref.getLong(SP_GOAL_PLAN_TIME)
+            if (System.currentTimeMillis() > plan) {
                 goal.state.postValue(GOAL_STATUS_EXPIRED)
                 pref.add(SP_GOAL_STATUS, GOAL_STATUS_EXPIRED)
-            } else{
-                goal.daysCurrent.postValue(daysCurrent)
-                if(daysCurrent!=0){
-                    pref.add(SP_GOAL_DAYS_CURRENT, daysCurrent)
-                }
+            } else {
+                goal.timer.postValue(goal.getRestTime(pref.getLong(SP_GOAL_PLAN_TIME)))
+                Log.d("MYAPP", "checkGoalExpired() -timer.postValue")
             }
         }
     }

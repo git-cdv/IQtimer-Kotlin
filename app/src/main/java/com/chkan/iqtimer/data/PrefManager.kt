@@ -27,6 +27,10 @@ class PrefManager @Inject constructor (private val context: Context) {
         pref.edit().putBoolean(key,value).apply()
     }
 
+    fun add (key:String, value: Long){
+        pref.edit().putLong(key,value).apply()
+    }
+
     fun add (key:String, value: String){
         pref.edit().putString(key,value).apply()
     }
@@ -49,6 +53,10 @@ class PrefManager @Inject constructor (private val context: Context) {
 
     fun getInt(key : String): Int {
         return pref.getInt(key,0)
+    }
+
+    fun getLong(key : String): Long {
+        return pref.getLong(key,0)
     }
 
     fun getWorkDate(): String? {
@@ -79,22 +87,21 @@ class PrefManager @Inject constructor (private val context: Context) {
         pref.edit().putString(SP_WORK_DATE, today).putInt(SP_CURRENT_COUNT,0).apply()
     }
 
-    fun setNewGoal(name: String, desc: String, plan: Int, days: Int, type: Int) {
+    fun setNewGoal(name: String, desc: String, plan: Int, timeLong: Long, type: Int) {
         pref.edit().putString(SP_GOAL_NAME,name)
             .putString(SP_GOAL_DESC,desc)
             .putInt(SP_GOAL_PLAN,plan)
-            .putInt(SP_GOAL_DAYS_PLAN,days)
+            .putLong(SP_GOAL_PLAN_TIME,timeLong)
             .putInt(SP_GOAL_TYPE, type)
             .putInt(SP_GOAL_CURRENT,0)
             .putInt(SP_GOAL_STATUS, GOAL_STATUS_ACTIVE)
             .putString(SP_GOAL_DESC,desc)
-            .putString(SP_GOAL_START_DATE,DateTime.now().toString("yyyy-MM-dd"))
             .apply()
     }
 
     fun refreshGoal() {
         pref.edit().putString(SP_GOAL_NAME,nameDef).putString(SP_GOAL_DESC,descDef).putInt(SP_GOAL_PLAN,0)
-            .putInt(SP_GOAL_CURRENT,0).putInt(SP_GOAL_DAYS_PLAN,0)
+            .putInt(SP_GOAL_CURRENT,0).putLong(SP_GOAL_PLAN_TIME,0L)
             .putInt(SP_GOAL_TYPE, SESSIONS).putInt(SP_GOAL_STATUS, GOAL_STATUS_INACTIVE).apply()
     }
 
