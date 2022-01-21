@@ -2,4 +2,7 @@
 <resources>
     <string name="create">Create</string>
     <string name="text_effectiv_days">Effective days</string>
+    <string name="h">h</string>
+    <string name="m">m</string>
+    <string name="d">d</string>
 </resources>

@@ -120,4 +120,7 @@
     <string name="text_effectiv_days">Effective days</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="h">h</string>
+    <string name="m">m</string>
+    <string name="d">d</string>
 </resources>

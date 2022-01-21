@@ -72,11 +72,32 @@ class Goal @Inject constructor (private val pref: PrefManager) {
         return if(diff<86400000){
             val hours = diff / 3600000
             val minutes = (diff % 3600000)/60000
-            "$hours h $minutes m"
+            val h = pref.getShort('h')
+            val m = pref.getShort('m')
+            "$hours $h $minutes $m"
         } else {
             val days = diff / 86400000
             val hours = (diff % 86400000) / 3600000
-            "$days d $hours h"
+            val h = pref.getShort('h')
+            val d = pref.getShort('d')
+            "$days $d $hours $h"
         }
     }
+
+    fun getRestTimeLong(): Long {
+        return pref.getLong(SP_GOAL_PLAN_TIME) - System.currentTimeMillis()
+    }
+
+
+    fun isDayLeft(): Boolean {
+        val plan = pref.getLong(SP_GOAL_PLAN_TIME)
+        val diff = plan - System.currentTimeMillis()
+        return diff<86400000
+    }
+
+    fun setExpiredState(){
+        state.postValue(GOAL_STATUS_EXPIRED)
+        pref.add(SP_GOAL_STATUS, GOAL_STATUS_EXPIRED)
+    }
+
 }

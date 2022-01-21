@@ -133,4 +133,13 @@ class PrefManager @Inject constructor (private val context: Context) {
         return pref.getString(SP_GOAL_DESC,descDef)
     }
 
-}
+    fun getShort(c:Char):String? {
+        return when(c){
+                'h' -> context.resources?.getString(R.string.h)
+                'm' ->context.resources?.getString(R.string.m)
+                'd' ->context.resources?.getString(R.string.d)
+            else -> {""}
+        }
+
+    }
+    }

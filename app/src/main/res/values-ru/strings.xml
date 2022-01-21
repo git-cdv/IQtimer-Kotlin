@@ -118,4 +118,7 @@
     <string name="already_owned">Товар уже приобретен</string>
     <string name="create">Создать</string>
     <string name="text_effectiv_days">Эффективных дней</string>
+    <string name="h">ч</string>
+    <string name="m">м</string>
+    <string name="d">d</string>
 </resources>
