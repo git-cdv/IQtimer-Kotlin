@@ -8,7 +8,7 @@ import com.chkan.iqtimer.utils.*
 import org.joda.time.DateTime
 import javax.inject.Inject
 
-class ProgressUseCase @Inject constructor(private val pref: PrefManager, private val goal: Goal) {
+class ProgressUseCase @Inject constructor(private val pref: PrefManager, private val goal: Goal,private val achievUseCase: AchievementsUseCase) {
 
     fun getCounter() : Int{
         return pref.getCounter()
@@ -29,6 +29,7 @@ class ProgressUseCase @Inject constructor(private val pref: PrefManager, private
                 goal.counter.postValue(1)
                 pref.addEffectiveDate(today)
             }
+            if (pref.isPremium()){achievUseCase.update(ACHIEV_ID_ENTUSIAST)}
             checkGoal(EFFECTIVEDAYS)
         }
     }
@@ -48,15 +49,16 @@ class ProgressUseCase @Inject constructor(private val pref: PrefManager, private
     private fun checkGoalDone(count: Int) {
             if(count==pref.getInt(SP_GOAL_PLAN)){
                 goal.state.postValue(GOAL_STATUS_DONE)
-                pref.add(SP_GOAL_STATUS,GOAL_STATUS_DONE) }
+                pref.add(SP_GOAL_STATUS,GOAL_STATUS_DONE)
+                if (pref.isPremium()){achievUseCase.update(ACHIEV_ID_BOSS)}
+            }
     }
 
     fun checkGoalExpired() {
         if (pref.isGoalActive()) {
             val plan = pref.getLong(SP_GOAL_PLAN_TIME)
             if (System.currentTimeMillis() > plan) {
-                goal.state.postValue(GOAL_STATUS_EXPIRED)
-                pref.add(SP_GOAL_STATUS, GOAL_STATUS_EXPIRED)
+                goal.setExpiredState()
             } else {
                 goal.timer.postValue(goal.getRestTime(pref.getLong(SP_GOAL_PLAN_TIME)))
                 Log.d("MYAPP", "checkGoalExpired() -timer.postValue")
@@ -71,4 +73,9 @@ class ProgressUseCase @Inject constructor(private val pref: PrefManager, private
     fun isPremium(): Boolean {
          return pref.isPremium()
     }
+
+    fun setPremium(b: Boolean) {
+        pref.add(SP_IS_PREMIUM,b)
+    }
+
 }

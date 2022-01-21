@@ -72,6 +72,10 @@ class ProgressFragment : Fragment() {
              findNavController().navigate(R.id.action_progressFragment_to_progressListFragment)
          }
 
+         v.findViewById<ImageButton>(R.id.img_btn_lock).setOnClickListener {
+             viewModel.setPremium(true)
+         }
+
          viewModel.deleteGoalLiveData.observe(this,{
              if(it) {
                  goal.deleteGoal(resources.getString(R.string.goal_name_empty),resources.getString(R.string.goal_desc_empty))

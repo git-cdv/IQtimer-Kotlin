@@ -26,8 +26,14 @@ interface AchievDao {
     @Query("SELECT * FROM achievements")
     fun getAchievementsFlow(): Flow<List<Achievements>>
 
+    @Query("SELECT * FROM achievements WHERE id=:id")
+    fun getAchievementForId(id:Int): Achievements
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertList( list: List <Achievements>)
+
+    @Update
+    fun update(item:Achievements)
 
 }
 

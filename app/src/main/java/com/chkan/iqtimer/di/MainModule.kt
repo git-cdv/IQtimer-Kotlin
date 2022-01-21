@@ -27,14 +27,14 @@ object MainModule {
     }
 
     @Provides
-    fun provideProgress(pref: PrefManager, goal: Goal) : ProgressUseCase {
-        return ProgressUseCase(pref,goal)
+    fun provideProgress(pref: PrefManager, goal: Goal, achiv: AchievementsUseCase) : ProgressUseCase {
+        return ProgressUseCase(pref,goal,achiv)
     }
 
     @Provides
     @Singleton
-    fun provideAchievements(@ApplicationContext appContext: Context, achievDao: AchievDao) : AchievementsUseCase {
-        return AchievementsUseCase(appContext,achievDao)
+    fun provideAchievements(@ApplicationContext appContext: Context, achievDao: AchievDao, pref: PrefManager) : AchievementsUseCase {
+        return AchievementsUseCase(appContext,achievDao,pref)
     }
 
     @Provides

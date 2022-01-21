@@ -47,8 +47,12 @@ class ProgressViewModel @Inject constructor(
             } catch (e:Exception){
                 Log.d("MYAPP", "ProgressViewModel - checkGoalExpired(): ${e.message}")
             }
-
         }
+    }
+
+    fun setPremium(b: Boolean) {
+        progressUseCase.setPremium(b)
+        _isPremium.value = b
     }
 
 }

@@ -69,7 +69,7 @@
     <string name="p_title_legenda">Легенда</string>
     <string name="p_title_pobeditel">Победитель</string>
     <string name="p_title_boss">Босс</string>
-    <string name="p_desc_entuziast">Удержите эффективный режим %1$d рабочих дней подряд</string>
+    <string name="p_desc_entuziast">Отработайте в эффективном режиме %1$d дней</string>
     <string name="p_desc_voin">Выполните работу в %1$d выходных дня</string>
     <string name="p_desc_hero">Выполните план в %1$d выходных дня</string>
     <string name="p_desc_pokoritel">Отработайте подряд %1$d рабочих дней</string>

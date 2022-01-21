@@ -34,8 +34,7 @@ class TimerService : Service() {
 
     override fun onCreate() {
         super.onCreate()
-        //leftInMillis = session.timeDefault.toLong()*60000
-        leftInMillis = 10000
+        leftInMillis = session.timeDefault.toLong()*60000
         breakInMillis = session.breakDefault.toLong()*60000
     }
 

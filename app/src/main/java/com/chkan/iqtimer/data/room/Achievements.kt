@@ -11,11 +11,11 @@ data class Achievements (
     @ColumnInfo(name = "Title")
     val title: String,
     @ColumnInfo(name = "Level")
-    val level: Int,
+    var level: Int,
     @ColumnInfo(name = "Current")
-    val current: Int,
+    var current: Int,
     @ColumnInfo(name = "Plan")
-    val plan: Int,
-    @ColumnInfo(name = "PlanAsArray")
-    val planAsArray: String
+    var plan: Int,
+    @ColumnInfo(name = "PlanIndex")
+    val planIndex: Int
 )
