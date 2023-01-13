@@ -98,5 +98,18 @@
         app:layout_constraintTop_toTopOf="@+id/main_ring_count"
         tools:text="5" />
 
+    <ImageView
+        android:id="@+id/tutorialDot"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:gravity="center"
+        android:src="@drawable/shape_tutorial_dot"
+        app:layout_constraintBottom_toBottomOf="@+id/main_tv_timer"
+        app:layout_constraintEnd_toEndOf="@+id/main_tv_timer"
+        app:layout_constraintStart_toStartOf="@+id/main_tv_timer"
+        app:layout_constraintTop_toTopOf="@+id/main_tv_timer"
+        android:visibility="gone"
+        android:contentDescription="@string/tutorial_mess1" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

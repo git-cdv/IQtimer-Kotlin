@@ -16,15 +16,15 @@ class NotifManager @Inject constructor (private val context: Context) {
 
     val channelId = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) createChannel() else ""
     val intentMain = Intent(context, MainActivity::class.java)
-    val pendingToMain = PendingIntent.getActivity(context, 1, intentMain, 0)
+    val pendingToMain = PendingIntent.getActivity(context, 1, intentMain, PendingIntent.FLAG_IMMUTABLE)
     val stopIntent = Intent(context, TimerService::class.java).putExtra(KEY_COMMAND, COM_STOP_NOTIF)
-    val pendingStop = PendingIntent.getService(context, 2, stopIntent, 0)
+    val pendingStop = PendingIntent.getService(context, 2, stopIntent, PendingIntent.FLAG_IMMUTABLE)
     val pauseIntent = Intent(context, TimerService::class.java).putExtra(KEY_COMMAND, COM_PAUSE_NOTIF)
-    val pendingPause = PendingIntent.getService(context, 3, pauseIntent, 0)
+    val pendingPause = PendingIntent.getService(context, 3, pauseIntent, PendingIntent.FLAG_IMMUTABLE)
     val continueIntent = Intent(context, TimerService::class.java).putExtra(KEY_COMMAND, COM_RUN_NOTIF)
-    val pendingContinue = PendingIntent.getService(context, 6, continueIntent, 0)
+    val pendingContinue = PendingIntent.getService(context, 6, continueIntent, PendingIntent.FLAG_IMMUTABLE)
     val startBreakIntent = Intent(context, TimerService::class.java).putExtra(KEY_COMMAND, COM_BREAK_NOTIF)
-    val pendingBreak = PendingIntent.getService(context, 8, startBreakIntent, 0)
+    val pendingBreak = PendingIntent.getService(context, 8, startBreakIntent, PendingIntent.FLAG_IMMUTABLE)
 
     fun onRun(time: String): Notification {
 

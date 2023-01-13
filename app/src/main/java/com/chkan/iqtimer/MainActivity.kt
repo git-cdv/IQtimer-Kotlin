@@ -5,10 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.chkan.iqtimer.domain.TimerService
 import com.chkan.iqtimer.domain.usecases.AchievementsUseCase
@@ -19,13 +19,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
-    @Inject
-    lateinit var sessionsUseCase: SessionsUseCase
-    @Inject
-    lateinit var achievUseCase: AchievementsUseCase
 
     private lateinit var mService: TimerService
     private var isBound: Boolean = false
@@ -45,14 +41,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        lifecycleScope.launch (Dispatchers.IO) {
-            if(sessionsUseCase.isFirst()){
-                sessionsUseCase.startFirst()
-                achievUseCase.initAchievements()
-                Log.d("MYAPP", "startFirst() - DONE")
-            }
-        }
     }
 
     fun startTimer(){
@@ -86,14 +74,6 @@ class MainActivity : AppCompatActivity() {
         Intent(this, TimerService::class.java).also { intent ->
             bindService(intent, connection, Context.BIND_AUTO_CREATE)
         }
-        lifecycleScope.launch(Dispatchers.IO) {
-            try {
-                sessionsUseCase.checkWorkDate()
-            } catch (e:Exception){
-                Log.d("MYAPP", "onStart() - Exception: ${e.message}")
-            }
-
-        }
     }
 
     override fun onStop() {
@@ -113,4 +93,5 @@ class MainActivity : AppCompatActivity() {
             show(supportFragmentManager,"TAG_SHEET")
         }
     }
+
 }

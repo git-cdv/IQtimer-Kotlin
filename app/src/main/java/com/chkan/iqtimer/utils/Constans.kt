@@ -35,5 +35,8 @@ const val ACHIEV_ID_BOSS = 2
 const val SP_COUNTER = "PROGRESS_Counter"
 const val SP_EFFECTIVE_DATE = "PROGRESS_Effective_Date"
 
+const val INTRO_SNACKBAR_STEP = "INTRO_STEP"
+
+
 
 
