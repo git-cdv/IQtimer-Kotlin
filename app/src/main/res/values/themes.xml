@@ -3,15 +3,16 @@
     <style name="Theme.Iqtimer" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/brand_blue_900</item>
-        <item name="colorPrimaryVariant">@color/brand_blue_600</item>
+        <item name="colorPrimaryVariant">@color/brand_blue_200</item>
         <item name="colorOnPrimary">@color/brand_blue_900</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/brand_orange</item>
-        <item name="colorSecondaryVariant">@color/brand_blue_600</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondaryVariant">@color/brand_blue_200</item>
+        <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/brand_blue_200</item>
         <!-- Customize your theme here. -->
+        <item name="android:textColor">@color/brand_blue_900</item>
     </style>
 
 </resources>

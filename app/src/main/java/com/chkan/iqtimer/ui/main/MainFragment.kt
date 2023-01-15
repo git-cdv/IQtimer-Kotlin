@@ -18,6 +18,7 @@ import com.chkan.iqtimer.R
 import com.chkan.iqtimer.databinding.FragmentMainBinding
 import com.chkan.iqtimer.domain.models.Session
 import com.chkan.iqtimer.utils.State
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -149,7 +150,8 @@ open class MainFragment : Fragment() {
                 }
                 .setAnchorView(binding.mainBtnMenu)
                 .setActionTextColor(Color.WHITE)
-                .setBackgroundTint(resources.getColor(R.color.brand_blue_900, requireContext().theme))
+                .setBackgroundTint(MaterialColors.getColor(requireContext(),R.attr.colorOnPrimary,R.color.brand_blue_900))
+                .setTextColor(MaterialColors.getColor(requireContext(),R.attr.colorPrimaryVariant,R.color.brand_blue_200))
                 .setBehavior(object : BaseTransientBottomBar.Behavior() {
                     override fun canSwipeDismissView(child: View): Boolean {
                         return false

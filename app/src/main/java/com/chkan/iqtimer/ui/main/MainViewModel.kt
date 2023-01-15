@@ -1,7 +1,5 @@
 package com.chkan.iqtimer.ui.main
 
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.chkan.iqtimer.domain.usecases.AchievementsUseCase
@@ -37,7 +35,7 @@ class MainViewModel @Inject constructor(
                 sessionsUseCase.startFirst()
                 achievUseCase.initAchievements()
             } else {
-                isFirstLiveData.postValue(true)
+                isFirstLiveData.postValue(false)
             }
         }
     }

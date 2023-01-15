@@ -30,10 +30,10 @@ class StatisticListFragment : Fragment() {
         val recyclerView: RecyclerView = view.findViewById(R.id.rv_statistic)
         val adapter = StatisticAdapter()
         viewModel.getListTotal()
-        viewModel.listTotal.observe(this,{
+        viewModel.listTotal.observe(viewLifecycleOwner) {
             adapter.setList(it)
             recyclerView.adapter = adapter
-        })
+        }
         val fab = view.findViewById<FloatingActionButton>(R.id.fab_list)
         fab.alpha = 0.5F
         fab.setOnClickListener {

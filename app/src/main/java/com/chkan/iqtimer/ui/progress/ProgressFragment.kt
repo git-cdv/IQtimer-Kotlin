@@ -76,22 +76,27 @@ class ProgressFragment : Fragment() {
              viewModel.setPremium(true)
          }
 
-         viewModel.deleteGoalLiveData.observe(this,{
-             if(it) {
-                 goal.deleteGoal(resources.getString(R.string.goal_name_empty),resources.getString(R.string.goal_desc_empty))
+         viewModel.deleteGoalLiveData.observe(viewLifecycleOwner) {
+             if (it) {
+                 goal.deleteGoal(
+                     resources.getString(R.string.goal_name_empty),
+                     resources.getString(R.string.goal_desc_empty)
+                 )
                  viewModel.deleteGoalDone()
                  Log.d("MYAPP", "ProgressFragment - deleteGoal: $it")
              }
-         })
+         }
 
-         goal.state.observe(this,{
+         goal.state.observe(viewLifecycleOwner) {
              Log.d("MYAPP", "ProgressFragment - state: $it")
-             when (it){
-                 GOAL_STATUS_DONE -> v.findViewById<TextView>(R.id.goal_done_text).text = resources.getString(R.string.textGoalDone)
-                 GOAL_STATUS_EXPIRED -> v.findViewById<TextView>(R.id.goal_done_text).text = goal.getExpiredText(resources.getString(R.string.textDaysEnded))
+             when (it) {
+                 GOAL_STATUS_DONE -> v.findViewById<TextView>(R.id.goal_done_text).text =
+                     resources.getString(R.string.textGoalDone)
+                 GOAL_STATUS_EXPIRED -> v.findViewById<TextView>(R.id.goal_done_text).text =
+                     goal.getExpiredText(resources.getString(R.string.textDaysEnded))
              }
-         })
-    }
+         }
+     }
 
     private fun startGoalTimer(restTime: Long) {
         timerObject = object : CountDownTimer(restTime, 60000) {

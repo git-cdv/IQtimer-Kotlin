@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/rounded_dialog"
-    android:backgroundTint="@color/white"
+    android:backgroundTint="?colorOnSecondary"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -15,7 +15,7 @@
         android:layout_marginTop="24dp"
         android:text="@string/text_my_goal"
         android:textAppearance="@style/TextAppearance.AppCompat.Display4"
-        android:textColor="?colorOnPrimary"
+        android:textColor="?colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,8 +28,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         app:errorEnabled="true"
-        app:boxBackgroundColor="@color/brand_blue_200"
-        app:boxStrokeColor="@color/brand_blue_900"
+        app:boxBackgroundColor="?colorSecondaryVariant"
+        app:boxStrokeColor="?colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_my_goal">
 
@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/text_quantity"
-            android:textColorHint="@color/brand_blue_600"
+            android:textColorHint="?colorPrimary"
             android:imeOptions="actionDone"
             android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -51,8 +51,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         app:errorEnabled="true"
-        app:boxBackgroundColor="@color/brand_blue_200"
-        app:boxStrokeColor="@color/brand_blue_900"
+        app:boxBackgroundColor="?colorSecondaryVariant"
+        app:boxStrokeColor="?colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/goal_til_quantity"
         app:layout_constraintTop_toTopOf="@+id/goal_til_quantity">
@@ -74,7 +74,7 @@
         android:layout_marginBottom="16dp"
         android:text="@string/text_in"
         android:textAppearance="@style/TextAppearance.AppCompat.Display4"
-        android:textColor="?colorOnPrimary"
+        android:textColor="?colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/goal_til_days"
@@ -88,8 +88,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         app:errorEnabled="true"
-        app:boxBackgroundColor="@color/brand_blue_200"
-        app:boxStrokeColor="@color/brand_blue_900"
+        app:boxBackgroundColor="?colorSecondaryVariant"
+        app:boxStrokeColor="?colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/goal_text_in"
         app:layout_constraintTop_toBottomOf="@+id/goal_field_type">
@@ -100,8 +100,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/dlg_progress_q_days"
             android:imeOptions="actionDone"
-            android:inputType="number"
-            android:textColor="?colorOnPrimary" />
+            android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -111,8 +110,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        app:boxBackgroundColor="@color/brand_blue_200"
-        app:boxStrokeColor="@color/brand_blue_900"
+        app:boxBackgroundColor="?colorSecondaryVariant"
+        app:boxStrokeColor="?colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/goal_til_days">
@@ -125,7 +124,6 @@
             android:hint="@string/goal_name_empty"
             android:inputType="text"
             android:text="@string/goal_number"
-            android:textColor="?colorOnPrimary"
             android:textColorHint="@color/brand_blue_600" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -137,8 +135,8 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="24dp"
         android:text="@string/create"
-        android:textColor="@color/white"
-        app:backgroundTint="@color/brand_blue_900"
+        android:textColor="?colorPrimaryVariant"
+        app:backgroundTint="?colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />

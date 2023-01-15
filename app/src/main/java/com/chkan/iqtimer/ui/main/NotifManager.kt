@@ -2,13 +2,10 @@ package com.chkan.iqtimer.ui.main
 
 import android.app.*
 import android.content.Context
-import android.content.Context.NOTIFICATION_SERVICE
 import android.content.Intent
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContextCompat.getSystemService
 import com.chkan.iqtimer.MainActivity
 import com.chkan.iqtimer.R
 import com.chkan.iqtimer.domain.TimerService
@@ -17,18 +14,19 @@ import javax.inject.Inject
 
 class NotifManager @Inject constructor (private val context: Context, private val notificationManager: NotificationManager ) {
 
-    val channelProgressId = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) createProgressChannel() else ""
-    val channelResultId = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) createResultChannel() else ""
+    private val channelProgressId = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) createProgressChannel() else ""
+    private val channelResultId = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) createResultChannel() else ""
 
-    val pendingToMain = PendingIntent.getActivity(context, 1, Intent(context, MainActivity::class.java), PendingIntent.FLAG_IMMUTABLE)
-    val stopIntent = Intent(context, TimerService::class.java).putExtra(KEY_COMMAND, COM_STOP_NOTIF)
-    val pendingStop = PendingIntent.getService(context, 2, stopIntent, PendingIntent.FLAG_IMMUTABLE)
-    val pauseIntent = Intent(context, TimerService::class.java).putExtra(KEY_COMMAND, COM_PAUSE_NOTIF)
-    val pendingPause = PendingIntent.getService(context, 3, pauseIntent, PendingIntent.FLAG_IMMUTABLE)
-    val continueIntent = Intent(context, TimerService::class.java).putExtra(KEY_COMMAND, COM_RUN_NOTIF)
-    val pendingContinue = PendingIntent.getService(context, 6, continueIntent, PendingIntent.FLAG_IMMUTABLE)
-    val startBreakIntent = Intent(context, TimerService::class.java).putExtra(KEY_COMMAND, COM_BREAK_NOTIF)
-    val pendingBreak = PendingIntent.getService(context, 8, startBreakIntent, PendingIntent.FLAG_IMMUTABLE)
+    private val pendingToMain = PendingIntent.getActivity(context, 1, Intent(context, MainActivity::class.java), PendingIntent.FLAG_IMMUTABLE)
+    private val pendingStop = createPending(2,COM_STOP_NOTIF)
+    private val pendingPause = createPending(3,COM_PAUSE_NOTIF)
+    private val pendingContinue = createPending(6,COM_RUN_NOTIF)
+    private val pendingBreak = createPending(8,COM_BREAK_NOTIF)
+
+    private fun createPending(code:Int, command:Int) : PendingIntent {
+        val intent = Intent(context, TimerService::class.java).putExtra(KEY_COMMAND, command)
+        return PendingIntent.getService(context, code, intent, PendingIntent.FLAG_IMMUTABLE)
+    }
 
     fun onRun(time: String): Notification {
 
