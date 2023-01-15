@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.CountDownTimer
 import android.os.IBinder
 import android.util.Log
+import androidx.core.app.NotificationManagerCompat
 import com.chkan.iqtimer.domain.models.Session
 import com.chkan.iqtimer.ui.main.NotifManager
 import com.chkan.iqtimer.utils.*
@@ -24,6 +25,7 @@ class TimerService : Service() {
 
     @Inject lateinit var session: Session
     @Inject lateinit var notifManager: NotifManager
+    @Inject lateinit var notificationManager: NotificationManager
 
     companion object {
         var leftInMillis: Long = 0
@@ -142,8 +144,6 @@ class TimerService : Service() {
         } else {
             stopForeground(false)
         }
-        val notificationManager =
-            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.notify(1, notif)
     }
 

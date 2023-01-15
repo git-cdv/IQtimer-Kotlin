@@ -1,6 +1,8 @@
 package com.chkan.iqtimer.di
 
+import android.app.NotificationManager
 import android.content.Context
+import android.content.Context.NOTIFICATION_SERVICE
 import com.chkan.iqtimer.data.PrefManager
 import com.chkan.iqtimer.data.room.AchievDao
 import com.chkan.iqtimer.domain.models.Goal
@@ -51,14 +53,20 @@ object MainModule {
 
     @Provides
     @Singleton
-    fun provideNotif(@ApplicationContext appContext: Context): NotifManager {
-        return NotifManager(appContext)
+    fun provideNotif(@ApplicationContext appContext: Context, manager: NotificationManager): NotifManager {
+        return NotifManager(appContext,manager)
     }
 
     @Provides
     @Singleton
     fun provideChartManager(@ApplicationContext appContext: Context) : ChartManager {
         return ChartManager(appContext)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNotificationManager(@ApplicationContext appContext: Context): NotificationManager {
+        return appContext.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
     }
 
 }
