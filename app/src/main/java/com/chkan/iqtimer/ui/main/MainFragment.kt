@@ -175,7 +175,6 @@ open class MainFragment : Fragment() {
     }
 
     override fun onDestroy() {
-        session.cleanScope()
         _binding = null
         super.onDestroy()
     }

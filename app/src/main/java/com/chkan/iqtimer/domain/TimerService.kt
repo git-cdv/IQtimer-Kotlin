@@ -164,4 +164,9 @@ class TimerService : Service() {
     fun updateBreak() {
         breakInMillis = session.breakDefault.toLong()*60000
     }
+
+    override fun onDestroy() {
+        session.cleanScope()
+        super.onDestroy()
+    }
 }
