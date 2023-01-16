@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.chkan.iqtimer.R
 import com.chkan.iqtimer.data.PrefManager
 import com.chkan.iqtimer.utils.*
+import java.util.*
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
@@ -38,7 +39,7 @@ class Goal @Inject constructor (private val pref: PrefManager) {
         goalCurrent.value = 0
         goalPlan.value = goal.plan
         //86400000 - кол-во миллисекунд в дне
-        val timeLong = System.currentTimeMillis()+(goal.days_plan*86400000)
+        val timeLong = System.currentTimeMillis() + (goal.days_plan.toLong()*86400000)
         timer.value = setPlanTime(timeLong)
         pref.setNewGoal(goal.name,goal.desc,goal.plan,timeLong,goal.type)
     }
