@@ -26,11 +26,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
     private var editTextTime : EditTextPreference? = null
     private var editTextBreak : EditTextPreference? = null
     private var editTextPlan : EditTextPreference? = null
-    private var switchSound : SwitchPreference? = null
-    private var setWorkSound : Preference? = null
-    private var setBreakSound : Preference? = null
-    private var setSilentSound : SwitchPreference? = null
-
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.settings, rootKey)
@@ -47,11 +42,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
 
         editTextPlan = preferenceManager.findPreference(SP_DEFAULT_PLAN)
         editTextPlan?.summary = pref.getString(SP_DEFAULT_PLAN,"8") + " " + getString(R.string.sessiy)
-
-        switchSound = preferenceManager.findPreference(SP_SWITCH_SOUND)
-        setWorkSound = preferenceManager.findPreference("SETTING_work_sound")
-        setBreakSound = preferenceManager.findPreference("SETTING_break_sound")
-        setSilentSound = preferenceManager.findPreference("SETTING_Switch_outsilent")
 
         val editTextListener = OnBindEditTextListener { editText: EditText ->
             editText.inputType = InputType.TYPE_CLASS_NUMBER
@@ -88,12 +78,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
                 editTextPlan?.summary =  plan + " " + getString(R.string.sessiy)
                 session.planLiveData.value = plan?.toInt()
             }
-            SP_SWITCH_SOUND -> {
-                val switch = pref.getBoolean(SP_SWITCH_SOUND,true)
-                    setWorkSound?.isVisible = switch
-                    setBreakSound?.isVisible = switch
-                    setSilentSound?.isVisible = switch
-                }
             }
         }
 
