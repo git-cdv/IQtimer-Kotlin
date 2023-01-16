@@ -6,6 +6,7 @@ import androidx.preference.PreferenceManager
 import com.chkan.iqtimer.R
 import com.chkan.iqtimer.utils.*
 import org.joda.time.DateTime
+import org.joda.time.LocalDate
 import javax.inject.Inject
 
 class PrefManager @Inject constructor (private val context: Context) {
@@ -121,8 +122,8 @@ class PrefManager @Inject constructor (private val context: Context) {
         pref.edit().putInt(SP_COUNTER,value).apply()
     }
 
-    fun addEffectiveDate(today: DateTime?) {
-        pref.edit().putString(SP_EFFECTIVE_DATE,today?.toString("yyyy-MM-dd")).apply()
+    fun addEffectiveDate(today: LocalDate?) {
+        pref.edit().putString(SP_EFFECTIVE_DATE,today?.toString()).apply()
     }
 
     fun getGoalName(): String? {

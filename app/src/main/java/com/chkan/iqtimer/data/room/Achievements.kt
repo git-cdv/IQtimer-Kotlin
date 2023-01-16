@@ -17,5 +17,7 @@ data class Achievements (
     @ColumnInfo(name = "Plan")
     var plan: Int,
     @ColumnInfo(name = "PlanIndex")
-    val planIndex: Int
+    val planIndex: Int,
+    @ColumnInfo(name = "lastResultDay")
+    var lastResultDay: String
 )

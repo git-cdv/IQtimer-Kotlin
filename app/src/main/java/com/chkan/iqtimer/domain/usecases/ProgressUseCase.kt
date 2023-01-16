@@ -5,7 +5,7 @@ import com.chkan.iqtimer.data.PrefManager
 import com.chkan.iqtimer.domain.models.Goal
 import com.chkan.iqtimer.domain.models.GoalModel
 import com.chkan.iqtimer.utils.*
-import org.joda.time.DateTime
+import org.joda.time.LocalDate
 import javax.inject.Inject
 
 class ProgressUseCase @Inject constructor(private val pref: PrefManager, private val goal: Goal,private val achievUseCase: AchievementsUseCase) {
@@ -16,8 +16,8 @@ class ProgressUseCase @Inject constructor(private val pref: PrefManager, private
 
     fun checkEffectiveCounter(current:Int) {
         if(pref.getDefaultPlan()==current){//если выполнили план
-            val effectiveDateCurrent = DateTime.parse(pref.getEffectiveDate())
-            val today = DateTime.now()
+            val effectiveDateCurrent = LocalDate.parse(pref.getEffectiveDate())
+            val today = LocalDate.now()
             //если эффективный день был вчера
             if(effectiveDateCurrent.dayOfYear()==today.minusDays(1).dayOfYear()){
                 val counter = pref.getCounter()+1
@@ -29,8 +29,19 @@ class ProgressUseCase @Inject constructor(private val pref: PrefManager, private
                 goal.counter.postValue(1)
                 pref.addEffectiveDate(today)
             }
-            if (pref.isPremium()){achievUseCase.update(ACHIEV_ID_ENTUSIAST)}
+            if (pref.isPremium()){
+                achievUseCase.update(ACHIEV_ID_ENTUSIAST)
+                checkWeekendAchiev(ACHIEV_ID_HERO)
+            }
             checkGoal(EFFECTIVEDAYS)
+        }
+    }
+
+    fun checkWeekendAchiev(id: Int) {
+        val today = LocalDate.now()
+        val isWeekend = today.dayOfWeek == 6 || today.dayOfWeek == 7
+        if (pref.isPremium() && isWeekend){
+            achievUseCase.updateWithDate(id,today.toString())
         }
     }
 

@@ -1,15 +1,11 @@
 package com.chkan.iqtimer.domain.usecases
 
 import android.content.Context
-import android.util.Log
 import com.chkan.iqtimer.R
 import com.chkan.iqtimer.data.PrefManager
 import com.chkan.iqtimer.data.room.AchievDao
 import com.chkan.iqtimer.data.room.Achievements
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AchievementsUseCase @Inject constructor(private val ctx: Context, private val achievDao: AchievDao, private val pref: PrefManager){
@@ -22,13 +18,13 @@ class AchievementsUseCase @Inject constructor(private val ctx: Context, private 
 
     fun initAchievements(){
         val list = mutableListOf<Achievements>()
-        list.add(Achievements(0,ctx.resources.getString(R.string.p_title_entuziast),0,0,5,0))
-        list.add(Achievements(1,ctx.resources.getString(R.string.p_title_voin),0,0,2,1))
-        list.add(Achievements(2,ctx.resources.getString(R.string.p_title_boss),0,0,2,1))
-        list.add(Achievements(3,ctx.resources.getString(R.string.p_title_pokoritel),0,0,5,0))
-        list.add(Achievements(4,ctx.resources.getString(R.string.p_title_hero),0,0,2,1))
-        list.add(Achievements(5,ctx.resources.getString(R.string.p_title_legenda),0,0,2,2))
-        list.add(Achievements(6,ctx.resources.getString(R.string.p_title_pobeditel),0,0,6,3))
+        list.add(Achievements(0,ctx.resources.getString(R.string.p_title_entuziast),0,0,5,0,""))
+        list.add(Achievements(1,ctx.resources.getString(R.string.p_title_voin),0,0,2,1,""))
+        list.add(Achievements(2,ctx.resources.getString(R.string.p_title_boss),0,0,2,1,""))
+        list.add(Achievements(3,ctx.resources.getString(R.string.p_title_pokoritel),0,0,5,0,""))
+        list.add(Achievements(4,ctx.resources.getString(R.string.p_title_hero),0,0,2,1,""))
+        list.add(Achievements(5,ctx.resources.getString(R.string.p_title_legenda),0,0,2,2,""))
+        list.add(Achievements(6,ctx.resources.getString(R.string.p_title_pobeditel),0,0,6,3,""))
         achievDao.insertList(list)
     }
 
@@ -46,5 +42,26 @@ class AchievementsUseCase @Inject constructor(private val ctx: Context, private 
             achiev.current = count
             achievDao.update(achiev)
         }
+    }
+
+    fun updateWithDate(id: Int, today: String) {
+        val achiev = achievDao.getAchievementForId(id)
+        if(achiev.lastResultDay != today){
+            val count = achiev.current+1
+
+            if(count==achiev.plan){
+                val level = achiev.level+1
+                achiev.level = level
+                achiev.current = count
+                achiev.plan = typePlans[achiev.planIndex][level]
+                achiev.lastResultDay = today
+                achievDao.update(achiev)
+            } else{
+                achiev.current = count
+                achiev.lastResultDay = today
+                achievDao.update(achiev)
+            }
+        }
+
     }
 }
