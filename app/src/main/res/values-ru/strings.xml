@@ -65,14 +65,13 @@
     <string name="p_title_entuziast">Энтузиаст</string>
     <string name="p_title_voin">Воин выходного дня</string>
     <string name="p_title_hero">Герой выходного дня</string>
-    <string name="p_title_pokoritel">Покоритель</string>
     <string name="p_title_legenda">Легенда</string>
     <string name="p_title_pobeditel">Победитель</string>
     <string name="p_title_boss">Босс</string>
     <string name="p_desc_entuziast">Отработайте в эффективном режиме %1$d дней</string>
     <string name="p_desc_voin">Выполните работу в %1$d выходных дня</string>
     <string name="p_desc_hero">Выполните план в %1$d выходных дня</string>
-    <string name="p_desc_pokoritel">Отработайте подряд %1$d рабочих дней</string>
+    <string name="p_desc_pokoritel">Делай перерывы %1$d дней</string>
     <string name="p_desc_legenda">Выполните достижения Энтузиаст, Герой выходного дня и Покоритель до %1$d уровня</string>
     <string name="p_desc_pobeditel">Выполните все достижения до 10 уровня</string>
     <string name="p_desc_boss">Выполните %1$d Главных целей</string>
@@ -122,4 +121,5 @@
     <string name="m">м</string>
     <string name="d">d</string>
     <string name="Days">Дней</string>
+    <string name="p_title_strateg">Стратег</string>
 </resources>

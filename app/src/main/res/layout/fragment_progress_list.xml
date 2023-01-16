@@ -457,7 +457,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
-                        android:text="@string/p_title_pokoritel"
+                        android:text="@string/p_title_strateg"
                         android:textAppearance="@style/TextAppearance.AppCompat.Display4"
                         android:textColor="?colorPrimary"
                         android:textSize="16sp"

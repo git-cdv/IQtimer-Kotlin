@@ -123,6 +123,7 @@ class TimerService : Service() {
             Log.d("MYAPP", "onFinish() - isBreak: $isBreak")
             if (isBreak) {
                 stopMyForegroud(notifManager.onBreakEnd())
+                session.addDoneBreak()
                 isBreak = false
             }else {
                 try {

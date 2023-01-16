@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class AchievementsUseCase @Inject constructor(private val ctx: Context, private val achievDao: AchievDao, private val pref: PrefManager){
 
-    private val typePlans = arrayListOf(arrayOf(5,10,30,50,75,100,150,200,275,365), arrayOf(2,6,10,14,20,30,40,50,75,100),
+    private val typePlans = arrayListOf(arrayOf(5,7,10,14,28,35,70,100,120,180), arrayOf(2,6,10,14,20,30,40,50,60,75),
         arrayOf(3,3,3,3,3,3,3,3,3,3,3), arrayOf(6,6,6,6,6,6,6,6,6,6,6))
 
     val achievementsFlow: Flow<List<Achievements>>
@@ -21,7 +21,7 @@ class AchievementsUseCase @Inject constructor(private val ctx: Context, private 
         list.add(Achievements(0,ctx.resources.getString(R.string.p_title_entuziast),0,0,5,0,""))
         list.add(Achievements(1,ctx.resources.getString(R.string.p_title_voin),0,0,2,1,""))
         list.add(Achievements(2,ctx.resources.getString(R.string.p_title_boss),0,0,2,1,""))
-        list.add(Achievements(3,ctx.resources.getString(R.string.p_title_pokoritel),0,0,5,0,""))
+        list.add(Achievements(3,ctx.resources.getString(R.string.p_title_strateg),0,0,5,0,""))
         list.add(Achievements(4,ctx.resources.getString(R.string.p_title_hero),0,0,2,1,""))
         list.add(Achievements(5,ctx.resources.getString(R.string.p_title_legenda),0,0,2,2,""))
         list.add(Achievements(6,ctx.resources.getString(R.string.p_title_pobeditel),0,0,6,3,""))

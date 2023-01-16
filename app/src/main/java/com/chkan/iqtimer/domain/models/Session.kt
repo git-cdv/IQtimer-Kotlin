@@ -53,4 +53,10 @@ class Session @Inject constructor (private val pref: PrefManager, private val pr
     fun cleanScope(){
         if(scope.isActive) scope.cancel()
     }
+
+    fun addDoneBreak() {
+        scope.launch {
+            progressUseCase.checkBreakAchiev()
+        }
+    }
 }

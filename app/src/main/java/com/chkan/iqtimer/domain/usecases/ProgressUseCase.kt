@@ -44,6 +44,9 @@ class ProgressUseCase @Inject constructor(private val pref: PrefManager, private
             achievUseCase.updateWithDate(id,today.toString())
         }
     }
+    fun checkBreakAchiev() {
+        achievUseCase.updateWithDate(ACHIEV_ID_STRATEG,LocalDate.now().toString())
+    }
 
     fun checkGoal(type:Int) {
         if(pref.isGoalActive()){

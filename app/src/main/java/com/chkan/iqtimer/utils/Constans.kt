@@ -31,6 +31,7 @@ const val EFFECTIVEDAYS = 1
 const val ACHIEV_ID_ENTUSIAST = 0
 const val ACHIEV_ID_WARRIOR = 1
 const val ACHIEV_ID_BOSS = 2
+const val ACHIEV_ID_STRATEG = 3
 const val ACHIEV_ID_HERO = 4
 
 
