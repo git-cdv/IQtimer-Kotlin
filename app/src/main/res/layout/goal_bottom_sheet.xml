@@ -23,7 +23,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/goal_til_quantity"
-        android:layout_width="100dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
@@ -31,7 +31,8 @@
         app:boxBackgroundColor="?colorSecondaryVariant"
         app:boxStrokeColor="?colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_my_goal">
+        app:layout_constraintTop_toBottomOf="@+id/text_my_goal"
+        app:layout_constraintEnd_toStartOf="@+id/goal_radioGroup">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/goal_et_quantity"
@@ -39,66 +40,71 @@
             android:layout_height="wrap_content"
             android:hint="@string/text_quantity"
             android:textColorHint="?colorPrimary"
+            android:maxLength="4"
             android:imeOptions="actionDone"
             android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/goal_field_type"
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-        android:layout_width="0dp"
+    <RadioGroup
+        android:id="@+id/goal_radioGroup"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:errorEnabled="true"
-        app:boxBackgroundColor="?colorSecondaryVariant"
-        app:boxStrokeColor="?colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="vertical"
         app:layout_constraintStart_toEndOf="@+id/goal_til_quantity"
         app:layout_constraintTop_toTopOf="@+id/goal_til_quantity">
 
-        <AutoCompleteTextView
+        <RadioButton
+            android:id="@+id/radioSessions"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="none"
-            android:hint="@string/text_Session"
-            android:text="@string/text_Session" />
+            android:layout_height="30dp"
+            android:textColor="?colorPrimary"
+            android:text="@string/text_Session"
+            android:checked="true"/>
 
-    </com.google.android.material.textfield.TextInputLayout>
+        <RadioButton
+            android:id="@+id/radioEffectives"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:textColor="?colorPrimary"
+            android:text="@string/text_effectiv_days" />
+
+    </RadioGroup>
+
 
     <TextView
         android:id="@+id/goal_text_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginHorizontal="16dp"
         android:text="@string/text_in"
         android:textAppearance="@style/TextAppearance.AppCompat.Display4"
         android:textColor="?colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/goal_til_days"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/goal_til_days"
+        app:layout_constraintStart_toEndOf="@+id/goal_radioGroup"
+        app:layout_constraintTop_toTopOf="@+id/goal_til_days" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/goal_til_days"
-        android:layout_width="0dp"
+        android:layout_width="70dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        app:errorEnabled="true"
         app:boxBackgroundColor="?colorSecondaryVariant"
         app:boxStrokeColor="?colorPrimary"
+        app:errorEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/goal_text_in"
-        app:layout_constraintTop_toBottomOf="@+id/goal_field_type">
+        app:layout_constraintTop_toTopOf="@+id/goal_til_quantity"
+        app:layout_constraintStart_toEndOf="@+id/goal_text_in">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/goal_et_days"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/dlg_progress_q_days"
+            android:hint="@string/Days"
+            android:maxLength="3"
             android:imeOptions="actionDone"
             android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
