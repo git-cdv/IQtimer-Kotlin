@@ -7,16 +7,13 @@ import android.content.ServiceConnection
 import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import com.chkan.iqtimer.domain.TimerService
-import com.chkan.iqtimer.domain.usecases.AchievementsUseCase
-import com.chkan.iqtimer.domain.usecases.SessionsUseCase
+import com.chkan.iqtimer.domain.models.Session
 import com.chkan.iqtimer.ui.progress.GoalBottomFragment
+import com.chkan.iqtimer.utils.SET_UPD_BREAK
+import com.chkan.iqtimer.utils.SET_UPD_TIME
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -26,6 +23,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mService: TimerService
     private var isBound: Boolean = false
     private var isStarted: Boolean = false
+
+    @Inject
+    lateinit var session: Session
 
     private val connection = object : ServiceConnection {
         override fun onServiceConnected(className: ComponentName, service: IBinder) {
@@ -41,6 +41,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        session.settingsUpdatedLiveData.observe(this){
+            when(it.first) {
+                SET_UPD_TIME -> { updateTimer(it.second) }
+                SET_UPD_BREAK -> { updateBreak(it.second) }
+            }
+
+        }
     }
 
     fun startTimer(){
@@ -63,9 +71,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun updateTimer(){
+    private fun updateTimer(time: String) {
         if(isBound){
-            mService.updateTimer()
+            mService.updateTimer(time)
         }
     }
 
@@ -82,9 +90,9 @@ class MainActivity : AppCompatActivity() {
         isBound = false
     }
 
-    fun updateBreak() {
+    private fun updateBreak(time: String) {
         if(isBound){
-            mService.updateBreak()
+            mService.updateBreak(time)
         }
     }
 

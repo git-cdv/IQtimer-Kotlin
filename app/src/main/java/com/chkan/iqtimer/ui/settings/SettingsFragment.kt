@@ -62,15 +62,21 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
             SP_DEFAULT_TIME-> {
                 val time = pref.getString(SP_DEFAULT_TIME,"50")
                 editTextTime?.summary = time + " " + getString(R.string.minut)
-                if (time != null) {session.timeDefault = time}
-                if(session.stateLiveData.value == State.STOPED){session.timeLiveData.value=time?.toTimerFormat()}
-                (activity as MainActivity).updateTimer()
+                if (time != null) {
+                    session.timeDefault = time
+                    if(session.stateLiveData.value != State.ACTIVE || session.stateLiveData.value != State.BREAK){
+                        session.timeLiveData.value=time.toTimerFormat()
+                    }
+                    session.settingsUpdatedLiveData.value = Pair(SET_UPD_TIME,time)
+                }
             }
             SP_DEFAULT_BREAK -> {
                 val breakTime = pref.getString(SP_DEFAULT_BREAK,"15")
                 editTextBreak?.summary = breakTime  + " " + getString(R.string.minut)
-                if (breakTime != null) {session.breakDefault = breakTime}
-                (activity as MainActivity).updateBreak()
+                if (breakTime != null) {
+                    session.breakDefault = breakTime
+                    session.settingsUpdatedLiveData.value = Pair(SET_UPD_BREAK,breakTime)
+                }
             }
 
             SP_DEFAULT_PLAN -> {

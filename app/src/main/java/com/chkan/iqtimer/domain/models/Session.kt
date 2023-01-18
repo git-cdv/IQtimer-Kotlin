@@ -19,6 +19,8 @@ class Session @Inject constructor (private val pref: PrefManager, private val pr
     val planLiveData: MutableLiveData<Int> = MutableLiveData()
     val countLiveData: MutableLiveData<Int> = MutableLiveData()
     val timeLiveData: MutableLiveData<String> = MutableLiveData()
+    val settingsUpdatedLiveData: MutableLiveData<Pair<Int,String>> = MutableLiveData()
+
     private val scope = CoroutineScope(Job() + Dispatchers.IO)
 
     init {

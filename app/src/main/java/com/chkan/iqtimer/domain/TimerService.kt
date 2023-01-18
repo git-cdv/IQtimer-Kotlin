@@ -158,12 +158,12 @@ class TimerService : Service() {
         return binder
     }
 
-    fun updateTimer() {
-        leftInMillis = session.timeDefault.toLong()*60000
+    fun updateTimer(time: String) {
+        leftInMillis = time.toLong()*60000
     }
 
-    fun updateBreak() {
-        breakInMillis = session.breakDefault.toLong()*60000
+    fun updateBreak(time: String) {
+        breakInMillis = time.toLong()*60000
     }
 
     override fun onDestroy() {
