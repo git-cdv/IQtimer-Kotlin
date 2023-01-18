@@ -1,18 +1,15 @@
 package com.chkan.iqtimer
 
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
-import android.content.ServiceConnection
+import android.content.*
 import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.chkan.iqtimer.domain.TimerService
 import com.chkan.iqtimer.domain.models.Session
 import com.chkan.iqtimer.ui.progress.GoalBottomFragment
-import com.chkan.iqtimer.utils.SET_UPD_BREAK
-import com.chkan.iqtimer.utils.SET_UPD_TIME
+import com.chkan.iqtimer.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -47,7 +44,32 @@ class MainActivity : AppCompatActivity() {
                 SET_UPD_TIME -> { updateTimer(it.second) }
                 SET_UPD_BREAK -> { updateBreak(it.second) }
             }
+        }
 
+        session.stateLiveData.observe(this) {
+            when (it) {
+                State.TIMER_ENDED -> { showDialog(
+                    title = getString(R.string.dialog_session_end),
+                    text = getString(R.string.qest_break),
+                    positive = {
+                        startBreak()
+                    },
+                    negative = {
+                        session.stateLiveData.value = State.STOPED
+                    }
+                )}
+                State.BREAK_ENDED -> { showDialog(
+                    title = getString(R.string.dialog_break_end),
+                    text = getString(R.string.qest_continue),
+                    positive = {
+                        startTimer()
+                    },
+                    negative = {
+                        session.stateLiveData.value = State.STOPED
+                    }
+                )}
+                else -> {}
+            }
         }
     }
 
@@ -56,11 +78,18 @@ class MainActivity : AppCompatActivity() {
       if(!isStarted){startTimerService()}
     }
 
-    private fun startTimerService() {
+    private fun startBreak(){
+        if(isBound){mService.startBreak()}
+        if(!isStarted){startTimerService(true)}
+    }
+
+    private fun startTimerService(isBreak:Boolean=false) {
+        val intent = Intent(this, TimerService::class.java)
+        if (isBreak) intent.putExtra(KEY_COMMAND, COM_BREAK_NOTIF)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            startForegroundService(Intent(this, TimerService::class.java))
+            startForegroundService(intent)
         } else {
-            startService(Intent(this, TimerService::class.java))
+            startService(intent)
         }
         isStarted = true
     }
@@ -75,6 +104,22 @@ class MainActivity : AppCompatActivity() {
         if(isBound){
             mService.updateTimer(time)
         }
+    }
+
+    private fun showDialog(title:String, text:String, positive: (()-> Unit), negative: (()-> Unit)) {
+
+        val builder = AlertDialog.Builder(this)
+
+        with(builder)
+        {
+            setTitle(title)
+            setMessage(text)
+            setPositiveButton(getString(R.string.dialog_rest_start)) { _, _ -> positive.invoke() }
+            setNegativeButton(getString(R.string.break_skip)) { _, _ -> negative.invoke() }
+            setOnCancelListener { negative.invoke() }
+            show()
+        }
+
     }
 
     override fun onStart() {

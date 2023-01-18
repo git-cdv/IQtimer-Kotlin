@@ -62,8 +62,7 @@ class TimerService : Service() {
                 session.stateLiveData.value = State.STOPED
             }
             COM_BREAK_NOTIF -> {
-                breakTimer()
-                session.stateLiveData.value = State.BREAK
+                startBreak()
             }
         }
         return START_NOT_STICKY
@@ -86,10 +85,11 @@ class TimerService : Service() {
         }
     }
 
-    fun breakTimer() {
+    fun startBreak() {
         isBreak = true
         timerObject = Timer(breakInMillis,1000)
         timerObject?.start()
+        session.stateLiveData.value = State.BREAK
     }
 
     inner class Timer(millisInFuture: Long, interval: Long) : CountDownTimer(
@@ -125,16 +125,12 @@ class TimerService : Service() {
                 stopMyForegroud(notifManager.onBreakEnd())
                 session.addDoneBreak()
                 isBreak = false
+                session.stateLiveData.value = State.BREAK_ENDED
             }else {
-                try {
                 stopMyForegroud(notifManager.onEnd())
                 session.addDoneSession()
-                } catch (e:Exception){
-                    Log.d("MYAPP", "onFinish() - Exception: ${e.message}")
-                }
-
+                session.stateLiveData.value = State.TIMER_ENDED
             }
-            session.stateLiveData.value = State.STOPED
             stopTimer(false)
         }
     }

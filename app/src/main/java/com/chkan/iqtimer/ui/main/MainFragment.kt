@@ -58,6 +58,7 @@ open class MainFragment : Fragment() {
         session.stateLiveData.observe(viewLifecycleOwner) {
             when (it) {
                 State.STOPED -> session.setTimeDefault()
+                else -> {}
             }
         }
 
