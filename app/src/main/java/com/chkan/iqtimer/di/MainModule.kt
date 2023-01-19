@@ -16,6 +16,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineScope
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -41,8 +42,8 @@ object MainModule {
 
     @Provides
     @Singleton
-    fun provideSession(pref: PrefManager, progressUseCase: ProgressUseCase) : Session {
-        return Session(pref,progressUseCase)
+    fun provideSession(pref: PrefManager, progressUseCase: ProgressUseCase, applicationScope: CoroutineScope) : Session {
+        return Session(pref,progressUseCase,applicationScope)
     }
 
     @Provides

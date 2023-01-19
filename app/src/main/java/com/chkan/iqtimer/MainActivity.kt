@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity() {
                 State.TIMER_ENDED -> { showDialog(
                     title = getString(R.string.dialog_session_end),
                     text = getString(R.string.qest_break),
+                    positiveText = getString(R.string.dialog_rest_start),
                     positive = {
                         startBreak()
                     },
@@ -61,6 +62,7 @@ class MainActivity : AppCompatActivity() {
                 State.BREAK_ENDED -> { showDialog(
                     title = getString(R.string.dialog_break_end),
                     text = getString(R.string.qest_continue),
+                    positiveText = getString(R.string.work_start),
                     positive = {
                         startTimer()
                     },
@@ -106,7 +108,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showDialog(title:String, text:String, positive: (()-> Unit), negative: (()-> Unit)) {
+    private fun showDialog(title:String, text:String, positiveText:String, positive: (()-> Unit), negative: (()-> Unit)) {
 
         val builder = AlertDialog.Builder(this)
 
@@ -114,8 +116,8 @@ class MainActivity : AppCompatActivity() {
         {
             setTitle(title)
             setMessage(text)
-            setPositiveButton(getString(R.string.dialog_rest_start)) { _, _ -> positive.invoke() }
-            setNegativeButton(getString(R.string.break_skip)) { _, _ -> negative.invoke() }
+            setPositiveButton(positiveText) { _, _ -> positive.invoke() }
+            setNegativeButton(getString(R.string.cancel)) { _, _ -> negative.invoke() }
             setOnCancelListener { negative.invoke() }
             show()
         }

@@ -162,8 +162,4 @@ class TimerService : Service() {
         breakInMillis = time.toLong()*60000
     }
 
-    override fun onDestroy() {
-        session.cleanScope()
-        super.onDestroy()
-    }
 }

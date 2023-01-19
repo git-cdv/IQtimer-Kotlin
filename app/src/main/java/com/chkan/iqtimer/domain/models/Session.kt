@@ -11,7 +11,7 @@ import com.chkan.iqtimer.utils.toTimerFormat
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
-class Session @Inject constructor (private val pref: PrefManager, private val progressUseCase: ProgressUseCase) {
+class Session @Inject constructor (private val pref: PrefManager, private val progressUseCase: ProgressUseCase,private val externalScope: CoroutineScope) {
 
     val stateLiveData: MutableLiveData<State> = MutableLiveData()
     var timeDefault : String
@@ -20,8 +20,6 @@ class Session @Inject constructor (private val pref: PrefManager, private val pr
     val countLiveData: MutableLiveData<Int> = MutableLiveData()
     val timeLiveData: MutableLiveData<String> = MutableLiveData()
     val settingsUpdatedLiveData: MutableLiveData<Pair<Int,String>> = MutableLiveData()
-
-    private val scope = CoroutineScope(Job() + Dispatchers.IO)
 
     init {
         stateLiveData.value = State.STOPED
@@ -41,7 +39,7 @@ class Session @Inject constructor (private val pref: PrefManager, private val pr
     }
 
     fun addDoneSession() {
-        scope.launch {
+        externalScope.launch {
                 val current = pref.getCurrentCount()+1
                 pref.addDoneSession(current)
                 countLiveData.postValue(current)
@@ -52,12 +50,8 @@ class Session @Inject constructor (private val pref: PrefManager, private val pr
             }
     }
 
-    fun cleanScope(){
-        if(scope.isActive) scope.cancel()
-    }
-
     fun addDoneBreak() {
-        scope.launch {
+        externalScope.launch {
             progressUseCase.checkBreakAchiev()
         }
     }
