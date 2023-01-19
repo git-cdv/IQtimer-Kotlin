@@ -32,6 +32,7 @@ const val ACHIEV_ID_WARRIOR = 1
 const val ACHIEV_ID_BOSS = 2
 const val ACHIEV_ID_STRATEG = 3
 const val ACHIEV_ID_HERO = 4
+const val ACHIEV_ID_LEGEND = 5
 
 const val SP_COUNTER = "PROGRESS_Counter"
 const val SP_EFFECTIVE_DATE = "PROGRESS_Effective_Date"

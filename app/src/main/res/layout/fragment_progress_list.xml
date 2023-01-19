@@ -720,7 +720,7 @@
                         android:layout_marginEnd="16dp"
                         android:minLines="2"
                         android:textColor="?colorPrimary"
-                        android:text="@{@string/p_desc_legenda(model.achievLiveData.get(5).plan)}"
+                        android:text="@{@string/p_desc_legenda(model.achievLiveData.get(5).level + 1)}"
                         app:layout_constraintBottom_toTopOf="@+id/progressBar6"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/image6"

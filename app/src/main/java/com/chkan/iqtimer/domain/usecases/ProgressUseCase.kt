@@ -1,6 +1,5 @@
 package com.chkan.iqtimer.domain.usecases
 
-import android.util.Log
 import com.chkan.iqtimer.data.PrefManager
 import com.chkan.iqtimer.domain.models.Goal
 import com.chkan.iqtimer.domain.models.GoalModel
@@ -54,7 +53,6 @@ class ProgressUseCase @Inject constructor(private val pref: PrefManager, private
                 val count = pref.getInt(SP_GOAL_CURRENT) + 1
                 pref.add(SP_GOAL_CURRENT, count)
                 goal.goalCurrent.postValue(count)
-                Log.d("MYAPP", "checkGoal() - count: $count")
                 checkGoalDone(count)
             }
         }
@@ -75,7 +73,6 @@ class ProgressUseCase @Inject constructor(private val pref: PrefManager, private
                 goal.setExpiredState()
             } else {
                 goal.timer.postValue(goal.getRestTime(pref.getLong(SP_GOAL_PLAN_TIME)))
-                Log.d("MYAPP", "checkGoalExpired() -timer.postValue")
             }
         }
     }

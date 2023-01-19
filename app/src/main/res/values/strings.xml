@@ -72,7 +72,7 @@
     <string name="p_desc_voin">Work on %1$d weekends</string>
     <string name="p_desc_hero">Complete the plan on %1$d weekends</string>
     <string name="p_desc_pokoritel">Take breaks for %1$d days</string>
-    <string name="p_desc_legenda">Complete the Enthusiast, Weekend Hero, and Conqueror achievements up to level %1$d</string>
+    <string name="p_desc_legenda">Complete the Enthusiast, Weekend Hero, and Strategist achievements up to level %1$d</string>
     <string name="p_desc_pobeditel">Complete all achievements up to level 10</string>
     <string name="p_desc_boss">Fulfill %1$d Main goals</string>
     <string name="level">Level %1$d</string>
