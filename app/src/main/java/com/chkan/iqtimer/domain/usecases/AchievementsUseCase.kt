@@ -6,7 +6,11 @@ import com.chkan.iqtimer.data.PrefManager
 import com.chkan.iqtimer.data.room.AchievDao
 import com.chkan.iqtimer.data.room.Achievements
 import com.chkan.iqtimer.utils.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AchievementsUseCase @Inject constructor(private val ctx: Context, private val achievDao: AchievDao){
@@ -15,6 +19,8 @@ class AchievementsUseCase @Inject constructor(private val ctx: Context, private 
 
     val achievementsFlow: Flow<List<Achievements>>
         get() = achievDao.getAchievementsFlow()
+
+    private val scope = CoroutineScope(Job() + Dispatchers.IO)
 
     fun initAchievements(){
         val list = mutableListOf<Achievements>()
@@ -35,9 +41,9 @@ class AchievementsUseCase @Inject constructor(private val ctx: Context, private 
             val level = achiev.level+1
             achiev.level = level
             achiev.current = count
-            achiev.plan = typePlans[achiev.planIndex][level]
+            achiev.plan = typePlans[achiev.planIndex][level.coerceAtMost(9)]
             achievDao.update(achiev)
-            if (id==ACHIEV_ID_ENTUSIAST || id==ACHIEV_ID_STRATEG) checkLegendAchiev(achiev)
+            if (id==ACHIEV_ID_ENTUSIAST) checkLegendAchiev(achiev)
             if (level==10) upWinnerAchiev()
         } else{
             achiev.current = count
@@ -54,10 +60,10 @@ class AchievementsUseCase @Inject constructor(private val ctx: Context, private 
                 val level = achiev.level+1
                 achiev.level = level
                 achiev.current = count
-                achiev.plan = typePlans[achiev.planIndex][level]
+                achiev.plan = typePlans[achiev.planIndex][level.coerceAtMost(9)]
                 achiev.lastResultDay = today
                 achievDao.update(achiev)
-                if (id==ACHIEV_ID_HERO) checkLegendAchiev(achiev)
+                if (id==ACHIEV_ID_HERO || id==ACHIEV_ID_STRATEG) checkLegendAchiev(achiev)
                 if (level==10) upWinnerAchiev()
             } else{
                 achiev.current = count
@@ -70,24 +76,10 @@ class AchievementsUseCase @Inject constructor(private val ctx: Context, private 
     private fun checkLegendAchiev(achiev: Achievements) {
         val legendAchiv = achievDao.getAchievementForId(ACHIEV_ID_LEGEND)
         val legendPlan = legendAchiv.level +1
-        //первое число по текущему плану, второе - выполненных на след уровне
-        val count = legendCount(legendPlan,achiev)
-        if (count.first==3) {
-            val level = legendAchiv.level+1
-            legendAchiv.level = level
-            legendAchiv.current = count.second
-            achievDao.update(legendAchiv)
-            if (level==10) upWinnerAchiev()
-        } else {
-            legendAchiv.current = count.first
-            achievDao.update(legendAchiv)
-        }
-    }
-
-    private fun legendCount(legendPlan: Int, achiev: Achievements) : Pair<Int,Int> {
         val listIds = arrayListOf(ACHIEV_ID_ENTUSIAST, ACHIEV_ID_HERO, ACHIEV_ID_STRATEG)
         var count = 0
         var countNext = 0
+
         if (achiev.level == legendPlan) {
             count++
             listIds.remove(achiev.id)
@@ -96,8 +88,17 @@ class AchievementsUseCase @Inject constructor(private val ctx: Context, private 
                 if (achievLevel >= legendPlan) count++
                 if (achievLevel >= legendPlan+1) countNext++
             }
+            if (count==3) {
+                val level = legendAchiv.level+1
+                legendAchiv.level = level
+                legendAchiv.current = countNext
+                achievDao.update(legendAchiv)
+                if (level==10) upWinnerAchiev()
+            } else {
+                legendAchiv.current = count
+                achievDao.update(legendAchiv)
+            }
         }
-        return Pair(count,countNext)
     }
 
     private fun upWinnerAchiev() {
@@ -105,4 +106,32 @@ class AchievementsUseCase @Inject constructor(private val ctx: Context, private 
         achiev.current = achiev.current+1
         achievDao.update(achiev)
     }
+
+    fun up(){
+        scope.launch {
+            update(ACHIEV_ID_ENTUSIAST)
+            update(ACHIEV_ID_BOSS)
+            updateWithDateTest(ACHIEV_ID_STRATEG)
+            updateWithDateTest(ACHIEV_ID_WARRIOR)
+            updateWithDateTest(ACHIEV_ID_HERO)
+        }
+    }
+
+    fun updateWithDateTest(id: Int) {
+        val achiev = achievDao.getAchievementForId(id)
+        val count = achiev.current+1
+            if(count==achiev.plan){
+                val level = achiev.level+1
+                achiev.level = level
+                achiev.current = count
+                achiev.plan = typePlans[achiev.planIndex][level.coerceAtMost(9)]
+                achievDao.update(achiev)
+                if (id==ACHIEV_ID_HERO || id==ACHIEV_ID_STRATEG) checkLegendAchiev(achiev)
+                if (level==10) upWinnerAchiev()
+            } else{
+                achiev.current = count
+                achievDao.update(achiev)
+            }
+        }
+
 }

@@ -35,8 +35,8 @@ object MainModule {
 
     @Provides
     @Singleton
-    fun provideAchievements(@ApplicationContext appContext: Context, achievDao: AchievDao, pref: PrefManager) : AchievementsUseCase {
-        return AchievementsUseCase(appContext,achievDao,pref)
+    fun provideAchievements(@ApplicationContext appContext: Context, achievDao: AchievDao) : AchievementsUseCase {
+        return AchievementsUseCase(appContext,achievDao)
     }
 
     @Provides

@@ -62,12 +62,11 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
-                        android:background="@drawable/rounded_border_900"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         android:contentDescription="@string/avatar_ach"
-                        />
+                        android:background="@{model.achievLiveData.get(0).level == 10 ? @drawable/rounded_border_gold : @drawable/rounded_border_900}"/>
 
                     <ImageView
                         android:id="@+id/imageEntuziast"
@@ -183,12 +182,11 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
-                        android:background="@drawable/rounded_border_900"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         android:contentDescription="@string/avatar_ach"
-                        />
+                        android:background="@{model.achievLiveData.get(1).level == 10 ? @drawable/rounded_border_gold : @drawable/rounded_border_900}"/>
 
                     <ImageView
                         android:id="@+id/imageVoin"
@@ -301,12 +299,11 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
-                        android:background="@drawable/rounded_border_900"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         android:contentDescription="@string/avatar_ach"
-                        />
+                        android:background="@{model.achievLiveData.get(2).level == 10 ? @drawable/rounded_border_gold : @drawable/rounded_border_900}"/>
 
                     <ImageView
                         android:id="@+id/imageBoss"
@@ -419,12 +416,11 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
-                        android:background="@drawable/rounded_border_900"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         android:contentDescription="@string/avatar_ach"
-                        />
+                        android:background="@{model.achievLiveData.get(3).level == 10 ? @drawable/rounded_border_gold : @drawable/rounded_border_900}"/>
 
                     <ImageView
                         android:id="@+id/imagePok"
@@ -536,12 +532,11 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
-                        android:background="@drawable/rounded_border_900"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         android:contentDescription="@string/avatar_ach"
-                        />
+                        android:background="@{model.achievLiveData.get(4).level == 10 ? @drawable/rounded_border_gold : @drawable/rounded_border_900}"/>
                     <ImageView
                         android:id="@+id/imageHero"
                         android:layout_width="48dp"
@@ -652,12 +647,12 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
-                        android:background="@drawable/rounded_border_900"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         android:contentDescription="@string/avatar_ach"
-                        />
+                        android:background="@{model.achievLiveData.get(5).level == 10 ? @drawable/rounded_border_gold : @drawable/rounded_border_900}" />
+
                     <ImageView
                         android:id="@+id/imageLeg"
                         android:layout_width="48dp"
@@ -677,7 +672,6 @@
                         android:text="@{@string/level(model.achievLiveData.get(5).level)}"
                         android:textColor="@color/white"
                         android:textStyle="bold"
-                        android:visibility="@{model.achievLiveData.get(5).level == 11 ? View.INVISIBLE : View.VISIBLE}"
                         app:layout_constraintBottom_toBottomOf="@+id/image6"
                         app:layout_constraintEnd_toEndOf="@+id/image6"
                         app:layout_constraintStart_toStartOf="@+id/image6"
@@ -708,6 +702,7 @@
                         android:max="@{model.achievLiveData.get(5).plan}"
                         android:progress="@{model.achievLiveData.get(5).current}"
                         android:scaleY="4"
+                        android:visibility="@{model.achievLiveData.get(5).level == 10 ? View.INVISIBLE : View.VISIBLE}"
                         app:layout_constraintBottom_toBottomOf="@+id/image6"
                         app:layout_constraintEnd_toStartOf="@+id/textCount6"
                         app:layout_constraintStart_toEndOf="@+id/image6" />
@@ -720,7 +715,7 @@
                         android:layout_marginEnd="16dp"
                         android:minLines="2"
                         android:textColor="?colorPrimary"
-                        android:text="@{@string/p_desc_legenda(model.achievLiveData.get(5).level + 1)}"
+                        android:text="@{model.achievLiveData.get(5).level == 10 ? @string/p_desc_legenda(10) : @string/p_desc_legenda(model.achievLiveData.get(5).level + 1)}"
                         app:layout_constraintBottom_toTopOf="@+id/progressBar6"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/image6"
@@ -734,6 +729,7 @@
                         android:text='@{model.achievLiveData.get(5).current + " / " + model.achievLiveData.get(5).plan}'
                         android:textStyle="bold"
                         android:textColor="?colorPrimary"
+                        android:visibility="@{model.achievLiveData.get(5).level == 10 ? View.INVISIBLE : View.VISIBLE}"
                         app:layout_constraintBottom_toBottomOf="@+id/progressBar6"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/progressBar6"
@@ -753,9 +749,7 @@
                 app:cardBackgroundColor="?colorPrimaryVariant"
                 app:cardCornerRadius="4dp"
                 app:cardElevation="4dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/card_legenda">
 
@@ -770,11 +764,11 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
-                        android:background="@drawable/rounded_border_900"
                         android:contentDescription="@string/avatar_ach"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:background="@{model.achievLiveData.get(6).current == 6 ? @drawable/rounded_border_gold : @drawable/rounded_border_900}"/>
 
                     <ImageView
                         android:id="@+id/imageWinner"
@@ -813,6 +807,7 @@
                         android:max="@{model.achievLiveData.get(6).plan}"
                         android:progress="@{model.achievLiveData.get(6).current}"
                         android:scaleY="4"
+                        android:visibility="@{model.achievLiveData.get(6).current == 6 ? View.INVISIBLE : View.VISIBLE}"
                         app:layout_constraintBottom_toBottomOf="@+id/image7"
                         app:layout_constraintEnd_toStartOf="@+id/textCount7"
                         app:layout_constraintStart_toEndOf="@+id/image7" />
@@ -839,6 +834,7 @@
                         android:text='@{model.achievLiveData.get(6).current + " / " + model.achievLiveData.get(6).plan}'
                         android:textColor="?colorPrimary"
                         android:textStyle="bold"
+                        android:visibility="@{model.achievLiveData.get(6).current == 6 ? View.INVISIBLE : View.VISIBLE}"
                         app:layout_constraintBottom_toBottomOf="@+id/progressBar7"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/progressBar7"
@@ -867,6 +863,17 @@
                 app:layout_constraintTop_toTopOf="@+id/textView3"
                 app:srcCompat="@drawable/ic_lock"
                 android:contentDescription="@string/todo" />
+
+            <Button
+                android:id="@+id/upButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="UP"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/card_winner" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
