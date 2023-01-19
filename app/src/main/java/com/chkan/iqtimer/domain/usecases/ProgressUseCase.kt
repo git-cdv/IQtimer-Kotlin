@@ -9,10 +9,6 @@ import javax.inject.Inject
 
 class ProgressUseCase @Inject constructor(private val pref: PrefManager, private val goal: Goal,private val achievUseCase: AchievementsUseCase) {
 
-    fun getCounter() : Int{
-        return pref.getCounter()
-    }
-
     fun checkEffectiveCounter(current:Int) {
         if(pref.getDefaultPlan()==current){//если выполнили план
             val effectiveDateCurrent = LocalDate.parse(pref.getEffectiveDate())

@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ProgressViewModel @Inject constructor(
     private val progressUseCase : ProgressUseCase,
-    private val achievUseCase : AchievementsUseCase
+    achievUseCase : AchievementsUseCase
 ): ViewModel() {
 
     private val _deleteGoalLiveData: MutableLiveData<Boolean> = MutableLiveData()
@@ -53,10 +53,6 @@ class ProgressViewModel @Inject constructor(
     fun setPremium(b: Boolean) {
         progressUseCase.setPremium(b)
         _isPremium.value = b
-    }
-
-    fun up() {
-        achievUseCase.up()
     }
 
 }

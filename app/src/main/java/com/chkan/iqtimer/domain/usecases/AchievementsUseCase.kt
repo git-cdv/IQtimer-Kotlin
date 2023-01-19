@@ -2,15 +2,10 @@ package com.chkan.iqtimer.domain.usecases
 
 import android.content.Context
 import com.chkan.iqtimer.R
-import com.chkan.iqtimer.data.PrefManager
 import com.chkan.iqtimer.data.room.AchievDao
 import com.chkan.iqtimer.data.room.Achievements
 import com.chkan.iqtimer.utils.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AchievementsUseCase @Inject constructor(private val ctx: Context, private val achievDao: AchievDao){
@@ -19,8 +14,6 @@ class AchievementsUseCase @Inject constructor(private val ctx: Context, private 
 
     val achievementsFlow: Flow<List<Achievements>>
         get() = achievDao.getAchievementsFlow()
-
-    private val scope = CoroutineScope(Job() + Dispatchers.IO)
 
     fun initAchievements(){
         val list = mutableListOf<Achievements>()
@@ -106,32 +99,4 @@ class AchievementsUseCase @Inject constructor(private val ctx: Context, private 
         achiev.current = achiev.current+1
         achievDao.update(achiev)
     }
-
-    fun up(){
-        scope.launch {
-            update(ACHIEV_ID_ENTUSIAST)
-            update(ACHIEV_ID_BOSS)
-            updateWithDateTest(ACHIEV_ID_STRATEG)
-            updateWithDateTest(ACHIEV_ID_WARRIOR)
-            updateWithDateTest(ACHIEV_ID_HERO)
-        }
-    }
-
-    fun updateWithDateTest(id: Int) {
-        val achiev = achievDao.getAchievementForId(id)
-        val count = achiev.current+1
-            if(count==achiev.plan){
-                val level = achiev.level+1
-                achiev.level = level
-                achiev.current = count
-                achiev.plan = typePlans[achiev.planIndex][level.coerceAtMost(9)]
-                achievDao.update(achiev)
-                if (id==ACHIEV_ID_HERO || id==ACHIEV_ID_STRATEG) checkLegendAchiev(achiev)
-                if (level==10) upWinnerAchiev()
-            } else{
-                achiev.current = count
-                achievDao.update(achiev)
-            }
-        }
-
 }
