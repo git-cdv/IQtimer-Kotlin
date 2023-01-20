@@ -16,21 +16,26 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/main_tv_timer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp"
         android:fontFamily="sans-serif-thin"
         android:text="@{session.timeLiveData}"
         app:animationOnPause="@{session.stateLiveData==State.PAUSED}"
         android:textAppearance="@style/TextAppearance.AppCompat.Display4"
         android:textColor="?colorPrimary"
         android:textSize="100sp"
+        app:autoSizeTextType="uniform"
+        app:autoSizeStepGranularity="2sp"
+        android:maxLines="1"
+        android:gravity="center"
         app:layout_constraintBottom_toTopOf="@+id/main_btn_menu"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="50:00" />
+        tools:text="5000:00" />
 
     <com.marcok.stepprogressbar.StepProgressBar
         android:id="@+id/stepProgressBar"
