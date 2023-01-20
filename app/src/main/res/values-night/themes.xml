@@ -22,4 +22,8 @@
         <item name="background">@drawable/bg_text_input</item>
         <item name="startIconTint">@color/brand_orange</item>
     </style>
+
+    <style name="rounded_corner">
+        <item name="cornerSize">20dp</item>
+    </style>
 </resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="version">Version</string>
+    <string name="feedback">Send feedback</string>
+    <string name="subject_mail">Feedback on the IQtimer app</string>
+</resources>

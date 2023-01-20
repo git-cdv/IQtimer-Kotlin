@@ -122,4 +122,7 @@
     <string name="d">d</string>
     <string name="Days">Days</string>
     <string name="p_title_strateg">Strategist</string>
+    <string name="version">Version</string>
+    <string name="feedback">Send feedback</string>
+    <string name="subject_mail">Feedback on the IQtimer app</string>
 </resources>

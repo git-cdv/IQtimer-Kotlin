@@ -1,14 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.AboutFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="HELLO" />
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/shapeableImageView"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_margin="24dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/rounded_corner" />
 
-</FrameLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="@string/app_name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display4"
+        android:textColor="?colorPrimary"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView"
+        app:layout_constraintStart_toEndOf="@+id/shapeableImageView"
+        app:layout_constraintTop_toTopOf="@+id/shapeableImageView" />
+
+    <ImageView
+        android:id="@+id/iv_version"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/ic_version"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="@+id/shapeableImageView"
+        app:layout_constraintStart_toStartOf="@+id/shapeableImageView"
+        app:layout_constraintTop_toBottomOf="@+id/shapeableImageView"
+        app:tint="?colorPrimary"
+        android:contentDescription="version" />
+
+    <TextView
+        android:id="@+id/tv_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="@string/version"
+        android:textColor="?colorPrimary"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_version_num"
+        app:layout_constraintStart_toEndOf="@+id/iv_version"
+        app:layout_constraintTop_toTopOf="@+id/iv_version" />
+
+    <TextView
+        android:id="@+id/tv_version_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="2.0.0"
+        android:textColor="@color/brand_blue_600"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_version"
+        app:layout_constraintStart_toEndOf="@+id/iv_version"
+        app:layout_constraintTop_toBottomOf="@+id/tv_version" />
+
+    <ImageView
+        android:id="@+id/iv_feedback"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:contentDescription="feedback"
+        android:src="@drawable/ic_feedback"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="@+id/iv_version"
+        app:layout_constraintTop_toBottomOf="@+id/iv_version"
+        app:tint="?colorPrimary" />
+
+    <TextView
+        android:id="@+id/tv_feedback"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:paddingVertical="8dp"
+        android:text="@string/feedback"
+        android:textColor="?colorPrimary"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_feedback"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_feedback"
+        app:layout_constraintTop_toTopOf="@+id/iv_feedback" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
