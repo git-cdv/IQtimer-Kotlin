@@ -21,11 +21,13 @@ class ProgressViewModel @Inject constructor(
     val deleteGoalLiveData: LiveData<Boolean>
         get() = _deleteGoalLiveData
 
-    private val _isPremium: MutableLiveData<Boolean> = MutableLiveData()
-    val isPremium: LiveData<Boolean>
-        get() = _isPremium
+    val isPremium: MutableLiveData<Boolean> = MutableLiveData()
 
     val achievLiveData: LiveData<List<Achievements>> = achievUseCase.achievementsFlow.asLiveData()
+
+    init {
+        checkPremium()
+    }
 
     fun setNewGoal(goal: GoalModel) {
         progressUseCase.setNewGoal(goal)
@@ -41,18 +43,19 @@ class ProgressViewModel @Inject constructor(
 
     fun checkGoal() {
         viewModelScope.launch(Dispatchers.IO) {
-            try {
-                _isPremium.postValue(progressUseCase.isPremium())
-                progressUseCase.checkGoalExpired()
-            } catch (e:Exception){
-                Log.d("MYAPP", "ProgressViewModel - checkGoalExpired(): ${e.message}")
-            }
+            progressUseCase.checkGoalExpired()
         }
     }
 
-    fun setPremium(b: Boolean) {
-        progressUseCase.setPremium(b)
-        _isPremium.value = b
+    fun setPremium(state: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            progressUseCase.setPremium(state)
+        }
+        isPremium.value = state
+    }
+
+    private fun checkPremium() {
+        isPremium.value = progressUseCase.getPremium()
     }
 
 }

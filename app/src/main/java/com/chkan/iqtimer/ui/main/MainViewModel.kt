@@ -16,11 +16,11 @@ class MainViewModel @Inject constructor(
     private val achievUseCase: AchievementsUseCase
 ): ViewModel(){
 
+    val isFirstLiveData = SingleLiveEvent<Boolean>()
+
     init {
         checkFirst()
     }
-
-    val isFirstLiveData = SingleLiveEvent<Boolean>()
 
     fun checkWorkDate() {
         viewModelScope.launch(Dispatchers.IO) {

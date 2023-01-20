@@ -9,6 +9,8 @@ import javax.inject.Inject
 
 class ProgressUseCase @Inject constructor(private val pref: PrefManager, private val goal: Goal,private val achievUseCase: AchievementsUseCase) {
 
+    private var isPremium : Boolean = false
+
     fun checkEffectiveCounter(current:Int) {
         if(pref.getDefaultPlan()==current){//если выполнили план
             val effectiveDateCurrent = LocalDate.parse(pref.getEffectiveDate())
@@ -24,7 +26,7 @@ class ProgressUseCase @Inject constructor(private val pref: PrefManager, private
                 goal.counter.postValue(1)
                 pref.addEffectiveDate(today)
             }
-            if (pref.isPremium()){
+            if (isPremium){
                 achievUseCase.update(ACHIEV_ID_ENTUSIAST)
                 checkWeekendAchiev(ACHIEV_ID_HERO)
             }
@@ -33,14 +35,16 @@ class ProgressUseCase @Inject constructor(private val pref: PrefManager, private
     }
 
     fun checkWeekendAchiev(id: Int) {
-        val today = LocalDate.now()
-        val isWeekend = today.dayOfWeek == 6 || today.dayOfWeek == 7
-        if (pref.isPremium() && isWeekend){
-            achievUseCase.updateWithDate(id,today.toString())
+        if(isPremium) {
+            val today = LocalDate.now()
+            val isWeekend = today.dayOfWeek == 6 || today.dayOfWeek == 7
+            if (isWeekend){
+                achievUseCase.updateWithDate(id,today.toString())
+            }
         }
     }
     fun checkBreakAchiev() {
-        achievUseCase.updateWithDate(ACHIEV_ID_STRATEG,LocalDate.now().toString())
+        if(isPremium) { achievUseCase.updateWithDate(ACHIEV_ID_STRATEG,LocalDate.now().toString()) }
     }
 
     fun checkGoal(type:Int) {
@@ -58,7 +62,7 @@ class ProgressUseCase @Inject constructor(private val pref: PrefManager, private
             if(count==pref.getInt(SP_GOAL_PLAN)){
                 goal.state.postValue(GOAL_STATUS_DONE)
                 pref.add(SP_GOAL_STATUS,GOAL_STATUS_DONE)
-                if (pref.isPremium()){achievUseCase.update(ACHIEV_ID_BOSS)}
+                if (isPremium){achievUseCase.update(ACHIEV_ID_BOSS)}
             }
     }
 
@@ -77,12 +81,15 @@ class ProgressUseCase @Inject constructor(private val pref: PrefManager, private
         goal.setNewGoal(new_goal)
     }
 
-    fun isPremium(): Boolean {
-         return pref.isPremium()
+    fun getPremium() = isPremium
+
+    fun setPremium(state: Boolean) {
+        pref.add(SP_IS_PREMIUM,state)
+        isPremium = state
     }
 
-    fun setPremium(b: Boolean) {
-        pref.add(SP_IS_PREMIUM,b)
+    fun initPremium() {
+        isPremium = pref.isPremium()
     }
 
 }

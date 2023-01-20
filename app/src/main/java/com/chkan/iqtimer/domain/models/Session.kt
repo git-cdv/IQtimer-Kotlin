@@ -28,6 +28,7 @@ class Session @Inject constructor (private val pref: PrefManager, private val pr
         timeDefault = pref.getDefaultTime()
         breakDefault = pref.getDefaultBreak()
         timeLiveData.value = timeDefault.toTimerFormat()
+        initPremium()
     }
 
     fun setTimeDefault() {
@@ -53,6 +54,12 @@ class Session @Inject constructor (private val pref: PrefManager, private val pr
     fun addDoneBreak() {
         externalScope.launch {
             progressUseCase.checkBreakAchiev()
+        }
+    }
+
+    private fun initPremium() {
+        externalScope.launch {
+            progressUseCase.initPremium()
         }
     }
 }
