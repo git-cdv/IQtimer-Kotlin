@@ -16,4 +16,11 @@
         <item name="android:textColor">@color/brand_blue_900</item>
     </style>
 
+    <style name="TextInputLayoutAppearance" parent="Widget.Design.TextInputLayout">
+        <item name="colorControlActivated">@color/brand_orange</item>
+        <item name="colorControlHighlight">@color/brand_orange</item>
+        <item name="background">@drawable/bg_text_input</item>
+        <item name="startIconTint">@color/brand_orange</item>
+    </style>
+
 </resources>

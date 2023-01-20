@@ -22,13 +22,15 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/goal_til_quantity"
+        style="@style/TextInputLayoutAppearance"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         app:errorEnabled="true"
-        app:boxBackgroundColor="?colorSecondaryVariant"
-        app:boxStrokeColor="?colorPrimary"
+        android:hint="@string/text_quantity"
+        android:textColorHint="@color/brand_blue_600"
+        app:hintTextColor="@color/brand_blue_600"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_my_goal"
         app:layout_constraintEnd_toStartOf="@+id/goal_radioGroup">
@@ -37,8 +39,8 @@
             android:id="@+id/goal_et_quantity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/text_quantity"
-            android:textColorHint="?colorPrimary"
+            android:backgroundTint="@color/brand_blue_600"
+            android:textColor="?colorPrimary"
             android:maxLength="4"
             android:imeOptions="actionDone"
             android:inputType="number" />
@@ -58,6 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:textColor="?colorPrimary"
+            android:buttonTint="?colorPrimary"
             android:text="@string/text_Session"
             android:checked="true"/>
 
@@ -66,6 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:textColor="?colorPrimary"
+            android:buttonTint="?colorPrimary"
             android:text="@string/text_effectiv_days" />
 
     </RadioGroup>
@@ -88,12 +92,13 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/goal_til_days"
+        style="@style/TextInputLayoutAppearance"
         android:layout_width="70dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        app:boxBackgroundColor="?colorSecondaryVariant"
-        app:boxStrokeColor="?colorPrimary"
         app:errorEnabled="true"
+        android:textColorHint="@color/brand_blue_600"
+        app:hintTextColor="@color/brand_blue_600"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/goal_til_quantity"
         app:layout_constraintStart_toEndOf="@+id/goal_text_in">
@@ -103,6 +108,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/Days"
+            android:backgroundTint="@color/brand_blue_600"
+            android:textColor="?colorPrimary"
             android:maxLength="3"
             android:imeOptions="actionDone"
             android:inputType="number" />
@@ -110,13 +117,14 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout3"
+        style="@style/TextInputLayoutAppearance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        app:boxBackgroundColor="?colorSecondaryVariant"
-        app:boxStrokeColor="?colorPrimary"
+        android:textColorHint="@color/brand_blue_600"
+        app:hintTextColor="@color/brand_blue_600"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/goal_til_days">
@@ -129,7 +137,8 @@
             android:hint="@string/goal_name_empty"
             android:inputType="text"
             android:text="@string/goal_number"
-            android:textColorHint="@color/brand_blue_600" />
+            android:backgroundTint="@color/brand_blue_600"
+            android:textColor="?colorPrimary" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton

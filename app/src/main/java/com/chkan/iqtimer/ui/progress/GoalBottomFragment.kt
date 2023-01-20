@@ -68,6 +68,9 @@ class GoalBottomFragment : BottomSheetDialogFragment() {
             }
 
         }
+
+        et_plan.requestFocus()
+
     }
 
     private fun validateInput(quantity: TextInputEditText, til_quantity: TextInputLayout,  days: TextInputEditText , til_days: TextInputLayout ): Boolean {
