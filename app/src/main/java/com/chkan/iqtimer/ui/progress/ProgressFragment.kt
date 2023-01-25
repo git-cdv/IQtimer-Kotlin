@@ -41,6 +41,7 @@ class ProgressFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.goal = goal
         binding.model = viewModel
+        binding.ivBack.setOnClickListener { findNavController().popBackStack() }
         return binding.root
     }
 

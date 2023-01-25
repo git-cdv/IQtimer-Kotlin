@@ -32,6 +32,7 @@ class StatisticFragment : Fragment() {
         val binding = FragmentStatisticBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.viewmodel = viewModel
+        binding.ivBack.setOnClickListener { findNavController().popBackStack() }
         return binding.root
     }
 

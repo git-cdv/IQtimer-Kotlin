@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -39,5 +40,6 @@ class StatisticListFragment : Fragment() {
         fab.setOnClickListener {
             findNavController().popBackStack()
         }
+        view.findViewById<ImageView>(R.id.iv_back).setOnClickListener { findNavController().popBackStack() }
     }
 }

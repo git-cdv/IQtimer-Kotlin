@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.chkan.iqtimer.databinding.FragmentProgressListBinding
 import com.chkan.iqtimer.ui.progress.vm.ProgressViewModel
 
@@ -20,6 +21,7 @@ class ProgressListFragment : Fragment() {
         val binding = FragmentProgressListBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.model = viewModel
+        binding.ivBack.setOnClickListener { findNavController().popBackStack() }
         return binding.root
     }
 }

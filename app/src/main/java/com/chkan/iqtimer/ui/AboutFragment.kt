@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
+import androidx.navigation.fragment.findNavController
 import com.chkan.iqtimer.R
 
 class AboutFragment : Fragment() {
@@ -41,6 +42,8 @@ class AboutFragment : Fragment() {
         feedbackText.setOnClickListener {
             sendMail.invoke()
         }
+
+        view.findViewById<ImageView>(R.id.iv_back).setOnClickListener { findNavController().popBackStack() }
 
     }
 
