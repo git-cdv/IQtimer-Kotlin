@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import com.android.billingclient.api.*
 import kotlinx.coroutines.*
-import javax.inject.Inject
 
 class BillingManager (context: Context, private val activity : Activity, private val applicationScope: CoroutineScope, private val result: ((MyResult)->Unit)) {
 
@@ -18,8 +17,12 @@ class BillingManager (context: Context, private val activity : Activity, private
                 // Handle an error caused by a user cancelling the purchase flow.
                 result.invoke(MyResult.Error(billingResult.toString()))
             } else {
-                // Handle any other error codes.
-                result.invoke(MyResult.Error(billingResult.toString()))
+                if(billingResult.responseCode == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED){
+                    result.invoke(MyResult.Success)
+                } else {
+                    result.invoke(MyResult.Error(billingResult.toString()))
+                }
+                // Handle any other error codes
             }
         }
 
@@ -68,11 +71,9 @@ class BillingManager (context: Context, private val activity : Activity, private
             .setProductType(BillingClient.ProductType.INAPP)
 
         applicationScope.launch(Dispatchers.IO) {
-            billingClient.queryPurchasesAsync(params.build()){
-                    billingResult, purchasesList ->
-                if(billingResult.responseCode == BillingClient.BillingResponseCode.OK){
-                    val purchase = purchasesList.first()
-                    if(purchase.purchaseState == Purchase.PurchaseState.PURCHASED) {
+            billingClient.queryPurchasesAsync(params.build()) { billingResult, purchasesList ->
+                if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                    if (purchasesList.isNotEmpty() && purchasesList.first().purchaseState == Purchase.PurchaseState.PURCHASED) {
                         result.invoke(MyResult.Success)
                     } else {
                         getProductDetails()
