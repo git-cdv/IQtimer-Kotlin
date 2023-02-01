@@ -1,6 +1,5 @@
 package com.chkan.iqtimer.ui.progress.vm
 
-import android.util.Log
 import androidx.lifecycle.*
 import com.chkan.iqtimer.data.room.Achievements
 import com.chkan.iqtimer.domain.models.GoalModel
@@ -56,6 +55,12 @@ class ProgressViewModel @Inject constructor(
 
     private fun checkPremium() {
         isPremium.value = progressUseCase.getPremium()
+    }
+
+    fun checkEffectiveCounter() {
+        viewModelScope.launch(Dispatchers.IO) {
+            progressUseCase.checkEffectiveCounter()
+        }
     }
 
 }

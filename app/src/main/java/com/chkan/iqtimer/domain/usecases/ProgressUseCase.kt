@@ -81,6 +81,18 @@ class ProgressUseCase @Inject constructor(private val pref: PrefManager, private
         goal.setNewGoal(new_goal)
     }
 
+    fun checkEffectiveCounter(){
+        val effectiveDateCurrent = LocalDate.parse(pref.getEffectiveDate())
+        val today = LocalDate.now()
+        //если эффективный день был НЕ вчера и не сегодня
+        if(effectiveDateCurrent.dayOfYear()!=today.minusDays(1).dayOfYear() && effectiveDateCurrent.dayOfYear()!=today.dayOfYear()){
+            pref.addCounter(0)
+            goal.counter.postValue(0)
+        } else {
+            goal.counter.postValue(pref.getCounter())
+        }
+    }
+
     fun getPremium() = isPremium
 
     fun setPremium(state: Boolean) {

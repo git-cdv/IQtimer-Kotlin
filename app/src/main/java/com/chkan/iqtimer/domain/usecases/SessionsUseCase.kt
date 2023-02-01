@@ -1,6 +1,5 @@
 package com.chkan.iqtimer.domain.usecases
 
-import android.util.Log
 import com.chkan.iqtimer.data.PrefManager
 import com.chkan.iqtimer.data.room.DatabaseModel
 import com.chkan.iqtimer.data.room.HistoryDao

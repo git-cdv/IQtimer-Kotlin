@@ -1,11 +1,9 @@
 package com.chkan.iqtimer.domain.models
 
-import android.os.CountDownTimer
 import androidx.lifecycle.MutableLiveData
-import com.chkan.iqtimer.R
 import com.chkan.iqtimer.data.PrefManager
 import com.chkan.iqtimer.utils.*
-import java.util.*
+import org.joda.time.LocalDate
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
@@ -28,7 +26,6 @@ class Goal @Inject constructor (private val pref: PrefManager) {
         goalCurrent.value = pref.getInt(SP_GOAL_CURRENT)
         goalPlan.value = pref.getInt(SP_GOAL_PLAN)
         timer.value = if (pref.getLong(SP_GOAL_PLAN_TIME)==0L) "0" else getRestTime(pref.getLong(SP_GOAL_PLAN_TIME))
-        counter.value = pref.getCounter()
     }
 
     fun setNewGoal(goal: GoalModel){
@@ -100,5 +97,4 @@ class Goal @Inject constructor (private val pref: PrefManager) {
         state.postValue(GOAL_STATUS_EXPIRED)
         pref.add(SP_GOAL_STATUS, GOAL_STATUS_EXPIRED)
     }
-
 }

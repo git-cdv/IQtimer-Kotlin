@@ -18,11 +18,10 @@ import com.chkan.iqtimer.databinding.FragmentProgressBinding
 import com.chkan.iqtimer.domain.models.Goal
 import com.chkan.iqtimer.ui.progress.dialogs.ConfirmDeleteGoalDialog
 import com.chkan.iqtimer.ui.progress.vm.ProgressViewModel
-import com.chkan.iqtimer.utils.GOAL_STATUS_ACTIVE
-import com.chkan.iqtimer.utils.GOAL_STATUS_DONE
-import com.chkan.iqtimer.utils.GOAL_STATUS_EXPIRED
+import com.chkan.iqtimer.utils.*
 import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -32,6 +31,17 @@ class ProgressFragment : Fragment() {
     private val viewModel: ProgressViewModel by activityViewModels()
     @Inject lateinit var goal: Goal
     private var timerObject : CountDownTimer? = null
+    @Inject lateinit var scope: CoroutineScope
+
+    val billingManager by lazy {
+        BillingManager(requireContext(),requireActivity(),scope){
+            if(it is MyResult.Success){
+                Log.d("CHKAN", "BillingManager - Success ")
+            } else {
+                Log.d("CHKAN", "BillingManager - ERROR: ${(it as MyResult.Error).message} ")
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +57,7 @@ class ProgressFragment : Fragment() {
 
      override fun onViewCreated(v: View, savedInstanceState: Bundle?) {
         super.onViewCreated(v, savedInstanceState)
-
+         viewModel.checkEffectiveCounter()
          viewModel.checkGoal()
 
          if(goal.isDayLeft()){
@@ -74,7 +84,8 @@ class ProgressFragment : Fragment() {
          }
 
          v.findViewById<ImageButton>(R.id.img_btn_lock).setOnClickListener {
-             viewModel.setPremium(true)
+             //viewModel.setPremium(true)
+             billingManager.start()
          }
 
          viewModel.deleteGoalLiveData.observe(viewLifecycleOwner) {
