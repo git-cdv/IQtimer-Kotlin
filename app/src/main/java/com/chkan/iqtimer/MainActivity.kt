@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
             when(it.first) {
                 SET_UPD_TIME -> { updateTimer(it.second) }
                 SET_UPD_BREAK -> { updateBreak(it.second) }
-            }
+             }
         }
 
         session.stateLiveData.observe(this) {

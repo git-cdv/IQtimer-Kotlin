@@ -43,6 +43,8 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
         editTextPlan = preferenceManager.findPreference(SP_DEFAULT_PLAN)
         editTextPlan?.summary = pref.getString(SP_DEFAULT_PLAN,"8") + " " + getString(R.string.sessiy)
 
+        preferenceManager.findPreference<SwitchPreference>(SP_SWITCH_OUT)
+
         val editTextListener = OnBindEditTextListener { editText: EditText ->
             editText.inputType = InputType.TYPE_CLASS_NUMBER
             editText.text.clear() //очищаем фокус для удобства ввода
@@ -83,6 +85,10 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
                 val plan = pref.getString(SP_DEFAULT_PLAN,"8")
                 editTextPlan?.summary =  plan + " " + getString(R.string.sessiy)
                 session.planLiveData.value = plan?.toInt()
+            }
+            SP_SWITCH_OUT -> {
+                val state = pref.getBoolean(SP_SWITCH_OUT,false)
+                session.notifSoundOut = state
             }
             }
         }

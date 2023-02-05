@@ -3,19 +3,16 @@ package com.chkan.iqtimer.domain
 import android.app.Notification
 import android.app.NotificationManager
 import android.app.Service
-import android.content.Context
 import android.content.Intent
 import android.os.Binder
 import android.os.Build
 import android.os.CountDownTimer
 import android.os.IBinder
 import android.util.Log
-import androidx.core.app.NotificationManagerCompat
 import com.chkan.iqtimer.domain.models.Session
 import com.chkan.iqtimer.ui.main.NotifManager
 import com.chkan.iqtimer.utils.*
 import dagger.hilt.android.AndroidEntryPoint
-import java.lang.Exception
 import java.util.*
 import javax.inject.Inject
 
@@ -127,7 +124,7 @@ class TimerService : Service() {
                 isBreak = false
                 session.stateLiveData.value = State.BREAK_ENDED
             }else {
-                stopMyForegroud(notifManager.onEnd())
+                stopMyForegroud(notifManager.onEnd(session.notifSoundOut))
                 session.addDoneSession()
                 session.stateLiveData.value = State.TIMER_ENDED
             }

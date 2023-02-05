@@ -21,6 +21,26 @@
             app:key="DEFAULT_Plan"
             app:summary="@string/by_default"
             app:defaultValue="8" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        app:key="categ2"
+        app:title="@string/set_category_notif">
+
+        <SwitchPreference
+            app:key="switch_out"
+            app:title="@string/text_switch_out"
+            app:icon="@drawable/ic_outline_notif_important_24"
+            app:defaultValue="false" />
+
+        <Preference
+            app:key="set_dialog_sounds"
+            app:title="@string/pref_sounds"
+            app:defaultValue="0" />
+
+        <Preference
+            app:key="set_dialog_sounds_break"
+            app:title="@string/pref_sounds_break"
+            app:defaultValue="0" />
 
     </PreferenceCategory>
 </PreferenceScreen>

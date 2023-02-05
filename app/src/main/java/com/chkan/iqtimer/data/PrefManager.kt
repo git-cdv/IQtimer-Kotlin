@@ -143,4 +143,7 @@ class PrefManager @Inject constructor (private val context: Context) {
         }
 
     }
-    }
+
+    fun getNotifSoundOut() = pref.getBoolean(SP_SWITCH_OUT,false)
+
+}

@@ -16,6 +16,7 @@ class Session @Inject constructor (private val pref: PrefManager, private val pr
     val stateLiveData: MutableLiveData<State> = MutableLiveData()
     var timeDefault : String
     var breakDefault : String
+    var notifSoundOut : Boolean
     val planLiveData: MutableLiveData<Int> = MutableLiveData()
     val countLiveData: MutableLiveData<Int> = MutableLiveData()
     val timeLiveData: MutableLiveData<String> = MutableLiveData()
@@ -29,6 +30,7 @@ class Session @Inject constructor (private val pref: PrefManager, private val pr
         breakDefault = pref.getDefaultBreak()
         timeLiveData.value = timeDefault.toTimerFormat()
         initPremium()
+        notifSoundOut = pref.getNotifSoundOut()
     }
 
     fun setTimeDefault() {
