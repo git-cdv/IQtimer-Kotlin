@@ -11,16 +11,32 @@
         android:label="MainFragment" >
         <action
             android:id="@+id/action_mainFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/anim_slide_in_from_right"
+            app:exitAnim="@anim/anim_slide_out_to_left"
+            app:popEnterAnim="@anim/anim_slide_in_from_left"
+            app:popExitAnim="@anim/anim_slide_out_to_right"/>
         <action
             android:id="@+id/action_mainFragment_to_statisticFragment"
-            app:destination="@id/statisticFragment" />
+            app:destination="@id/statisticFragment"
+            app:enterAnim="@anim/anim_slide_in_from_right"
+            app:exitAnim="@anim/anim_slide_out_to_left"
+            app:popEnterAnim="@anim/anim_slide_in_from_left"
+            app:popExitAnim="@anim/anim_slide_out_to_right"/>
         <action
             android:id="@+id/action_mainFragment_to_progressFragment"
-            app:destination="@id/progressFragment" />
+            app:destination="@id/progressFragment"
+            app:enterAnim="@anim/anim_slide_in_from_right"
+            app:exitAnim="@anim/anim_slide_out_to_left"
+            app:popEnterAnim="@anim/anim_slide_in_from_left"
+            app:popExitAnim="@anim/anim_slide_out_to_right"/>
         <action
             android:id="@+id/action_mainFragment_to_aboutFragment"
-            app:destination="@id/aboutFragment" />
+            app:destination="@id/aboutFragment"
+            app:enterAnim="@anim/anim_slide_in_from_right"
+            app:exitAnim="@anim/anim_slide_out_to_left"
+            app:popEnterAnim="@anim/anim_slide_in_from_left"
+            app:popExitAnim="@anim/anim_slide_out_to_right"/>
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -33,7 +49,11 @@
         tools:layout="@layout/fragment_progress" >
         <action
             android:id="@+id/action_progressFragment_to_progressListFragment"
-            app:destination="@id/progressListFragment" />
+            app:destination="@id/progressListFragment"
+            app:enterAnim="@anim/anim_slide_in_from_right"
+            app:exitAnim="@anim/anim_slide_out_to_left"
+            app:popEnterAnim="@anim/anim_slide_in_from_left"
+            app:popExitAnim="@anim/anim_slide_out_to_right"/>
     </fragment>
     <fragment
         android:id="@+id/statisticFragment"
@@ -42,7 +62,11 @@
         tools:layout="@layout/fragment_statistic" >
         <action
             android:id="@+id/action_statisticFragment_to_statisticListFragment"
-            app:destination="@id/statisticListFragment" />
+            app:destination="@id/statisticListFragment"
+            app:enterAnim="@anim/anim_slide_in_from_right"
+            app:exitAnim="@anim/anim_slide_out_to_left"
+            app:popEnterAnim="@anim/anim_slide_in_from_left"
+            app:popExitAnim="@anim/anim_slide_out_to_right"/>
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
