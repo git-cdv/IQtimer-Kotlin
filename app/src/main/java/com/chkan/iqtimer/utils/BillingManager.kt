@@ -112,7 +112,7 @@ class BillingManager (context: Context, private val activity : Activity, private
         val billingFlowParams = BillingFlowParams.newBuilder()
             .setProductDetailsParamsList(productDetailsParamsList)
             .build()
-        val billingResult = billingClient.launchBillingFlow(activity, billingFlowParams)
+        billingClient.launchBillingFlow(activity, billingFlowParams)
     }
 
 }
