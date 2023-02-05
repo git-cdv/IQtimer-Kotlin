@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -32,13 +33,16 @@ class ProgressFragment : Fragment() {
     @Inject lateinit var goal: Goal
     private var timerObject : CountDownTimer? = null
     @Inject lateinit var scope: CoroutineScope
+    lateinit var btnLock: ImageButton
 
-    val billingManager by lazy {
+    private val billingManager by lazy {
         BillingManager(requireContext(),requireActivity(),scope){
             if(it is MyResult.Success){
-                Log.d("CHKAN", "BillingManager - Success ")
+                viewModel.setPremium(true)
             } else {
-                Log.d("CHKAN", "BillingManager - ERROR: ${(it as MyResult.Error).message} ")
+                if ((it as MyResult.Error).withDialog){
+                    showErrorDialog()
+                }
             }
         }
     }
@@ -83,9 +87,10 @@ class ProgressFragment : Fragment() {
              findNavController().navigate(R.id.action_progressFragment_to_progressListFragment)
          }
 
-         v.findViewById<ImageButton>(R.id.img_btn_lock).setOnClickListener {
-             //viewModel.setPremium(true)
+         btnLock = v.findViewById(R.id.img_btn_lock)
+         btnLock.setOnClickListener {
              billingManager.start()
+             it.isEnabled = false
          }
 
          viewModel.deleteGoalLiveData.observe(viewLifecycleOwner) {
@@ -128,6 +133,19 @@ class ProgressFragment : Fragment() {
             }
 
         }.start()
+    }
+
+    private fun showErrorDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+
+        with(builder)
+        {
+            setTitle(":(")
+            setMessage(getString(R.string.error_text))
+            setPositiveButton("Ok") { _, _ -> btnLock.isEnabled = true }
+            setOnCancelListener { btnLock.isEnabled = true }
+            show()
+        }
     }
 
     override fun onDestroy() {

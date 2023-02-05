@@ -14,15 +14,14 @@ class BillingManager (context: Context, private val activity : Activity, private
                     handlePurchase(purchase)
                 }
             } else if (billingResult.responseCode == BillingClient.BillingResponseCode.USER_CANCELED) {
-                // Handle an error caused by a user cancelling the purchase flow.
-                result.invoke(MyResult.Error(billingResult.toString()))
+                result.invoke(MyResult.Error(billingResult.toString(),false))
             } else {
                 if(billingResult.responseCode == BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED){
                     result.invoke(MyResult.Success)
                 } else {
-                    result.invoke(MyResult.Error(billingResult.toString()))
+                    result.invoke(MyResult.Error(billingResult.toString(),false))
                 }
-                // Handle any other error codes
+                result.invoke(MyResult.Error(billingResult.toString(),true))
             }
         }
 
@@ -35,10 +34,8 @@ class BillingManager (context: Context, private val activity : Activity, private
                 val acknowledgePurchaseParams = AcknowledgePurchaseParams.newBuilder()
                     .setPurchaseToken(purchase.purchaseToken)
 
-                applicationScope.launch {
-                    val ackPurchaseResult = withContext(Dispatchers.IO) {
-                        billingClient.acknowledgePurchase(acknowledgePurchaseParams.build())
-                    }
+                applicationScope.launch(Dispatchers.IO) {
+                    billingClient.acknowledgePurchase(acknowledgePurchaseParams.build())
                 }
             }
         }
@@ -54,8 +51,6 @@ class BillingManager (context: Context, private val activity : Activity, private
         billingClient.startConnection(object : BillingClientStateListener {
             override fun onBillingSetupFinished(billingResult: BillingResult) {
                 if (billingResult.responseCode ==  BillingClient.BillingResponseCode.OK) {
-                    // The BillingClient is ready. You can query purchases here.
-                    //перед началом покупки, проверяем не куплен ли уже товар
                     checkPurchased()
                 }
             }
@@ -100,11 +95,9 @@ class BillingManager (context: Context, private val activity : Activity, private
         billingClient.queryProductDetailsAsync(query) {
                 billingResult,
                 productDetailsList ->
-            // check billingResult
             if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
                 startBillingFlow(productDetailsList)
             }
-            // process returned productDetailsList
         }
     }
 
@@ -119,7 +112,6 @@ class BillingManager (context: Context, private val activity : Activity, private
         val billingFlowParams = BillingFlowParams.newBuilder()
             .setProductDetailsParamsList(productDetailsParamsList)
             .build()
-        //result get in purchasesUpdatedListener
         val billingResult = billingClient.launchBillingFlow(activity, billingFlowParams)
     }
 

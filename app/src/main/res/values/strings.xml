@@ -125,4 +125,5 @@
     <string name="version">Version</string>
     <string name="feedback">Send feedback</string>
     <string name="subject_mail">Feedback on the IQtimer app</string>
+    <string name="error_text">Sorry something went wrong</string>
 </resources>
