@@ -33,12 +33,12 @@
             app:defaultValue="false" />
 
         <Preference
-            app:key="set_dialog_sounds"
+            app:key="set_sound"
             app:title="@string/pref_sounds"
             app:defaultValue="0" />
 
         <Preference
-            app:key="set_dialog_sounds_break"
+            app:key="set_sound_break"
             app:title="@string/pref_sounds_break"
             app:defaultValue="0" />
 

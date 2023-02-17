@@ -126,4 +126,8 @@
     <string name="feedback">Send feedback</string>
     <string name="subject_mail">Feedback on the IQtimer app</string>
     <string name="error_text">Sorry something went wrong</string>
+    <string name="for_progress">For progress</string>
+    <string name="for_end_session">End of session notification</string>
+    <string name="for_end_break">Break end notification</string>
+    <string name="no_supported">Sorry. Not supported by this version of Android.</string>
 </resources>

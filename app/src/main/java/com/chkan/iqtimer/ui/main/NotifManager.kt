@@ -21,7 +21,8 @@ import javax.inject.Inject
 class NotifManager @Inject constructor (private val context: Context, private val notificationManager: NotificationManager ) {
 
     private val channelProgressId = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) createProgressChannel() else ""
-    private val channelResultId = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) createResultChannel() else ""
+    private val channelResultId = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) createSessionChannel() else ""
+    private val channelBreakId = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) createBreakChannel() else ""
 
     private val pendingToMain = PendingIntent.getActivity(context, 1, Intent(context, MainActivity::class.java), PendingIntent.FLAG_IMMUTABLE)
     private val pendingStop = createPending(2,COM_STOP_NOTIF)
@@ -88,7 +89,13 @@ class NotifManager @Inject constructor (private val context: Context, private va
     private fun playOutNotif() {
         val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
         if (audioManager.ringerMode != AudioManager.RINGER_MODE_NORMAL) {
-            val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+            val soundUri =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                notificationManager.getNotificationChannel(CHANNEL_ID_SESSION).sound
+            } else {
+                RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+            }
+
             val mp = MediaPlayer()
             mp.setDataSource(context, soundUri)
             mp.setWakeMode(context,PowerManager.PARTIAL_WAKE_LOCK)
@@ -100,6 +107,9 @@ class NotifManager @Inject constructor (private val context: Context, private va
             mp.prepareAsync()
             mp.setOnPreparedListener { player: MediaPlayer ->
                 player.start()
+            }
+            mp.setOnCompletionListener { player: MediaPlayer ->
+                player.release()
             }
         }
     }
@@ -120,7 +130,7 @@ class NotifManager @Inject constructor (private val context: Context, private va
 
     fun onBreakEnd() : Notification {
 
-        return NotificationCompat.Builder(context, channelResultId)
+        return NotificationCompat.Builder(context, channelBreakId)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -137,23 +147,38 @@ class NotifManager @Inject constructor (private val context: Context, private va
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createProgressChannel(): String {
-        val channelId = "progress_channel_id"
-        val channelName = "For progress"
+        val channelName = context.getString(R.string.for_progress)
         val channel =
-            NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_LOW)
+            NotificationChannel(CHANNEL_ID_PROGRESS, channelName, NotificationManager.IMPORTANCE_LOW)
         channel.enableVibration(false)
         notificationManager.createNotificationChannel(channel)
-        return channelId
+        return CHANNEL_ID_PROGRESS
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun createResultChannel(): String {
-        val channelId = "result_channel_id"
-        val channelName = "For result"
+    private fun createSessionChannel(): String {
+        val channelName = context.getString(R.string.for_end_session)
         val channel =
-            NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT)
+            NotificationChannel(CHANNEL_ID_SESSION, channelName, NotificationManager.IMPORTANCE_DEFAULT)
         channel.enableVibration(true)
         notificationManager.createNotificationChannel(channel)
-        return channelId
+        return CHANNEL_ID_SESSION
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun createBreakChannel(): String {
+        val channelName = context.getString(R.string.for_end_break)
+        val channel =
+            NotificationChannel(CHANNEL_ID_BREAK, channelName, NotificationManager.IMPORTANCE_DEFAULT)
+        channel.enableVibration(true)
+        notificationManager.createNotificationChannel(channel)
+        return CHANNEL_ID_BREAK
+    }
+
+    companion object {
+        const val CHANNEL_ID_SESSION = "chkan.com.channel.session"
+        const val CHANNEL_ID_BREAK = "chkan.com.channel.break"
+        private val CHANNEL_ID_PROGRESS = "chkan.com.channel.progress"
+    }
+
 }

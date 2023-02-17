@@ -14,14 +14,15 @@ import com.chkan.iqtimer.databinding.FragmentProgressListBinding
 import com.chkan.iqtimer.ui.progress.vm.ProgressViewModel
 import com.chkan.iqtimer.utils.BillingManager
 import com.chkan.iqtimer.utils.MyResult
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ProgressListFragment : Fragment() {
 
     private val viewModel: ProgressViewModel by activityViewModels()
-    @Inject
-    lateinit var scope: CoroutineScope
+    @Inject lateinit var scope: CoroutineScope
     lateinit var btnLock: ImageButton
 
     private val billingManager by lazy {

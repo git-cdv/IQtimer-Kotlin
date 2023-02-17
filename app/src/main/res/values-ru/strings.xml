@@ -126,4 +126,8 @@
     <string name="feedback">Обратная связь</string>
     <string name="subject_mail">Feedback on the IQtimer app</string>
     <string name="error_text">Извините, что то пошло не так</string>
+    <string name="for_progress">Для прогресса</string>
+    <string name="for_end_session">Оповещение о конце сессии</string>
+    <string name="for_end_break">Оповещение о конце перерыва</string>
+    <string name="no_supported">Извините. Не поддерживается этой версией Android.</string>
 </resources>
