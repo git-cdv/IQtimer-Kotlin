@@ -102,7 +102,6 @@ class StatisticUseCase @Inject constructor(private val historyDao: HistoryDao, p
         var mCurrentMonth: Int
         var mMonth = 0
 
-        Log.d("MYAPP", "getDataMonth() -  listTotal: $listTotal")
         if (listTotal.isNullOrEmpty()) { //если 0-вой вход
             //Добавляем сегоднешнюю дату
             titles.add(DateTime.now().toString("MMM"))
@@ -123,7 +122,6 @@ class StatisticUseCase @Inject constructor(private val historyDao: HistoryDao, p
 
                 if (mMonth == mCurrentMonth) {
                     mCountMonth += item.count
-                    Log.d("MYAPP", "getDataMonth() -  mCountMonth: $mCountMonth")
                 } else {
                     //Добавляем индекс и счетчик в массив
                     data.add(BarEntry(mIndex, mCountMonth))

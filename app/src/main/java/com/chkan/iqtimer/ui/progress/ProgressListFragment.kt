@@ -16,6 +16,8 @@ import com.chkan.iqtimer.utils.BillingManager
 import com.chkan.iqtimer.utils.MyResult
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -26,12 +28,16 @@ class ProgressListFragment : Fragment() {
     lateinit var btnLock: ImageButton
 
     private val billingManager by lazy {
-        BillingManager(requireContext(),requireActivity(),scope){
-            if(it is MyResult.Success){
-                viewModel.setPremium(true)
-            } else {
-                if ((it as MyResult.Error).withDialog){
-                    showErrorDialog()
+        BillingManager(requireContext(),requireActivity(),scope) {
+            scope.launch(Dispatchers.Main) {
+                if (it is MyResult.Success) {
+                    viewModel.setPremium(true)
+                } else {
+                    if ((it as MyResult.Error).withDialog) {
+                        showErrorDialog()
+                    } else {
+                        btnLock.isEnabled = true
+                    }
                 }
             }
         }

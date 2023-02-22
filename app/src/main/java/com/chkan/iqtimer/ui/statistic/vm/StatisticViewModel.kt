@@ -69,7 +69,6 @@ class StatisticViewModel @Inject constructor(
                 _countTotal.postValue(statisticUseCase.getCountTotal()+current)
                 _isDataObzorDone.postValue(true)
             }catch (e:Exception){
-                Log.d("MYAPP", "StatisticViewModel - getDataObzor() ERROR: ${e.message}")
             }
         }
     }
@@ -79,7 +78,7 @@ class StatisticViewModel @Inject constructor(
             try {
                 _dataDays.postValue(statisticUseCase.getDataDays())
             }catch (e:Exception){
-                Log.d("MYAPP", "StatisticViewModel - getDataDays() ERROR: ${e.message}")
+
             }
         }
     }
@@ -89,7 +88,7 @@ class StatisticViewModel @Inject constructor(
             try {
                 _dataMonth.postValue(statisticUseCase.getDataMonth())
             }catch (e:Exception){
-                Log.d("MYAPP", "StatisticViewModel - getDataMonth() ERROR: ${e.message}")
+
             }
         }
     }
@@ -99,7 +98,7 @@ class StatisticViewModel @Inject constructor(
             try {
                 _listTotal.postValue(statisticUseCase.getListFull())
             }catch (e:Exception){
-                Log.d("MYAPP", "StatisticViewModel - getListTotal() ERROR: ${e.message}")
+
             }
         }
     }

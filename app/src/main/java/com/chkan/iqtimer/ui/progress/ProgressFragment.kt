@@ -23,6 +23,7 @@ import com.chkan.iqtimer.utils.*
 import com.google.android.material.button.MaterialButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -36,12 +37,16 @@ class ProgressFragment : Fragment() {
     lateinit var btnLock: ImageButton
 
     private val billingManager by lazy {
-        BillingManager(requireContext(),requireActivity(),scope){
-            if(it is MyResult.Success){
-                viewModel.setPremium(true)
-            } else {
-                if ((it as MyResult.Error).withDialog){
-                    showErrorDialog()
+        BillingManager(requireContext(),requireActivity(),scope) {
+            scope.launch(Dispatchers.Main) {
+                if (it is MyResult.Success) {
+                    viewModel.setPremium(true)
+                } else {
+                    if ((it as MyResult.Error).withDialog) {
+                        showErrorDialog()
+                    } else {
+                        btnLock.isEnabled = true
+                    }
                 }
             }
         }
@@ -100,12 +105,10 @@ class ProgressFragment : Fragment() {
                      resources.getString(R.string.goal_desc_empty)
                  )
                  viewModel.deleteGoalDone()
-                 Log.d("MYAPP", "ProgressFragment - deleteGoal: $it")
              }
          }
 
          goal.state.observe(viewLifecycleOwner) {
-             Log.d("MYAPP", "ProgressFragment - state: $it")
              when (it) {
                  GOAL_STATUS_DONE -> v.findViewById<TextView>(R.id.goal_done_text).text =
                      resources.getString(R.string.textGoalDone)

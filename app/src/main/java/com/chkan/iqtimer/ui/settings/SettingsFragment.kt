@@ -121,7 +121,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
                 }
             }
         }
-        Log.d("MYAPP", "onPreferenceClick - preference: ${preference?.key}")
         return true
     }
 
@@ -130,7 +129,6 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
     override fun onPreferenceChange(preference: Preference?, newValue: Any?): Boolean {
         val toast: Toast = Toast.makeText(context, R.string.sett_e_tost, Toast.LENGTH_LONG)
 
-        Log.d("MYAPP", "onPreferenceChange - value: $newValue")
         if (preference?.key == "DEFAULT_Plan") {
             val input = newValue as String
             try {

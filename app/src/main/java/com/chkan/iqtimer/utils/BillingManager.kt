@@ -52,6 +52,8 @@ class BillingManager (context: Context, private val activity : Activity, private
             override fun onBillingSetupFinished(billingResult: BillingResult) {
                 if (billingResult.responseCode ==  BillingClient.BillingResponseCode.OK) {
                     checkPurchased()
+                } else {
+                    result.invoke(MyResult.Error(billingResult.toString(),true))
                 }
             }
             override fun onBillingServiceDisconnected() {

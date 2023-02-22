@@ -40,7 +40,6 @@ class TimerService : Service() {
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
 
         val command = intent.getIntExtra(KEY_COMMAND, 0)
-        Log.d("MYAPP", "onStartCommand - command: $command")
 
         when(command){
             COM_RUN_NOTIF -> {
@@ -117,7 +116,6 @@ class TimerService : Service() {
         }
 
         override fun onFinish() {
-            Log.d("MYAPP", "onFinish() - isBreak: $isBreak")
             if (isBreak) {
                 stopMyForegroud(notifManager.onBreakEnd())
                 session.addDoneBreak()
