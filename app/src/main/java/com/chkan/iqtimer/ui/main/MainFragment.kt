@@ -21,6 +21,8 @@ import com.chkan.iqtimer.utils.State
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -142,23 +144,27 @@ open class MainFragment : Fragment() {
         }
 
         if (step<3) {
-            Snackbar.make(
-                binding.mainBtnMenu,
-                messages[step],
-                Snackbar.LENGTH_INDEFINITE)
-                .setAction("OK") {
-                    startOnboard(step+1)
-                }
-                .setAnchorView(binding.mainBtnMenu)
-                .setActionTextColor(Color.WHITE)
-                .setBackgroundTint(MaterialColors.getColor(requireContext(),R.attr.colorOnPrimary,R.color.brand_blue_900))
-                .setTextColor(MaterialColors.getColor(requireContext(),R.attr.colorPrimaryVariant,R.color.brand_blue_200))
-                .setBehavior(object : BaseTransientBottomBar.Behavior() {
-                    override fun canSwipeDismissView(child: View): Boolean {
-                        return false
+            try {
+                Snackbar.make(
+                    binding.mainBtnMenu,
+                    messages[step],
+                    Snackbar.LENGTH_INDEFINITE)
+                    .setAction("OK") {
+                        startOnboard(step+1)
                     }
-                })
-                .show()
+                    .setAnchorView(binding.mainBtnMenu)
+                    .setActionTextColor(Color.WHITE)
+                    .setBackgroundTint(MaterialColors.getColor(requireContext(),R.attr.colorOnPrimary,R.color.brand_blue_900))
+                    .setTextColor(MaterialColors.getColor(requireContext(),R.attr.colorPrimaryVariant,R.color.brand_blue_200))
+                    .setBehavior(object : BaseTransientBottomBar.Behavior() {
+                        override fun canSwipeDismissView(child: View): Boolean {
+                            return false
+                        }
+                    })
+                    .show()
+            } catch (e:Exception){
+                Firebase.crashlytics.recordException(e)
+            }
         }
     }
 

@@ -59,8 +59,10 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
         editTextBreak?.setOnBindEditTextListener(editTextListener)
         editTextPlan?.setOnBindEditTextListener(editTextListener)
 
-        val preferencePlan = findPreference<Preference>("DEFAULT_Plan")
-        preferencePlan?.onPreferenceChangeListener = this
+        findPreference<Preference>(SP_DEFAULT_TIME)?.onPreferenceChangeListener = this
+        findPreference<Preference>(SP_DEFAULT_BREAK)?.onPreferenceChangeListener = this
+        findPreference<Preference>(SP_DEFAULT_PLAN)?.onPreferenceChangeListener = this
+
     }
 
     //слушает изменение в настройках ПОСЛЕ записи
@@ -127,12 +129,26 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
     //слушает изменение одной конкретной настройки ДО ее записи (для проверки на валидность)
     //если метод возвращает true - значение будет записано, false - нет
     override fun onPreferenceChange(preference: Preference?, newValue: Any?): Boolean {
-        val toast: Toast = Toast.makeText(context, R.string.sett_e_tost, Toast.LENGTH_LONG)
+        val toastPlan: Toast = Toast.makeText(context, R.string.sett_e_tost, Toast.LENGTH_LONG)
+        val toast: Toast = Toast.makeText(context, R.string.sett_valid_tost, Toast.LENGTH_LONG)
 
-        if (preference?.key == "DEFAULT_Plan") {
+        if (preference?.key == SP_DEFAULT_PLAN) {
             val input = newValue as String
             try {
                 if (input.toInt() > 30 || input.toInt() < 1) {
+                    toastPlan.show()
+                    return false
+                }
+            } catch (e: NumberFormatException) {
+                toastPlan.show()
+                return false
+            }
+        }
+
+        if (preference?.key == SP_DEFAULT_TIME || preference?.key == SP_DEFAULT_BREAK ) {
+            val input = newValue as String
+            try {
+                if (input.toInt() > Int.MAX_VALUE || input.toInt() < 1) {
                     toast.show()
                     return false
                 }

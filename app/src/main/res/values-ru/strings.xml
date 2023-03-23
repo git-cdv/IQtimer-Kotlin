@@ -130,4 +130,5 @@
     <string name="for_end_session">Оповещение о конце сессии</string>
     <string name="for_end_break">Оповещение о конце перерыва</string>
     <string name="no_supported">Извините. Не поддерживается этой версией Android.</string>
+    <string name="sett_valid_tost">Пожалуйста введите корректное число</string>
 </resources>

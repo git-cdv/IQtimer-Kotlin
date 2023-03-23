@@ -130,4 +130,5 @@
     <string name="for_end_session">End of session notification</string>
     <string name="for_end_break">Break end notification</string>
     <string name="no_supported">Sorry. Not supported by this version of Android.</string>
+    <string name="sett_valid_tost">Please enter a valid number</string>
 </resources>
